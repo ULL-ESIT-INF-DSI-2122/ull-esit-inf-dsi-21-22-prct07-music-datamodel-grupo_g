@@ -1,2 +1,21 @@
-# ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g
-ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g created by GitHub Classroom
+<br>
+
+# INTRODUCCIÓN 
+
+
+
+# DESARROLLO
+
+
+
+# CONCLUSIÓN
+
+
+
+
+### INTEGRANTES
+
+- **Gabriel Alberto Luis Freitas:** alu0101348421
+- **Dana Belén Choque Zárate:** alu0101328348
+- **Daniele Vitale:** alu0101329017
+- **Roxana Mihaela Baba:** alu0101339887
