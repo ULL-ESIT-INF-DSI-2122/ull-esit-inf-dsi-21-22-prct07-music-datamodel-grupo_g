@@ -7,6 +7,30 @@
 # DESARROLLO
 
 
+## Clase **_MusicalGenres_**
+
+
+## Clase **_Song_**
+
+
+## Clase **_Album_**
+
+
+## Clase **_Groups_**
+
+
+## Clase **_Artists_**
+
+
+## Clase **_Playlist_**
+
+
+## Clase **_Manager_**
+
+
+## Interfaz **_Operation_**
+
+
 
 # CONCLUSIÓN
 
