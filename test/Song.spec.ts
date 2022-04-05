@@ -6,9 +6,9 @@ import {MusicalGenres} from '../src/MusicalGenres';
 
 describe ('Song class - Tests', () => {
   // Objects to test
-  const beyonce = new Artists('Beyonce');
-  const song1 = new Song('These Days', new Artists('Beyonce', [], [], [], [], 0), '3:20', new MusicalGenres('Pop', beyonce, [], []));
-  const song2 = new Song('Halo', new Artists('Beyonce', [], [], [], [], 0), '3:02', new MusicalGenres('Pop', beyonce, [], []));
+  const beyonce = new Artists('Beyonce', [], [], [], [], 0);
+  const song1 = new Song('These Days', beyonce, '3:00', [], false, 1000);
+  const song2 = new Song('Halo', beyonce, '2:50', [], true, 5000);
 
   it('getName() returns the name of the song', () => {
     expect(song1.getName()).to.be.equal('These Days');
@@ -16,18 +16,18 @@ describe ('Song class - Tests', () => {
   });
 
   it('getArtist() returns the artist of the song', () => {
-    expect(song1.getArtist()).to.be.equal('Beyonce');
-    expect(song2.getArtist()).to.be.equal('Beyonce');
+    expect(song1.getArtist()).to.be.equal(beyonce);
+    expect(song2.getArtist()).to.be.equal(beyonce);
   });
 
   it('getDuration() returns the duration of the song', () => {
-    expect(song1.getDuration()).to.be.equal('3:20');
-    expect(song2.getDuration()).to.be.equal('3:02');
+    expect(song1.getDuration()).to.be.equal('3:00');
+    expect(song2.getDuration()).to.be.equal('2:50');
   });
 
   it('getGenre() returns the genre of the song', () => {
-    expect(song1.getGenre()).to.be.equal('Pop');
-    expect(song2.getGenre()).to.be.equal('Pop');
+    expect(song1.getGenre()).to.deep.equal([]);
+    expect(song2.getGenre()).to.deep.equal([]);
   });
 
   it('setName() sets the name of the song', () => {
@@ -45,9 +45,10 @@ describe ('Song class - Tests', () => {
   });
 
   it('setArtist() sets the artist of the song', () => {
-    song1.setArtist('BeyonceTest');
-    expect(song1.getArtist()).to.be.equal('BeyonceTest');
-    song2.setArtist('BeyonceTest');
-    expect(song2.getArtist()).to.be.equal('BeyonceTest');
+    const newArtist = new Artists('Test', [], [], [], [], 0);
+    song1.setArtist(newArtist);
+    expect(song1.getArtist()).to.be.equal(newArtist);
+    song2.setArtist(newArtist);
+    expect(song2.getArtist()).to.be.equal(newArtist);
   });
 });

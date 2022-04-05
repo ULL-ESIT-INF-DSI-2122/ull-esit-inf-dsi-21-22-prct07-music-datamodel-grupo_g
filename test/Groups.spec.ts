@@ -19,13 +19,13 @@ describe('Tests de la clase Groups', () => {
   var song3: Song;
   var songs: Song[];
   beforeEach(() => {
-    musicalGenre = new MusicalGenres('Pop');
-    album1 = new Album('Album1');
-    album2 = new Album('Album2');
+    musicalGenre = new MusicalGenres('Pop', [artists_], [groups], albums, songs);
+    album1 = new Album('A1', groups, 2000, [musicalGenre], [song1, song2]);
+    album2 = new Album('A2', artists_, 2015, [musicalGenre], [song3]);
     albums = [album1, album2];
-    song1 = new Song('Song1');
-    song2 = new Song('Song2');
-    song3 = new Song('Song3');
+    song1 = new Song('S1', artists_, '3:00', [musicalGenre], false, 1000);
+    song2 = new Song('S2', artists_, '2:50', [musicalGenre], true, 5000);
+    song3 = new Song('S3', artists_, '3:12', [musicalGenre], false, 3000);
     songs = [song1, song2, song3];
     artists_ = new Artists('Beyonce', [groups], [musicalGenre], albums, songs, 50000);
     groups = new Groups('G1', [artists_], 2000, [musicalGenre], albums, 5000);
@@ -78,14 +78,14 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getGenres()).to.be.deep.equal([musicalGenre]);
   });
   it('Existe un método setGenres()', () => {
-    var genre = new MusicalGenres('Rock');
+    var genre = new MusicalGenres('Rock', [], [], [], []);
     expect(groups.setGenres).to.exist;
     expect(groups.setGenres).to.be.a('function');
     groups.setGenres([genre]);
     expect(groups.getGenres()).to.be.deep.equal([genre]);
   });
   it('Existe un método addGenre()', () => {
-    var genre = new MusicalGenres('Rock');
+    var genre = new MusicalGenres('Rock', [], [], [], []);
     expect(groups.addGenre).to.exist;
     expect(groups.addGenre).to.be.a('function');
     groups.addGenre(genre);
@@ -98,14 +98,14 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getAlbums()).to.be.deep.equal([albums[0], albums[1]]);
   });
   it('Existe un método setAlbums()', () => {
-    var album = new Album('Album3');
+    var album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
     expect(groups.setAlbums).to.exist;
     expect(groups.setAlbums).to.be.a('function');
     groups.setAlbums([album]);
     expect(groups.getAlbums()).to.be.deep.equal([album]);
   });
   it('Existe un método addAlbum()', () => {
-    var album = new Album('Album3');
+    var album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
     expect(groups.addAlbum).to.exist;
     expect(groups.addAlbum).to.be.a('function');
     groups.addAlbum(album);
