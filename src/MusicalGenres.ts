@@ -27,19 +27,33 @@ export class MusicalGenres {
   setName(name: string): void {
     this.name = name;
   }
-
+  /**
+   * getArtists() returns the artists of the genre.
+   * @returns the number of artists in the genre
+   */
   getArtists(): Artists[] {
     return this.artists;
   }
-
+  /**
+  * setArtists() sets the artists of the genre.
+  * @param artists the artists of the genre
+  */
   setArtists(artists: Artists[]): void {
     this.artists = artists;
   }
 
+  /**
+   * addArtist() adds an artist to the genre.
+   * @param artist the artist to be searched
+   */
   addArtist(artist: Artists): void {
     this.artists.push(artist);
   }
 
+  /**
+   * removeArtist() removes an artist from the genre.
+   * @param artist the artist to be removed
+   */
   removeArtist(artist: string): void {
     for (let i = 0; i < this.artists.length; i++) {
       if (this.artists[i].getName() === artist) {
@@ -57,14 +71,26 @@ export class MusicalGenres {
     return this.groups;
   }
 
+  /**
+   * setGroups() sets the groups of the genre.
+   * @param groups the groups of the genre
+   */
   setGroups(groups: Groups[]): void {
     this.groups = groups;
   }
 
+  /**
+   * addGenre() adds a genre to the genre.
+   * @param group the group to be searched
+   */
   addGroup(group: Groups): void {
     this.groups.push(group);
   }
-  
+
+  /**
+   * removeGroup() removes a group from the genre.
+   * @param group the group to be searched
+   */
   removeGroup(group: string): void {
     for (let i = 0; i < this.groups.length; i++) {
       if (this.groups[i].getName() === group) {
@@ -76,12 +102,16 @@ export class MusicalGenres {
 
   /**
    * getAlbums() returns the albums of the genre.
-   * @returns the name of the genre
+   * @returns the name of the albums
    */
   getAlbums(): Album[] {
     return this.albums;
   }
 
+  /**
+   * setAlbums() sets the albums of the genre.
+   * @param albums albums to be modified
+   */
   setAlbums(albums: Album[]): void {
     this.albums = albums;
   }
@@ -94,6 +124,10 @@ export class MusicalGenres {
     this.albums.push(album);
   }
 
+  /**
+   * removeGenre() removes the genre from the library.
+   * @param album album to be removed
+   */
   removeAlbum(album: string): void {
     for (let i = 0; i < this.albums.length; i++) {
       if (this.albums[i].getName() === album) {
@@ -111,6 +145,10 @@ export class MusicalGenres {
     return this.song;
   }
 
+  /**
+   * setSong() sets the song of the genre.
+   * @param songs songs to be modified
+   */
   setSongs(songs: Song[]): void {
     this.song = songs;
   }
@@ -123,6 +161,10 @@ export class MusicalGenres {
     this.song.push(song);
   }
 
+  /**
+   * removeSong() removes a song from the genre.
+   * @param song song to be removed
+   */
   removeSong(song: string): void {
     for (let i = 0; i < this.song.length; i++) {
       if (this.song[i].getName() === song) {
@@ -138,16 +180,20 @@ export class MusicalGenres {
   printInfo(): void {
     console.log(`Genre: ${this.name}`);
     console.log(`Artists: `);
-    for (let i = 0; i < this.artists.length; i++) 
+    for (let i = 0; i < this.artists.length; i++) {
       console.log(`${i + 1}. ${this.artists[i].getName()}`);
+    }
     console.log(`Groups: `);
-    for (let i = 0; i < this.groups.length; i++) 
+    for (let i = 0; i < this.groups.length; i++) {
       console.log(`${i + 1}. ${this.groups[i].getName()}`);
-    console.log(`Albums: `); 
-    for (let i = 0; i < this.albums.length; i++) 
+    }
+    console.log(`Albums: `);
+    for (let i = 0; i < this.albums.length; i++) {
       console.log(`${i + 1}. ${this.albums[i].getName()}`);
+    }
     console.log(`Songs:`);
-    for (let i = 0; i < this.song.length; i++)
+    for (let i = 0; i < this.song.length; i++) {
       console.log(`${i + 1}. ${this.song[i].getName()}`);
+    }
   }
 }

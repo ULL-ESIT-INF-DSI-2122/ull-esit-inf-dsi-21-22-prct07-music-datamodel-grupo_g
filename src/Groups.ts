@@ -1,7 +1,10 @@
-import { Artists } from "./Artists";
-import { MusicalGenres } from "./MusicalGenres";
-import { Album } from "./Album";
+import {Artists} from './Artists';
+import {MusicalGenres} from './MusicalGenres';
+import {Album} from './Album';
 
+/**
+ * Groups class describes a group of artists.
+ */
 export class Groups {
   constructor(private name: string,
               private artists: Artists[],
@@ -9,11 +12,11 @@ export class Groups {
               private genres: MusicalGenres[],
               private albums: Album[],
               private numFollowers: number) {}
-  
+
   /**
    * getName() returns the name of the group
    * @returns {string} the name of the group
-   */            
+   */
   getName(): string {
     return this.name;
   }
@@ -49,7 +52,7 @@ export class Groups {
   addArtist(artist: Artists): void {
     this.artists.push(artist);
   }
-  
+
   /**
    * removeArtist() removes an artist from the group
    * @param artist name of the artist to be removed
@@ -104,7 +107,7 @@ export class Groups {
   addGenre(genre: MusicalGenres): void {
     this.genres.push(genre);
   }
-  
+
   /**
    * removeGenre() removes a genre from the group
    * @param genre {string} name of the genre to be removed
@@ -144,7 +147,7 @@ export class Groups {
   addAlbum(album: Album): void {
     this.albums.push(album);
   }
-  
+
   /**
    * removeAlbum() removes an album from the group
    * @param album {string} name of the album to be removed
@@ -185,13 +188,16 @@ export class Groups {
     console.log(`Creation year: ${this.creationYear}`);
     console.log(`Number of followers: ${this.numFollowers}`);
     console.log(`Genres: `);
-    for (let i = 0; i < this.genres.length; i++) 
+    for (let i = 0; i < this.genres.length; i++) {
       console.log(this.genres[i].getName());
+    }
     console.log(`Artists: `);
-    for (let i = 0; i < this.artists.length; i++)
+    for (let i = 0; i < this.artists.length; i++) {
       console.log(this.artists[i].getName());
+    }
     console.log(`Albums: `);
-    for (let i = 0; i < this.albums.length; i++)
+    for (let i = 0; i < this.albums.length; i++) {
       console.log(this.albums[i].getName());
+    }
   }
 }

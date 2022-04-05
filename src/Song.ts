@@ -7,7 +7,7 @@ export class Song {
   constructor(private name: string,
               private artist: Artists,
               private duration: string,
-              private genre: MusicalGenres[], 
+              private genre: MusicalGenres[],
               private single: boolean,
               private numRep: number) {}
   /**
@@ -135,8 +135,9 @@ export class Song {
     console.log(`Artist: ${this.artist.getName()}`);
     console.log(`Duration: ${this.duration}`);
     console.log(`Genres: `);
-    for (let i = 0; i < this.genre.length; i++) 
+    for (let i = 0; i < this.genre.length; i++) {
       console.log(`${this.genre[i].getName()}`);
+    }
     console.log(`Single: ${this.single}`);
     console.log(`Number of repetitions: ${this.numRep}`);
   }
