@@ -61,6 +61,13 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getArtists()).to.be.deep.equal([artists_, artist]);
     expect(groups.getArtists().length).to.be.equal(2);
   });
+  it('Existe un método removeArtist()', () => {
+    expect(groups.removeArtist).to.exist;
+    expect(groups.removeArtist).to.be.a('function');
+    groups.removeArtist('Beyonce');
+    expect(groups.getArtists()).to.be.deep.equal([]);
+    expect(groups.getArtists().length).to.be.equal(0);
+  });
   it('Existe un método getCreationYear()', () => {
     expect(groups.getCreationYear).to.exist;
     expect(groups.getCreationYear).to.be.a('function');
@@ -92,6 +99,13 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getGenres()).to.be.deep.equal([musicalGenre, genre]);
     expect(groups.getGenres().length).to.be.equal(2);
   });
+  it('Existe un método removeGenre()', () => {
+    expect(groups.removeGenre).to.exist;
+    expect(groups.removeGenre).to.be.a('function');
+    groups.removeGenre('Pop');
+    expect(groups.getGenres()).to.be.deep.equal([]);
+    expect(groups.getGenres().length).to.be.equal(0);
+  });
   it('Existe un método getAlbums()', () => {
     expect(groups.getAlbums).to.exist;
     expect(groups.getAlbums).to.be.a('function');
@@ -112,6 +126,13 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getAlbums()).to.be.deep.equal([albums[0], albums[1], album]);
     expect(groups.getAlbums().length).to.be.equal(3);
   });
+  it('Existe un método removeAlbum()', () => {
+    expect(groups.removeAlbum).to.exist;
+    expect(groups.removeAlbum).to.be.a('function');
+    groups.removeAlbum('A1');
+    expect(groups.getAlbums()).to.be.deep.equal([albums[0]]);
+    expect(groups.getAlbums().length).to.be.equal(1);
+  });
   it('Existe un método getNumFollowers()', () => {
     expect(groups.getNumFollowers).to.exist;
     expect(groups.getNumFollowers).to.be.a('function');
@@ -123,4 +144,9 @@ describe('Tests de la clase Groups', () => {
     groups.setNumFollowers(2000);
     expect(groups.getNumFollowers()).to.be.equal(2000);
   });
+  // it('Existe un método printInfo())', () => {
+  //   expect(groups.printInfo).to.exist;
+  //   expect(groups.printInfo).to.be.a('function');
+  //   expect(groups.printInfo()).not.to.throw;
+  // });
 });
