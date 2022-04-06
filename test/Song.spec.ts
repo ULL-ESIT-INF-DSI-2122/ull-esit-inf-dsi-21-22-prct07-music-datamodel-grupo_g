@@ -71,27 +71,69 @@ describe('Song class - Tests', () => {
     expect(song1.getDuration()).to.not.be.equal('3:00');
   });
 
-  // it('getGenres() returns the genres of the song', () => {
-  //   expect(song1.getGenre()).to.be.deep.equal([genre1]);
-  //   expect(song2.getGenre()).to.be.deep.equal([genre1]);
-  //   expect(song1.getGenre()).to.not.be.deep.equal([genre2]);
-  // });
+  it('getGenres() returns the genres of the song', () => {
+    expect(song1.getGenre()).not.to.be.null;
+    expect(song1.getGenre()).to.be.an('array');
+  });
 
-  // it('setGenres() sets the genres of the song', () => {
-  //   song1.setGenre([genre2]);
-  //   expect(song1.getGenre()).to.be.deep.equal([genre2]);
-  //   expect(song1.getGenre()).to.not.be.deep.equal([genre1]);
-  // });
+  it('setGenres() sets the genres of the song', () => {
+    song1.setGenre([genre2]);
+    expect(song1.getGenre()).not.to.be.null;
+    expect(song1.getGenre()).to.be.an('array');
+    expect(song1.getGenre()).to.have.lengthOf(1);
+  });
 
-  // it('getArtists() returns the artists of the song', () => {
-  //   expect(song1.getArtist()).to.be.deep.equal([artist1]);
-  //   expect(song2.getArtist()).to.be.deep.equal([artist1]);
-  //   expect(song1.getArtist()).to.not.be.deep.equal([artist2]);
-  // });
+  it('getArtist() returns the artists of the song', () => {
+    expect(song1.getArtist()).not.to.be.null;
+  });
 
-  // it('setArtists() sets the artists of the song', () => {
-  //   song1.setArtist(artist3);
-  //   expect(song1.getArtist()).to.be.deep.equal(artist2);
-  //   expect(song1.getArtist()).to.not.be.deep.equal(artist1);
-  // });
+  it('setArtist() sets the artists of the song', () => {
+    song1.setArtist(artist2);
+    expect(song1.getArtist()).not.to.be.null;
+  });
+
+  it('addGenre() adds a genre to the song', () => {
+    song1.addGenre(genre2);
+    expect(song1.getGenre()).not.to.be.null;
+    expect(song1.getGenre()).to.be.an('array');
+    expect(song1.getGenre()).to.have.lengthOf(2);
+  });
+
+  it('removeGenre() removes a genre from the song', () => {
+    song1.removeGenre(genre2.getName());
+    expect(song1.getGenre()).not.to.be.null;
+    expect(song1.getGenre()).to.be.an('array');
+    expect(song1.getGenre()).to.have.lengthOf(1);
+  });
+
+  it('getSingles() returns the singles of the song', () => {
+    expect(song1.getSingle()).to.be.false;
+    expect(song2.getSingle()).to.be.true;
+    expect(song1.getSingle()).to.not.be.true;
+  });
+
+  it('setSingle() sets the singles of the song', () => {
+    song1.setSingle(true);
+    expect(song1.getSingle()).to.be.true;
+    expect(song1.getSingle()).to.not.be.false;
+  });
+
+  it('getNumRep() returns the number of plays of the song', () => {
+    expect(song1.getNumRep()).to.be.equal(1000);
+    expect(song2.getNumRep()).to.be.equal(5000);
+    expect(song1.getNumRep()).to.not.be.equal(3000);
+  });
+
+  it('setNumRep() sets the number of plays of the song', () => {
+    song1.setNumRep(3000);
+    expect(song1.getNumRep()).to.be.equal(3000);
+    expect(song1.getNumRep()).to.not.be.equal(5000);
+  });
+
+  it('printInfo() prints the information of the song', () => {
+    expect(song1.printInfo());
+    expect('printInfo' in song1).to.be.true;
+    expect(song2.printInfo());
+    expect('printInfo' in song2).to.be.true;
+  });
 });
