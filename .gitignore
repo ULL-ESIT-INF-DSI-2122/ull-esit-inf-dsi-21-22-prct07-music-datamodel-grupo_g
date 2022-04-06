@@ -4,6 +4,6 @@ dist
 .nyc_output
 notes.md
 scripts.md
-rules.md
-package-lock.json
+rules.node_modules
+coverage
 private_folder
