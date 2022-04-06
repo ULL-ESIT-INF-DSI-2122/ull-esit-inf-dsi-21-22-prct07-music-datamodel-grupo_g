@@ -23,7 +23,6 @@ describe('Test of class Albums', () => {
     sacrifice = new Song('Sacrifice', theWeeknd, '3.08', [musicalGenreRB], false, 148302453);
     outOfTime = new Song('Out Of Time', theWeeknd, '3.34', [musicalGenreRB], false, 6100242);
     musicalGenreRB = new MusicalGenres('rb', [theWeeknd], [], [danwFM], [sacrifice, outOfTime]);
-
     danwFM = new Album('Danw FM', theWeeknd, 2022, [musicalGenreRB], [sacrifice, outOfTime]);
     theWeeknd = new Artists('Theweeknd', [], [musicalGenreRB], [danwFM], [sacrifice], 77841866);
   });
