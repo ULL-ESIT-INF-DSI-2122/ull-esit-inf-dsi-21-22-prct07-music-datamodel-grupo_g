@@ -62,65 +62,93 @@ describe('Tests de la clase Artists', () => {
     expect(artists.getGroups()).to.be.deep.equal([group1, group]);
     expect(artists.getGroups().length).to.be.equal(2);
   });
+  it('Existe un método removeGroup()', () => {
+    expect(artists.removeGroup).to.exist;
+    expect(artists.removeGroup).to.be.a('function');
+    artists.removeGroup('G1');
+    expect(artists.getGroups()).to.deep.equal([]);
+    expect(artists.getGroups().length).to.be.equal(0);
+  });
   it('Existe un método getGenres()', () => {
     expect(artists.getGenres).to.exist;
     expect(artists.getGenres).to.be.a('function');
-    expect(artists.getGenres()).to.be.deep.equal([musicalGenre]);
+    expect(artists.getGenres()).to.deep.equal([musicalGenre]);
   });
   it('Existe un método setGenres()', () => {
     var genre = new MusicalGenres('Rock', [], [], [], []);
     expect(artists.setGenres).to.exist;
     expect(artists.setGenres).to.be.a('function');
     artists.setGenres([genre]);
-    expect(artists.getGenres()).to.be.deep.equal([genre]);
+    expect(artists.getGenres()).to.deep.equal([genre]);
   });
   it('Existe un método addGenre()', () => {
     var genre = new MusicalGenres('Rock', [], [], [], []);
     expect(artists.addGenre).to.exist;
     expect(artists.addGenre).to.be.a('function');
     artists.addGenre(genre);
-    expect(artists.getGenres()).to.be.deep.equal([musicalGenre, genre]);
+    expect(artists.getGenres()).to.deep.equal([musicalGenre, genre]);
     expect(artists.getGenres().length).to.be.equal(2);
+  });
+  it('Existe un método removeGenre()', () => {
+    expect(artists.removeGenre).to.exist;
+    expect(artists.removeGenre).to.be.a('function');
+    artists.removeGenre('Pop');
+    expect(artists.getGenres()).to.deep.equal([]);
+    expect(artists.getGenres().length).to.be.equal(0);
   });
   it('Existe un método getAlbums()', () => {
     expect(artists.getAlbums).to.exist;
     expect(artists.getAlbums).to.be.a('function');
-    expect(artists.getAlbums()).to.be.deep.equal([albums[0], albums[1]]);
+    expect(artists.getAlbums()).to.deep.equal([albums[0], albums[1]]);
   });
   it('Existe un método setAlbums()', () => {
     var album = new Album('Album3', new Groups('', [], 0, [], [], 0), 0, [], []);
     expect(artists.setAlbums).to.exist;
     expect(artists.setAlbums).to.be.a('function');
     artists.setAlbums([album]);
-    expect(artists.getAlbums()).to.be.deep.equal([album]);
+    expect(artists.getAlbums()).to.deep.equal([album]);
   });
   it('Existe un método addAlbum()', () => {
     var album = new Album('Album3', new Groups('', [], 0, [], [], 0), 0, [], []);
     expect(artists.addAlbum).to.exist;
     expect(artists.addAlbum).to.be.a('function');
     artists.addAlbum(album);
-    expect(artists.getAlbums()).to.be.deep.equal([albums[0], albums[1], album]);
+    expect(artists.getAlbums()).to.deep.equal([albums[0], albums[1], album]);
     expect(artists.getAlbums().length).to.be.equal(3);
+  });
+  it('Existe un método removeAlbum()', () => {
+    expect(artists.removeAlbum).to.exist;
+    expect(artists.removeAlbum).to.be.a('function');
+    artists.removeAlbum('A1');
+    expect(artists.getAlbums()).to.deep.equal([album2]);
+    expect(artists.getAlbums().length).to.be.equal(1);
   });
   it('Existe un método getSongs()', () => {
     expect(artists.getSongs).to.exist;
     expect(artists.getSongs).to.be.a('function');
-    expect(artists.getSongs()).to.be.deep.equal([songs[0], songs[1], songs[2]]);
+    expect(artists.getSongs()).to.deep.equal([songs[0], songs[1], songs[2]]);
   });
   it('Existe un método setSongs()', () => {
     var song = new Song('Song4', new Artists('', [], [], [], [], 0), '', [], false, 0);
     expect(artists.setSongs).to.exist;
     expect(artists.setSongs).to.be.a('function');
     artists.setSongs([song]);
-    expect(artists.getSongs()).to.be.deep.equal([song]);
+    expect(artists.getSongs()).to.deep.equal([song]);
   });
   it('Existe un método addSong()', () => {
     var song = new Song('Song4', new Artists('', [], [], [], [], 0), '', [], false, 0);
     expect(artists.addSong).to.exist;
     expect(artists.addSong).to.be.a('function');
     artists.addSong(song);
-    expect(artists.getSongs()).to.be.deep.equal([songs[0], songs[1], songs[2], song]);
+    expect(artists.getSongs()).to.deep.equal([songs[0], songs[1], songs[2], song]);
     expect(artists.getSongs().length).to.be.equal(4);
+  });
+  it('Existe un método removeSong()', () => {
+    expect(artists.removeSong).to.exist;
+    expect(artists.removeSong).to.be.a('function');
+    artists.removeSong('S1');
+    expect(artists.getSongs()).to.deep.equal([song2, song3]);
+    expect(artists.getSongs().length).to.be.equal(2);
   });
   it('Existe un método getNumFollowers()', () => {
     expect(artists.getNumFollowers).to.exist;
@@ -132,5 +160,10 @@ describe('Tests de la clase Artists', () => {
     expect(artists.setNumFollowers).to.be.a('function');
     artists.setNumFollowers(1);
     expect(artists.getNumFollowers()).to.be.equal(5001);
+  });
+  it('Existe un método printInfo()', () => {
+    expect(artists.printInfo).to.exist;
+    expect(artists.printInfo).to.be.a('function');
+    expect(artists.printInfo()).not.to.throw;
   });
 });

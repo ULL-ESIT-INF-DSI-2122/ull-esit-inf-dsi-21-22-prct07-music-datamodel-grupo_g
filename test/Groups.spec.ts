@@ -144,9 +144,9 @@ describe('Tests de la clase Groups', () => {
     groups.setNumFollowers(2000);
     expect(groups.getNumFollowers()).to.be.equal(2000);
   });
-  // it('Existe un método printInfo())', () => {
-  //   expect(groups.printInfo).to.exist;
-  //   expect(groups.printInfo).to.be.a('function');
-  //   expect(groups.printInfo()).not.to.throw;
-  // });
+  it('Existe un método printInfo())', () => {
+    expect(groups.printInfo).to.exist;
+    expect(groups.printInfo).to.be.a('function');
+    expect(groups.printInfo()).not.to.throw;
+  });
 });
