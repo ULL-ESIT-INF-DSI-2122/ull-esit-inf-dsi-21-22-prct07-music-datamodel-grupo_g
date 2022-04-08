@@ -89,12 +89,12 @@ export class Album {
     }
     console.log('Year: ' + this.year);
     console.log('Genres: ');
-    for (let i = 0; i < this.genre.length; i++) {
-      console.log(this.genre[i].getName());
+    for (const value of this.genre) {
+      console.log(value.getName());
     }
     console.log('Songs: ');
-    for (let i = 0; i < this.songs.length; i++) {
-      console.log(this.songs[i].getName());
+    for (const value of this.songs) {
+      console.log(value.getName());
     }
   }
 }
