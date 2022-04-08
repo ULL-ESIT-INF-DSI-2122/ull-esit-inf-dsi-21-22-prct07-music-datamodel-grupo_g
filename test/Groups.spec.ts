@@ -30,30 +30,30 @@ describe('Tests de la clase Groups', () => {
     artists_ = new Artists('Beyonce', [groups], [musicalGenre], albums, songs, 50000);
     groups = new Groups('G1', [artists_], 2000, [musicalGenre], albums, 5000);
   });
-  it('Existe un método getName()', () => {
+  it('getName() return the name of the group', () => {
     expect(groups.getName).to.exist;
     expect(groups.getName).to.be.a('function');
     expect(groups.getName()).to.be.equal('G1');
   });
-  it('Existe un método setName()', () => {
+  it('setName() sets the name of the group', () => {
     expect(groups.setName).to.exist;
     expect(groups.setName).to.be.a('function');
     groups.setName('test');
     expect(groups.getName()).to.be.equal('test');
   });
-  it('Existe un método getArtists()', () => {
+  it('getArtists() return the artists of the group', () => {
     expect(groups.getArtists).to.exist;
     expect(groups.getArtists).to.be.a('function');
     expect(groups.getArtists()).to.be.deep.equal([artists_]);
   });
-  it('Existe un método setArtists()', () => {
+  it('setArtists() sets the artists of the group', () => {
     var artist = new Artists('Rihanna', [], [], [], [], 0);
     expect(groups.setArtists).to.exist;
     expect(groups.setArtists).to.be.a('function');
     groups.setArtists([artist]);
     expect(groups.getArtists()).to.be.deep.equal([artist]);
   });
-  it('Existe un método addArtist()', () => {
+  it('addArtist() add a new artist', () => {
     var artist = new Artists('Rihanna', [], [], [], [], 0);
     expect(groups.addArtist).to.exist;
     expect(groups.addArtist).to.be.a('function');
@@ -61,37 +61,37 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getArtists()).to.be.deep.equal([artists_, artist]);
     expect(groups.getArtists().length).to.be.equal(2);
   });
-  it('Existe un método removeArtist()', () => {
+  it('removeArtist() remove an artist', () => {
     expect(groups.removeArtist).to.exist;
     expect(groups.removeArtist).to.be.a('function');
     groups.removeArtist('Beyonce');
     expect(groups.getArtists()).to.be.deep.equal([]);
     expect(groups.getArtists().length).to.be.equal(0);
   });
-  it('Existe un método getCreationYear()', () => {
+  it('getCreationDate() return the creation date of the group', () => {
     expect(groups.getCreationYear).to.exist;
     expect(groups.getCreationYear).to.be.a('function');
     expect(groups.getCreationYear()).to.be.equal(2000);
   });
-  it('Existe un método setCreationYear()', () => {
+  it('setCreationDate() sets the creation date of the group', () => {
     expect(groups.setCreationYear).to.exist;
     expect(groups.setCreationYear).to.be.a('function');
     groups.setCreationYear(2001);
     expect(groups.getCreationYear()).to.be.equal(2001);
   });
-  it('Existe un método getGenres()', () => {
+  it('getGenres() return the musical genres of the group', () => {
     expect(groups.getGenres).to.exist;
     expect(groups.getGenres).to.be.a('function');
     expect(groups.getGenres()).to.be.deep.equal([musicalGenre]);
   });
-  it('Existe un método setGenres()', () => {
+  it('setGenres() sets the musical genres of the group', () => {
     var genre = new MusicalGenres('Rock', [], [], [], []);
     expect(groups.setGenres).to.exist;
     expect(groups.setGenres).to.be.a('function');
     groups.setGenres([genre]);
     expect(groups.getGenres()).to.be.deep.equal([genre]);
   });
-  it('Existe un método addGenre()', () => {
+  it('addGenre() add a new musical genre', () => {
     var genre = new MusicalGenres('Rock', [], [], [], []);
     expect(groups.addGenre).to.exist;
     expect(groups.addGenre).to.be.a('function');
@@ -99,26 +99,26 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getGenres()).to.be.deep.equal([musicalGenre, genre]);
     expect(groups.getGenres().length).to.be.equal(2);
   });
-  it('Existe un método removeGenre()', () => {
+  it('removeGenre() remove a musical genre', () => {
     expect(groups.removeGenre).to.exist;
     expect(groups.removeGenre).to.be.a('function');
     groups.removeGenre('Pop');
     expect(groups.getGenres()).to.be.deep.equal([]);
     expect(groups.getGenres().length).to.be.equal(0);
   });
-  it('Existe un método getAlbums()', () => {
+  it('getAlbums() return the albums of the group', () => {
     expect(groups.getAlbums).to.exist;
     expect(groups.getAlbums).to.be.a('function');
     expect(groups.getAlbums()).to.be.deep.equal([albums[0], albums[1]]);
   });
-  it('Existe un método setAlbums()', () => {
+  it('setAlbums() sets the albums of the group', () => {
     var album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
     expect(groups.setAlbums).to.exist;
     expect(groups.setAlbums).to.be.a('function');
     groups.setAlbums([album]);
     expect(groups.getAlbums()).to.be.deep.equal([album]);
   });
-  it('Existe un método addAlbum()', () => {
+  it('addAlbum() add a new album', () => {
     var album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
     expect(groups.addAlbum).to.exist;
     expect(groups.addAlbum).to.be.a('function');
@@ -126,25 +126,25 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getAlbums()).to.be.deep.equal([albums[0], albums[1], album]);
     expect(groups.getAlbums().length).to.be.equal(3);
   });
-  it('Existe un método removeAlbum()', () => {
+  it('removeAlbum() remove an album', () => {
     expect(groups.removeAlbum).to.exist;
     expect(groups.removeAlbum).to.be.a('function');
     groups.removeAlbum('A1');
     expect(groups.getAlbums()).to.be.deep.equal([albums[0]]);
     expect(groups.getAlbums().length).to.be.equal(1);
   });
-  it('Existe un método getNumFollowers()', () => {
+  it('getNumFollowers() returns the number of followers', () => {
     expect(groups.getNumFollowers).to.exist;
     expect(groups.getNumFollowers).to.be.a('function');
     expect(groups.getNumFollowers()).to.be.equal(5000);
   });
-  it('Existe un método setNumFollowers()', () => {
+  it('setNumFollowers() sets the number of followers', () => {
     expect(groups.setNumFollowers).to.exist;
     expect(groups.setNumFollowers).to.be.a('function');
     groups.setNumFollowers(2000);
     expect(groups.getNumFollowers()).to.be.equal(2000);
   });
-  it('Existe un método printInfo())', () => {
+  it('printInfo() exists', () => {
     expect(groups.printInfo).to.exist;
     expect(groups.printInfo).to.be.a('function');
     expect(groups.printInfo()).not.to.throw;
