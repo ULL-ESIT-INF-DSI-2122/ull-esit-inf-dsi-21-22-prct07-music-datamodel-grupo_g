@@ -140,18 +140,17 @@ export class Album {
     console.log('Name: ' + this.name);
     if (this.by instanceof Artists) {
       console.log('By artists: ' + this.by.getName());
-    } else if (this.by instanceof Groups) {
+    }
+    if (this.by instanceof Groups) {
       console.log('By groups: ' + this.by.getName());
-    } else {
-      console.log('Error. Which type is it: by groups or by artists?');
     }
     console.log('Year: ' + this.year);
     console.log('Genres: ');
-    for (let genres of this.genre) {
+    for (const genres of this.genre) {
       console.log(genres.getName());
     }
     console.log('Songs: ');
-    for (let song of this.songs) {
+    for (const song of this.songs) {
       console.log(song.getName());
     }
   }
