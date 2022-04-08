@@ -147,16 +147,10 @@ export class Album {
     }
     console.log('Year: ' + this.year);
     console.log('Genres: ');
-    // for (let i = 0; i < this.genre.length; i++) {
-    //   console.log(this.genre[i].getName());
-    // }
     for (let genres of this.genre) {
       console.log(genres.getName());
     }
     console.log('Songs: ');
-    // for (let i = 0; i < this.songs.length; i++) {
-    //   console.log(this.songs[i].getName());
-    // }
     for (let song of this.songs) {
       console.log(song.getName());
     }
