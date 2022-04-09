@@ -1,10 +1,10 @@
 import 'mocha';
-import { expect } from 'chai';
-import { Groups } from "../src/Groups";
-import { Artists } from "../src/Artists";
-import { MusicalGenres } from "../src/MusicalGenres";
-import { Album } from "../src/Album";
-import { Song } from '../src/Song';
+import {expect} from 'chai';
+import {Groups} from '../src/Groups';
+import {Artists} from '../src/Artists';
+import {MusicalGenres} from '../src/MusicalGenres';
+import {Album} from '../src/Album';
+import {Song} from '../src/Song';
 
 
 describe('Tests de la clase Groups', () => {
@@ -47,14 +47,14 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getArtists()).to.be.deep.equal([artists_]);
   });
   it('setArtists() sets the artists of the group', () => {
-    let artist = new Artists('Rihanna', [], [], [], [], 0);
+    const artist = new Artists('Rihanna', [], [], [], [], 0);
     expect(groups.setArtists).to.exist;
     expect(groups.setArtists).to.be.a('function');
     groups.setArtists([artist]);
     expect(groups.getArtists()).to.be.deep.equal([artist]);
   });
   it('addArtist() add a new artist', () => {
-    let artist = new Artists('Rihanna', [], [], [], [], 0);
+    const artist = new Artists('Rihanna', [], [], [], [], 0);
     expect(groups.addArtist).to.exist;
     expect(groups.addArtist).to.be.a('function');
     groups.addArtist(artist);
@@ -88,14 +88,14 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getGenres()).to.be.deep.equal([musicalGenre]);
   });
   it('setGenres() sets the musical genres of the group', () => {
-    let genre = new MusicalGenres('Rock', [], [], [], []);
+    const genre = new MusicalGenres('Rock', [], [], [], []);
     expect(groups.setGenres).to.exist;
     expect(groups.setGenres).to.be.a('function');
     groups.setGenres([genre]);
     expect(groups.getGenres()).to.be.deep.equal([genre]);
   });
   it('addGenre() add a new musical genre', () => {
-    let genre = new MusicalGenres('Rock', [], [], [], []);
+    const genre = new MusicalGenres('Rock', [], [], [], []);
     expect(groups.addGenre).to.exist;
     expect(groups.addGenre).to.be.a('function');
     groups.addGenre(genre);
@@ -118,14 +118,14 @@ describe('Tests de la clase Groups', () => {
     expect(groups.getAlbums()).to.be.deep.equal([albums[0], albums[1]]);
   });
   it('setAlbums() sets the albums of the group', () => {
-    let album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
+    const album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
     expect(groups.setAlbums).to.exist;
     expect(groups.setAlbums).to.be.a('function');
     groups.setAlbums([album]);
     expect(groups.getAlbums()).to.be.deep.equal([album]);
   });
   it('addAlbum() add a new album', () => {
-    let album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
+    const album = new Album('Album3', artists_, 2000, [musicalGenre], [song1, song2]);
     expect(groups.addAlbum).to.exist;
     expect(groups.addAlbum).to.be.a('function');
     groups.addAlbum(album);
