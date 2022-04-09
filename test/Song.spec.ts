@@ -28,7 +28,7 @@ describe('Song class - Tests', () => {
 
   beforeEach(() => {
     // Objects to test
-    song1 = new Song('song1', artist1, '3:00', [genre1], false, 1000);
+    song1 = new Song('song1', artist1, '3:00', [genre1, genre2], false, 1000);
     song2 = new Song('song2', artist1, '2:50', [genre1], true, 5000);
     song3 = new Song('song3', artist1, '3:12', [genre1], false, 3000);
 
@@ -59,6 +59,15 @@ describe('Song class - Tests', () => {
     expect(song1.getName()).to.not.be.equal('song1');
   });
 
+  it('getArtist() returns the artists of the song', () => {
+    expect(song1.getArtist()).not.to.be.null;
+  });
+
+  it('setArtist() sets the artists of the song', () => {
+    song1.setArtist(artist2);
+    expect(song1.getArtist()).not.to.be.null;
+  });
+
   it('getDuration() returns the duration of the song', () => {
     expect(song1.getDuration()).to.be.equal('3:00');
     expect(song2.getDuration()).to.be.equal('2:50');
@@ -83,20 +92,11 @@ describe('Song class - Tests', () => {
     expect(song1.getGenre()).to.have.lengthOf(1);
   });
 
-  it('getArtist() returns the artists of the song', () => {
-    expect(song1.getArtist()).not.to.be.null;
-  });
-
-  it('setArtist() sets the artists of the song', () => {
-    song1.setArtist(artist2);
-    expect(song1.getArtist()).not.to.be.null;
-  });
-
   it('addGenre() adds a genre to the song', () => {
     song1.addGenre(genre2);
     expect(song1.getGenre()).not.to.be.null;
     expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.have.lengthOf(2);
+    expect(song1.getGenre()).to.have.lengthOf(3);
   });
 
   it('removeGenre() removes a genre from the song', () => {
