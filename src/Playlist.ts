@@ -120,13 +120,13 @@ export class Playlist {
   printInfo(): void {
     console.log('Name:' + this.name);
     console.log('Songs: ');
-    for (let i = 0; i < this.songs.length; i++) {
-      console.log(this.songs[i].getName());
+    for (const song of this.songs) {
+      console.log(song.getName());
     }
     console.log('Duration: ' + this.duration);
     console.log('Genres: ');
-    for (let i = 0; i < this.genres.length; i++) {
-      console.log(this.genres[i].getName());
+    for (const genre of this.genres) {
+      console.log(genre.getName());
     }
   }
 }

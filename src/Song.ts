@@ -135,8 +135,8 @@ export class Song {
     console.log(`Artist: ${this.artist.getName()}`);
     console.log(`Duration: ${this.duration}`);
     console.log(`Genres: `);
-    for (let i = 0; i < this.genre.length; i++) {
-      console.log(`${this.genre[i].getName()}`);
+    for (const genre of this.genre) {
+      console.log(`${genre.getName()}`);
     }
     console.log(`Single: ${this.single}`);
     console.log(`Number of repetitions: ${this.numRep}`);

@@ -188,16 +188,16 @@ export class Groups {
     console.log(`Creation year: ${this.creationYear}`);
     console.log(`Number of followers: ${this.numFollowers}`);
     console.log(`Genres: `);
-    for (let i = 0; i < this.genres.length; i++) {
-      console.log(this.genres[i].getName());
+    for (const genre of this.genres) {
+      console.log(genre.getName());
     }
     console.log(`Artists: `);
-    for (let i = 0; i < this.artists.length; i++) {
-      console.log(this.artists[i].getName());
+    for (const artist of this.artists) {
+      console.log(artist.getName());
     }
     console.log(`Albums: `);
-    for (let i = 0; i < this.albums.length; i++) {
-      console.log(this.albums[i].getName());
+    for (const album of this.albums) {
+      console.log(album.getName());
     }
   }
 }

@@ -193,8 +193,8 @@ export class Artists {
    * @returns {number} number of followers of the artist
    */
   getNumFollowers(): number {
-    for (let i = 0; i < this.groups.length; i++) {
-      this.numFollowers += this.groups[i].getNumFollowers();
+    for (const group of this.groups) {
+      this.numFollowers += group.getNumFollowers();
     }
     return this.numFollowers;
   }
@@ -215,20 +215,20 @@ export class Artists {
   printInfo(): void {
     console.log('Name: ' + this.name);
     console.log('Groups: ');
-    for (let i = 0; i < this.groups.length; i++) {
-      console.log(this.groups[i].getName());
+    for (const group of this.groups) {
+      console.log(group.getName());
     }
     console.log('Genres: ');
-    for (let i = 0; i < this.genres.length; i++) {
-      console.log(this.genres[i].getName());
+    for (const genre of this.genres) {
+      console.log(genre.getName());
     }
     console.log('Albums: ');
-    for (let i = 0; i < this.albums.length; i++) {
-      console.log(this.albums[i].getName());
+    for (const album of this.albums) {
+      console.log(album.getName());
     }
     console.log('Songs: ');
-    for (let i = 0; i < this.songs.length; i++) {
-      console.log(this.songs[i].getName());
+    for (const song of this.songs) {
+      console.log(song.getName());
     }
     console.log('Followers: ' + this.getNumFollowers());
   }
