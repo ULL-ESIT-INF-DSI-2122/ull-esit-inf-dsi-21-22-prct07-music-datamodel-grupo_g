@@ -1,0 +1,143 @@
+import 'mocha';
+import {expect} from 'chai';
+import {Artists} from '../src/Artists';
+import {Song} from '../src/Song';
+import {MusicalGenres} from '../src/MusicalGenres';
+import {Album} from '../src/Album';
+import {Playlist} from '../src/Playlist';
+
+describe('Test of Playlist Class', () => {
+  let danwFM: Album;
+  let hollywoodsBleeding: Album;
+  let postMalone: Artists;
+  let theWeeknd: Artists;
+  let musicalGenreRB: MusicalGenres;
+  let musicalGenreHipHop: MusicalGenres;
+  let musicalGenre01: MusicalGenres;
+  let playlist: Playlist;
+  let sacrifice: Song;
+  let outOfTime: Song;
+  let circles: Song;
+  let dieForMe: Song;
+  let song1: Song;
+
+  beforeEach(() => {
+    sacrifice = new Song('Sacrifice', theWeeknd, '3.08', [musicalGenreRB], false, 148302453);
+    outOfTime = new Song('Out Of Time', theWeeknd, '3.34', [musicalGenreRB], false, 6100242);
+    dieForMe = new Song('Die for Me', postMalone, '4.05', [musicalGenreHipHop], false, 4762913);
+    circles = new Song('Circles', postMalone, '2.36', [musicalGenreHipHop], false, 58846386);
+    song1 = new Song('song1', theWeeknd, '0.00', [], true, 8908);
+    danwFM = new Album('Danw FM', theWeeknd, 2022, [musicalGenreRB], [sacrifice, outOfTime]);
+    hollywoodsBleeding = new Album('Hollywoods Bledding', postMalone, 2019, [musicalGenreHipHop], [circles, dieForMe]);
+    musicalGenreRB = new MusicalGenres('rb', [theWeeknd], [], [danwFM], [sacrifice, outOfTime]);
+    musicalGenreHipHop = new MusicalGenres('hip hop', [theWeeknd, postMalone], [], [danwFM, hollywoodsBleeding], [sacrifice, outOfTime, circles, dieForMe]);
+    musicalGenre01 = new MusicalGenres('rock', [], [], [], []);
+    theWeeknd = new Artists('Theweeknd', [], [musicalGenreRB], [danwFM], [sacrifice], 77841866);
+    postMalone = new Artists('Post Malone', [], [musicalGenreHipHop], [hollywoodsBleeding], [circles, dieForMe], 45638017);
+    playlist = new Playlist('playlist1', [circles, dieForMe, outOfTime, sacrifice], '13.23', [musicalGenreHipHop, musicalGenreRB]);
+  });
+
+  it('getName() return the name of the playlist', () => {
+    expect(playlist.getName).to.exist;
+    expect(playlist.getName).to.be.a('function');
+    expect(playlist.getName()).to.be.equal('playlist1');
+  });
+
+  it('setName() modify the name of the playlist', () => {
+    expect(playlist.setName).to.exist;
+    expect(playlist.setName).to.be.a('function');
+    playlist.setName('Playlist2');
+    expect(playlist.getName()).to.be.equal('Playlist2');
+  });
+
+  it('getSongs() return the songs of the playlist', () => {
+    expect(playlist.getSongs).to.exist;
+    expect(playlist.getSongs).to.be.a('function');
+    expect(playlist.getSongs()).to.deep.equal([circles, dieForMe, outOfTime, sacrifice]);
+  });
+
+  it('setSongs() modified song list', () => {
+    expect(playlist.setSongs).to.exist;
+    expect(playlist.setSongs).to.be.a('function');
+    playlist.setSongs([song1]);
+    expect(playlist.getSongs()).to.deep.equal([song1]);
+  });
+
+  it('addSong() added song in song list', () => {
+    const song2: Song = new Song('song2', theWeeknd, '2.00', [], true, 90);
+    expect(playlist.addSong).to.exist;
+    expect(playlist.addSong).to.be.a('function');
+    playlist.addSong(song2);
+    expect(playlist.getSongs()).to.deep.equal([circles, dieForMe, outOfTime, sacrifice, song2]);
+    expect(playlist.getSongs().length).to.be.equal(5);
+  });
+
+  it('removeSongs() removed song in song list', () => {
+    const playlist2 = new Playlist('Playlist 2', [], '', []);
+    expect(playlist.removeSongs).to.exist;
+    expect(playlist2.removeSongs).to.exist;
+    expect(playlist.removeSongs).to.be.a('function');
+    expect(playlist2.removeSongs).to.be.a('function');
+    playlist.removeSongs('Sacrifice');
+    playlist2.removeSongs('Circles');
+    expect(playlist.getSongs()).to.deep.equal([circles, dieForMe, outOfTime]);
+    expect(playlist2.getSongs()).to.deep.equal([]);
+    expect(playlist.getSongs().length).to.be.equal(3);
+    expect(playlist2.getSongs().length).to.be.equal(0);
+  });
+
+  it('getDuration() return the duration of the playlist', () => {
+    expect(playlist.getDuration).to.exist;
+    expect(playlist.getDuration).to.be.a('function');
+    expect(playlist.getDuration()).to.deep.equal('13.23');
+  });
+
+  it('setDuration() modified duration of the playlist', () => {
+    expect(playlist.setDuration).to.exist;
+    expect(playlist.setDuration).to.be.a('function');
+    playlist.setDuration('5.00');
+    expect(playlist.getDuration()).to.deep.equal('5.00');
+  });
+
+  it('getGenres() return genres of the playlist', () => {
+    expect(playlist.getGenres).to.exist;
+    expect(playlist.getGenres).to.be.a('function');
+    expect(playlist.getGenres()).to.deep.equal([musicalGenreHipHop, musicalGenreRB]);
+  });
+
+  it('setGenres() modified genres on playlist', () => {
+    expect(playlist.setGenres).to.exist;
+    expect(playlist.setGenres).to.be.a('function');
+    playlist.setGenres([musicalGenre01]);
+    expect(playlist.getGenres()).to.deep.equal([musicalGenre01]);
+  });
+
+  it('addGenres() genre added on playlist', () => {
+    const musicalGenrePop: MusicalGenres = new MusicalGenres('pop', [theWeeknd], [], [danwFM], [sacrifice]);
+    expect(playlist.addGenres).to.exist;
+    expect(playlist.addGenres).to.be.a('function');
+    playlist.addGenres(musicalGenrePop);
+    expect(playlist.getGenres()).to.deep.equal([musicalGenreHipHop, musicalGenreRB, musicalGenrePop]);
+    expect(playlist.getGenres().length).to.be.equal(3);
+  });
+
+  it('removeGenres() genre removed on playlist', () => {
+    const playlist2: Playlist = new Playlist('Playlist 2', [circles], '0.00', [musicalGenre01]);
+    expect(playlist.removeGenres).to.exist;
+    expect(playlist2.removeGenres).to.exist;
+    expect(playlist.removeGenres).to.be.a('function');
+    expect(playlist2.removeGenres).to.be.a('function');
+    playlist.removeGenres('rb');
+    playlist2.removeGenres('pop');
+    expect(playlist.getGenres()).to.deep.equal([musicalGenreHipHop]);
+    expect(playlist2.getGenres()).to.deep.equal([musicalGenre01]);
+    expect(playlist.getGenres().length).to.be.equal(1);
+    expect(playlist2.getGenres().length).to.be.equal(1);
+  });
+
+  it('printInfo() prints album information', () => {
+    expect(playlist.printInfo).to.exist;
+    expect(playlist.printInfo).to.be.a('function');
+    expect(playlist.printInfo()).not.to.throw;
+  });
+});
