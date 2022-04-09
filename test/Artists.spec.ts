@@ -1,5 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
+import sinon from 'sinon';
 import {Artists} from '../src/Artists';
 import {Groups} from '../src/Groups';
 import {MusicalGenres} from '../src/MusicalGenres';
@@ -8,6 +9,14 @@ import {Song} from '../src/Song';
 
 
 describe('Artists class - Tests', () => {
+  const log = console.log;
+  before(() => {
+    sinon.stub(console, 'log').callsFake(() => {});
+  });
+  after(() => {
+    console.log = log;
+  });
+
   let artists: Artists;
 
   let group1: Groups;
@@ -24,6 +33,7 @@ describe('Artists class - Tests', () => {
   let song2: Song;
   let song3: Song;
   let songs: Song[];
+
   beforeEach(() => {
     musicalGenre = new MusicalGenres('Pop', [artists], [group1], albums, songs);
     musicalGenre2 = new MusicalGenres('Rock', [artists], [group2], albums, songs);
@@ -38,28 +48,33 @@ describe('Artists class - Tests', () => {
     songs = [song1, song2, song3];
     artists = new Artists('Beyonce', [group1, group2], [musicalGenre, musicalGenre2], albums, songs, 50000);
   });
+
   it('getName() returns the name of the artist', () => {
     expect(artists.getName).to.exist;
     expect(artists.getName).to.be.a('function');
     expect(artists.getName()).to.be.equal('Beyonce');
   });
+
   it('setName() sets the name of the artist', () => {
     expect(artists.setName).to.exist;
     expect(artists.setName).to.be.a('function');
     artists.setName('test');
     expect(artists.getName()).to.be.equal('test');
   });
+
   it('getGroups() returns groups', () => {
     expect(artists.getGroups).to.exist;
     expect(artists.getGroups).to.be.a('function');
     expect(artists.getGroups()).to.be.deep.equal([group1, group2]);
   });
+
   it('setGroups() sets groups', () => {
     expect(artists.setGroups).to.exist;
     expect(artists.setGroups).to.be.a('function');
     artists.setGroups([new Groups('', [], 0, [], [], 0)]);
     expect(artists.getGroups()).to.be.deep.equal([new Groups('', [], 0, [], [], 0)]);
   });
+
   it('addGroup() add new group', () => {
     const group = new Groups('Destiny`s child', [], 0, [], [], 0);
     expect(artists.addGroup).to.exist;
@@ -68,6 +83,7 @@ describe('Artists class - Tests', () => {
     expect(artists.getGroups()).to.be.deep.equal([group1, group2, group]);
     expect(artists.getGroups().length).to.be.equal(3);
   });
+
   it('removeGroup() remove a group', () => {
     expect(artists.removeGroup).to.exist;
     expect(artists.removeGroup).to.be.a('function');
@@ -78,12 +94,14 @@ describe('Artists class - Tests', () => {
     expect(artists.getGroups()).to.deep.equal([group2]);
     expect(artists.getGroups().length).to.be.equal(1);
   });
+
   it('getGenres() returns genres', () => {
     expect(artists.getGenres).to.exist;
     expect(artists.getGenres).to.be.a('function');
     expect(artists.getGenres()).to.deep.equal([musicalGenre, musicalGenre2]);
     expect(artists.getGenres().length).to.be.equal(2);
   });
+
   it('setGenres() sets genres', () => {
     const genre = new MusicalGenres('Rock', [], [], [], []);
     expect(artists.setGenres).to.exist;
@@ -91,6 +109,7 @@ describe('Artists class - Tests', () => {
     artists.setGenres([genre]);
     expect(artists.getGenres()).to.deep.equal([genre]);
   });
+
   it('addGenre() add a new genre', () => {
     const genre = new MusicalGenres('Rock', [], [], [], []);
     expect(artists.addGenre).to.exist;
@@ -99,6 +118,7 @@ describe('Artists class - Tests', () => {
     expect(artists.getGenres()).to.deep.equal([musicalGenre, musicalGenre2, genre]);
     expect(artists.getGenres().length).to.be.equal(3);
   });
+
   it('removeGenre() remove a genre', () => {
     expect(artists.removeGenre).to.exist;
     expect(artists.removeGenre).to.be.a('function');
@@ -109,11 +129,13 @@ describe('Artists class - Tests', () => {
     expect(artists.getGenres()).to.deep.equal([musicalGenre2]);
     expect(artists.getGenres().length).to.be.equal(1);
   });
+
   it('getAlbums() returns albums', () => {
     expect(artists.getAlbums).to.exist;
     expect(artists.getAlbums).to.be.a('function');
     expect(artists.getAlbums()).to.deep.equal([albums[0], albums[1]]);
   });
+
   it('setAlbums() sets albums', () => {
     const album = new Album('Album3', new Groups('', [], 0, [], [], 0), 0, [], []);
     expect(artists.setAlbums).to.exist;
@@ -121,6 +143,7 @@ describe('Artists class - Tests', () => {
     artists.setAlbums([album]);
     expect(artists.getAlbums()).to.deep.equal([album]);
   });
+
   it('addAlbum() add a new album', () => {
     const album = new Album('Album3', new Groups('', [], 0, [], [], 0), 0, [], []);
     expect(artists.addAlbum).to.exist;
@@ -129,6 +152,7 @@ describe('Artists class - Tests', () => {
     expect(artists.getAlbums()).to.deep.equal([albums[0], albums[1], album]);
     expect(artists.getAlbums().length).to.be.equal(3);
   });
+
   it('removeAlbum() remove a album', () => {
     expect(artists.removeAlbum).to.exist;
     expect(artists.removeAlbum).to.be.a('function');
@@ -139,11 +163,13 @@ describe('Artists class - Tests', () => {
     expect(artists.getAlbums()).to.deep.equal([album2]);
     expect(artists.getAlbums().length).to.be.equal(1);
   });
+
   it('getSongs() returns songs', () => {
     expect(artists.getSongs).to.exist;
     expect(artists.getSongs).to.be.a('function');
     expect(artists.getSongs()).to.deep.equal([songs[0], songs[1], songs[2]]);
   });
+
   it('setSongs() sets songs', () => {
     const song = new Song('Song4', new Artists('', [], [], [], [], 0), '', [], false, 0);
     expect(artists.setSongs).to.exist;
@@ -151,6 +177,7 @@ describe('Artists class - Tests', () => {
     artists.setSongs([song]);
     expect(artists.getSongs()).to.deep.equal([song]);
   });
+
   it('addSong() add a new song', () => {
     const song = new Song('Song4', new Artists('', [], [], [], [], 0), '', [], false, 0);
     expect(artists.addSong).to.exist;
@@ -159,6 +186,7 @@ describe('Artists class - Tests', () => {
     expect(artists.getSongs()).to.deep.equal([songs[0], songs[1], songs[2], song]);
     expect(artists.getSongs().length).to.be.equal(4);
   });
+
   it('removeSong() remove a song', () => {
     expect(artists.removeSong).to.exist;
     expect(artists.removeSong).to.be.a('function');
@@ -169,20 +197,23 @@ describe('Artists class - Tests', () => {
     expect(artists.getSongs()).to.deep.equal([song2, song3]);
     expect(artists.getSongs().length).to.be.equal(2);
   });
+
   it('getNumFollowers() returns the number of followers', () => {
     expect(artists.getNumFollowers).to.exist;
     expect(artists.getNumFollowers).to.be.a('function');
     expect(artists.getNumFollowers()).to.be.equal(105000);
   });
+
   it('setNumFollowers() sets the number of followers', () => {
     expect(artists.setNumFollowers).to.exist;
     expect(artists.setNumFollowers).to.be.a('function');
     artists.setNumFollowers(1);
     expect(artists.getNumFollowers()).to.be.equal(55001);
   });
+
   it('printInfo() exists', () => {
     expect(artists.printInfo).to.exist;
     expect(artists.printInfo).to.be.a('function');
-    expect(artists.printInfo()).not.to.throw;
+    expect(() => artists.printInfo()).to.not.throw();
   });
 });

@@ -1,20 +1,33 @@
 import 'mocha';
 import {expect} from 'chai';
+import sinon from 'sinon';
 import {Artists} from '../src/Artists';
 import {Song} from '../src/Song';
 import {MusicalGenres} from '../src/MusicalGenres';
 import {Album} from '../src/Album';
 import {Playlist} from '../src/Playlist';
 
-describe('Test of Playlist Class', () => {
+describe('Playlist class - Tests', () => {
+  const log = console.log;
+  before(() => {
+    sinon.stub(console, 'log').callsFake(() => {});
+  });
+  after(() => {
+    console.log = log;
+  });
+
   let danwFM: Album;
   let hollywoodsBleeding: Album;
+
   let postMalone: Artists;
   let theWeeknd: Artists;
+
   let musicalGenreRB: MusicalGenres;
   let musicalGenreHipHop: MusicalGenres;
   let musicalGenre01: MusicalGenres;
+
   let playlist: Playlist;
+
   let sacrifice: Song;
   let outOfTime: Song;
   let circles: Song;
@@ -138,6 +151,6 @@ describe('Test of Playlist Class', () => {
   it('printInfo() prints album information', () => {
     expect(playlist.printInfo).to.exist;
     expect(playlist.printInfo).to.be.a('function');
-    expect(playlist.printInfo()).not.to.throw;
+    expect(() => playlist.printInfo()).to.not.throw();
   });
 });

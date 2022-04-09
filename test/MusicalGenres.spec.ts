@@ -1,5 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
+import sinon from 'sinon';
 import {Song} from '../src/Song';
 import {Artists} from '../src/Artists';
 import {Album} from '../src/Album';
@@ -7,7 +8,14 @@ import {Groups} from '../src/Groups';
 import {MusicalGenres} from '../src/MusicalGenres';
 
 describe('MusicalGenres class - Tests', () => {
-  // Objects to test
+  const log = console.log;
+  before(() => {
+    sinon.stub(console, 'log').callsFake(() => {});
+  });
+  after(() => {
+    console.log = log;
+  });
+
   let song1: Song;
   let song2: Song;
   let song3: Song;
@@ -27,22 +35,17 @@ describe('MusicalGenres class - Tests', () => {
   let genre2: MusicalGenres;
 
   beforeEach(() => {
-    // Objects to test
     song1 = new Song('song1', artist1, '3:00', [genre], false, 1000);
     song2 = new Song('song2', artist1, '2:50', [genre], true, 5000);
     song3 = new Song('song3', artist1, '3:12', [genre], false, 3000);
-
     artist1 = new Artists('artist1', [group1], [genre], [album1], [song1, song2], 50000);
     artist2 = new Artists('artist2', [group2], [genre2], [album2], [song3], 50000);
     artist3 = new Artists('artist3', [group1], [genre], [album3], [song1, song2], 50000);
-
     album1 = new Album('album1', group1, 2000, [genre], [song1, song2]);
     album2 = new Album('album2', group2, 2015, [genre2], [song3]);
     album3 = new Album('album3', group1, 2000, [genre], [song1, song2]);
-
     group1 = new Groups('group1', [artist1, artist3], 2000, [genre], [album1, album3], 5000);
     group2 = new Groups('group2', [artist2], 2015, [genre2], [album2], 5000);
-
     genre = new MusicalGenres('genre', [artist1, artist3], [group1], [album1, album3], [song1, song2]);
     genre2 = new MusicalGenres('genre2', [artist2], [group2], [album2], [song3]);
   });
@@ -159,7 +162,8 @@ describe('MusicalGenres class - Tests', () => {
   });
 
   it('printInfo() prints the information of the genre', () => {
-    expect(genre.printInfo());
-    expect('printInfo' in genre).to.be.true;
+    expect(genre.printInfo).to.exist;
+    expect(genre.printInfo).to.be.a('function');
+    expect(() => genre.printInfo()).to.not.throw();
   });
 });

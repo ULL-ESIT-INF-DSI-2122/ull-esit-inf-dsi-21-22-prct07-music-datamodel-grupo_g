@@ -1,18 +1,31 @@
 import 'mocha';
 import {expect} from 'chai';
+import sinon from 'sinon';
 import {Album} from '../src/Album';
 import {Groups} from '../src/Groups';
 import {Artists} from '../src/Artists';
 import {Song} from '../src/Song';
 import {MusicalGenres} from '../src/MusicalGenres';
 
-describe('Test of class Albums', () => {
+describe('Album class - Test', () => {
+  const log = console.log;
+  before(() => {
+    sinon.stub(console, 'log').callsFake(() => {});
+  });
+  after(() => {
+    console.log = log;
+  });
+
   let theWeeknd: Artists;
+
   let danwFM: Album;
+
   let song1: Song;
   let sacrifice: Song;
   let outOfTime: Song;
+
   let group1: Groups;
+
   let musicalGenreRB: MusicalGenres;
   let musicalGenre01: MusicalGenres;
 
@@ -144,7 +157,6 @@ describe('Test of class Albums', () => {
     expect(danwFM2.printInfo).to.exist;
     expect(danwFM.printInfo).to.be.a('function');
     expect(danwFM2.printInfo).to.be.a('function');
-    expect(danwFM.printInfo()).not.to.throw;
-    expect(danwFM2.printInfo()).not.to.throw;
+    expect(() => danwFM.printInfo()).to.not.throw();
   });
 });
