@@ -18,6 +18,19 @@
 
 ## Clase **_MusicalGenres_**
 
+La clase *MusicalGenres* almacenar la siguiente información:
+- Nombre del género.  
+- Grupos producen música de ese género.  
+- Artistas producen música de ese género.  
+- Álbumes que hay dentro de la biblioteca relacionados con este género.  
+- Canciones que hay dentro de la biblioteca de ese género.  
+
+A continuación se muestra el código desarrollado de la clase en cuestión.
+
+```typescript
+  
+```
+
 
 ## Clase **_Song_**
 
