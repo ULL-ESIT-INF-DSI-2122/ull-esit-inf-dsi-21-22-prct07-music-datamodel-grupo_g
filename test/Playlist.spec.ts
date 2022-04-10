@@ -1,7 +1,7 @@
 import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {Artists} from '../src/Artists';
+import {Artist} from '../src/Artist';
 import {Song} from '../src/Song';
 import {MusicalGenres} from '../src/MusicalGenres';
 import {Album} from '../src/Album';
@@ -19,8 +19,8 @@ describe('Playlist class - Tests', () => {
   let danwFM: Album;
   let hollywoodsBleeding: Album;
 
-  let postMalone: Artists;
-  let theWeeknd: Artists;
+  let postMalone: Artist;
+  let theWeeknd: Artist;
 
   let musicalGenreRB: MusicalGenres;
   let musicalGenreHipHop: MusicalGenres;
@@ -45,8 +45,8 @@ describe('Playlist class - Tests', () => {
     musicalGenreRB = new MusicalGenres('rb', [theWeeknd], [], [danwFM], [sacrifice, outOfTime]);
     musicalGenreHipHop = new MusicalGenres('hip hop', [theWeeknd, postMalone], [], [danwFM, hollywoodsBleeding], [sacrifice, outOfTime, circles, dieForMe]);
     musicalGenre01 = new MusicalGenres('rock', [], [], [], []);
-    theWeeknd = new Artists('Theweeknd', [], [musicalGenreRB], [danwFM], [sacrifice], 77841866);
-    postMalone = new Artists('Post Malone', [], [musicalGenreHipHop], [hollywoodsBleeding], [circles, dieForMe], 45638017);
+    theWeeknd = new Artist('Theweeknd', [], [musicalGenreRB], [danwFM], [sacrifice], 77841866);
+    postMalone = new Artist('Post Malone', [], [musicalGenreHipHop], [hollywoodsBleeding], [circles, dieForMe], 45638017);
     playlist = new Playlist('playlist1', [circles, dieForMe, outOfTime, sacrifice], '13.23', [musicalGenreHipHop, musicalGenreRB]);
   });
 

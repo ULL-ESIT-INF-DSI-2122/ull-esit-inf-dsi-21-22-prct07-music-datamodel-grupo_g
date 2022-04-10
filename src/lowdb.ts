@@ -4,8 +4,8 @@ import {MusicalGenres} from './MusicalGenres';
 import {Album} from './Album';
 import {Song} from './Song';
 import {Playlist} from './Playlist';
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
+import Lowdb from 'lowdb';
+import FileSync from 'lowdb/adapters/FileSync';
 
 // Artist
 const johnLenon = new Artist('John Lennon', [], [], [], [], 8692252);
@@ -331,3 +331,19 @@ const chillin = new Playlist('Chillin in the goth club from the matrix',
     '01:11:13',
     [kpop, indie, jazz, rap, rock, electro, heavyMetal, indie]);
 const allPlaylists = [rolitasChidas, perfect, chillin];
+
+
+// Database
+const adapter = new FileSync('db.json');
+// eslint-disable-next-line new-cap
+const db = Lowdb(adapter);
+
+// add data to db
+db.defaults({
+  artists: [],
+  groups: [],
+  genres: [],
+  albums: [],
+  songs: [],
+  playlists: [],
+}).write();

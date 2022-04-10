@@ -2,9 +2,9 @@ import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {Song} from '../src/Song';
-import {Artists} from '../src/Artists';
+import {Artist} from '../src/Artist';
 import {Album} from '../src/Album';
-import {Groups} from '../src/Groups';
+import {Group} from '../src/Group';
 import {MusicalGenres} from '../src/MusicalGenres';
 
 describe('MusicalGenres class - Tests', () => {
@@ -20,16 +20,16 @@ describe('MusicalGenres class - Tests', () => {
   let song2: Song;
   let song3: Song;
 
-  let artist1: Artists;
-  let artist2: Artists;
-  let artist3: Artists;
+  let artist1: Artist;
+  let artist2: Artist;
+  let artist3: Artist;
 
   let album1: Album;
   let album2: Album;
   let album3: Album;
 
-  let group1: Groups;
-  let group2: Groups;
+  let group1: Group;
+  let group2: Group;
 
   let genre: MusicalGenres;
   let genre2: MusicalGenres;
@@ -38,14 +38,14 @@ describe('MusicalGenres class - Tests', () => {
     song1 = new Song('song1', artist1, '3:00', [genre], false, 1000);
     song2 = new Song('song2', artist1, '2:50', [genre], true, 5000);
     song3 = new Song('song3', artist1, '3:12', [genre], false, 3000);
-    artist1 = new Artists('artist1', [group1], [genre], [album1], [song1, song2], 50000);
-    artist2 = new Artists('artist2', [group2], [genre2], [album2], [song3], 50000);
-    artist3 = new Artists('artist3', [group1], [genre], [album3], [song1, song2], 50000);
+    artist1 = new Artist('artist1', [group1], [genre], [album1], [song1, song2], 50000);
+    artist2 = new Artist('artist2', [group2], [genre2], [album2], [song3], 50000);
+    artist3 = new Artist('artist3', [group1], [genre], [album3], [song1, song2], 50000);
     album1 = new Album('album1', group1, 2000, [genre], [song1, song2]);
     album2 = new Album('album2', group2, 2015, [genre2], [song3]);
     album3 = new Album('album3', group1, 2000, [genre], [song1, song2]);
-    group1 = new Groups('group1', [artist1, artist3], 2000, [genre], [album1, album3], 5000);
-    group2 = new Groups('group2', [artist2], 2015, [genre2], [album2], 5000);
+    group1 = new Group('group1', [artist1, artist3], 2000, [genre], [album1, album3], 5000);
+    group2 = new Group('group2', [artist2], 2015, [genre2], [album2], 5000);
     genre = new MusicalGenres('genre', [artist1, artist3], [group1], [album1, album3], [song1, song2]);
     genre2 = new MusicalGenres('genre2', [artist2], [group2], [album2], [song3]);
   });
@@ -63,52 +63,52 @@ describe('MusicalGenres class - Tests', () => {
   });
 
   it('getArtists() returns the artists of the genre for genre', () => {
-    expect(genre.getArtists()).to.deep.equal([artist1, artist3]);
-    expect(genre.getArtists()).to.not.deep.equal([artist2]);
+    expect(genre.getArtist()).to.deep.equal([artist1, artist3]);
+    expect(genre.getArtist()).to.not.deep.equal([artist2]);
   });
 
   it('setArtists() sets the artists of the genre', () => {
-    genre.setArtists([artist2]);
-    expect(genre.getArtists()).to.deep.equal([artist2]);
-    expect(genre.getArtists()).to.not.deep.equal([artist1]);
+    genre.setArtist([artist2]);
+    expect(genre.getArtist()).to.deep.equal([artist2]);
+    expect(genre.getArtist()).to.not.deep.equal([artist1]);
   });
 
   it('addArtist() adds an artist to the genre', () => {
     genre.addArtist(artist2);
-    expect(genre.getArtists()).to.deep.equal([artist1, artist3, artist2]);
-    expect(genre.getArtists()).to.not.deep.equal([artist2]);
+    expect(genre.getArtist()).to.deep.equal([artist1, artist3, artist2]);
+    expect(genre.getArtist()).to.not.deep.equal([artist2]);
   });
 
   it('removeArtist() removes an artist from the genre', () => {
     genre.removeArtist('Rihanna');
-    expect(genre.getArtists()).to.deep.equal([artist1, artist3]);
+    expect(genre.getArtist()).to.deep.equal([artist1, artist3]);
     genre.removeArtist(artist1.getName());
-    expect(genre.getArtists()).to.deep.equal([artist3]);
-    expect(genre.getArtists()).to.not.deep.equal([artist1]);
+    expect(genre.getArtist()).to.deep.equal([artist3]);
+    expect(genre.getArtist()).to.not.deep.equal([artist1]);
   });
 
   it('getGroups() returns the groups of the genre for genre', () => {
-    expect(genre.getGroups()).to.deep.equal([group1]);
-    expect(genre.getGroups()).to.not.deep.equal([group2]);
+    expect(genre.getGroup()).to.deep.equal([group1]);
+    expect(genre.getGroup()).to.not.deep.equal([group2]);
   });
 
   it('setGroups() sets the groups of the genre', () => {
-    genre.setGroups([group2]);
-    expect(genre.getGroups()).to.deep.equal([group2]);
-    expect(genre.getGroups()).to.not.deep.equal([group1]);
+    genre.setGroup([group2]);
+    expect(genre.getGroup()).to.deep.equal([group2]);
+    expect(genre.getGroup()).to.not.deep.equal([group1]);
   });
 
   it('addGroup() adds a group to the genre', () => {
     genre.addGroup(group2);
-    expect(genre.getGroups()).to.be.eqls([group1, group2]);
-    expect(genre.getGroups()).to.not.be.eqls([group2]);
+    expect(genre.getGroup()).to.be.eqls([group1, group2]);
+    expect(genre.getGroup()).to.not.be.eqls([group2]);
   });
 
   it('removeGroup() removes a group from the genre', () => {
     genre.removeGroup('G10');
-    expect(genre.getGroups()).to.deep.equal([group1]);
+    expect(genre.getGroup()).to.deep.equal([group1]);
     genre.removeGroup(group1.getName());
-    expect(genre.getGroups()).to.deep.equal([]);
+    expect(genre.getGroup()).to.deep.equal([]);
   });
 
   it('getAlbums() returns the albums of the genre for genre', () => {
