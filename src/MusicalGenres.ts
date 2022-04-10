@@ -1,15 +1,15 @@
-import {Groups} from './Groups';
-import {Artists} from './Artists';
+import {Group} from './Group';
+import {Artist} from './Artist';
 import {Album} from './Album';
 import {Song} from './Song';
 
 /**
- * Musical genres descibes the musical genres of the music library.
+ * Musical genres describes the musical genres of the music library.
  */
 export class MusicalGenres {
   constructor(private name: string,
-              private artists: Artists[],
-              private groups: Groups[],
+              private artists: Artist[],
+              private groups: Group[],
               private albums: Album[],
               private song: Song[]) {}
   /**
@@ -28,17 +28,17 @@ export class MusicalGenres {
     this.name = name;
   }
   /**
-   * getArtists() returns the artists of the genre.
+   * getArtist() returns the artists of the genre.
    * @returns the number of artists in the genre
    */
-  getArtists(): Artists[] {
+  getArtist(): Artist[] {
     return this.artists;
   }
   /**
-  * setArtists() sets the artists of the genre.
+  * setArtist() sets the artists of the genre.
   * @param artists the artists of the genre
   */
-  setArtists(artists: Artists[]): void {
+  setArtist(artists: Artist[]): void {
     this.artists = artists;
   }
 
@@ -46,7 +46,7 @@ export class MusicalGenres {
    * addArtist() adds an artist to the genre.
    * @param artist the artist to be searched
    */
-  addArtist(artist: Artists): void {
+  addArtist(artist: Artist): void {
     this.artists.push(artist);
   }
 
@@ -67,15 +67,15 @@ export class MusicalGenres {
    * getGArtist() returns the artist or group of the genre.
    * @returns the group or artist of the genre
    */
-  getGroups(): Groups[] {
+  getGroup(): Group[] {
     return this.groups;
   }
 
   /**
-   * setGroups() sets the groups of the genre.
+   * setGroup() sets the groups of the genre.
    * @param groups the groups of the genre
    */
-  setGroups(groups: Groups[]): void {
+  setGroup(groups: Group[]): void {
     this.groups = groups;
   }
 
@@ -83,7 +83,7 @@ export class MusicalGenres {
    * addGenre() adds a genre to the genre.
    * @param group the group to be searched
    */
-  addGroup(group: Groups): void {
+  addGroup(group: Group): void {
     this.groups.push(group);
   }
 
@@ -179,11 +179,11 @@ export class MusicalGenres {
    */
   printInfo(): void {
     console.log(`Genre: ${this.name}`);
-    console.log(`Artists: `);
+    console.log(`Artist: `);
     for (let i = 0; i < this.artists.length; i++) {
       console.log(`${i + 1}. ${this.artists[i].getName()}`);
     }
-    console.log(`Groups: `);
+    console.log(`Group: `);
     for (let i = 0; i < this.groups.length; i++) {
       console.log(`${i + 1}. ${this.groups[i].getName()}`);
     }

@@ -22,9 +22,9 @@ export class Manager {
       } else if (order === 'name desc') {
         console.log(this.playlists[i].getSongs().sort((a, b) => b.getName().localeCompare(a.getName())));
       } else if (order === 'artist asc') {
-        console.log(this.playlists[i].getSongs().sort((a, b) => a.getArtist().getName().localeCompare(b.getArtist().getName())));
+        console.log(this.playlists[i].getSongs().sort((a, b) => a.getAuthor().getName().localeCompare(b.getAuthor().getName())));
       } else if (order === 'artist desc') {
-        console.log(this.playlists[i].getSongs().sort((a, b) => b.getArtist().getName().localeCompare(a.getArtist().getName())));
+        console.log(this.playlists[i].getSongs().sort((a, b) => b.getAuthor().getName().localeCompare(a.getAuthor().getName())));
       } else if (order === 'duration asc') {
         console.log(this.playlists[i].getSongs().sort((a, b) => a.getDuration().localeCompare(b.getDuration())));
       } else if (order === 'duration desc') {

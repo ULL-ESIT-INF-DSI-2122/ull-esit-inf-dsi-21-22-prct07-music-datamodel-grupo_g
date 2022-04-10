@@ -18,6 +18,7 @@
         "require-jsdoc": "off",
         "valid-jsdoc": "off",
         "eol-last": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "comma-dangle": "off"
     }
 }

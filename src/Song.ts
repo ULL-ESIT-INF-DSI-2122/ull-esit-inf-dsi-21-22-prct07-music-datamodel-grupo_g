@@ -1,11 +1,12 @@
-import {Artists} from './Artists';
+import {Artist} from './Artist';
+import {Group} from './Group';
 import {MusicalGenres} from './MusicalGenres';
 /**
- * Song class decribes a song.
+ * Song class describes a song.
  */
 export class Song {
   constructor(private name: string,
-              private artist: Artists,
+              private author: Artist | Group,
               private duration: string,
               private genre: MusicalGenres[],
               private single: boolean,
@@ -27,19 +28,19 @@ export class Song {
   }
 
   /**
-   * getArtist() returns the artist of the song.
-   * @returns {Artists} the artist of the song
+   * getAuthor() returns the author of the song.
+   * @returns {Artist | Group} the author of the song
    */
-  getArtist(): Artists {
-    return this.artist;
+  getAuthor(): Artist | Group {
+    return this.author;
   }
 
   /**
-   * setArtist() sets the artist of the song.
-   * @param artist the artist of the song
+   * setAuthor() sets the author of the song.
+   * @param author the author of the song
    */
-  setArtist(artist: Artists): void {
-    this.artist = artist;
+  setAuthor(author: Artist | Group): void {
+    this.author = author;
   }
 
   /**
@@ -96,10 +97,10 @@ export class Song {
   }
 
   /**
-   * getSingle() returns if the song is a single or not.
+   * isSingle() returns if the song is a single or not.
    * @returns {boolean} tif the song is a single or not
    */
-  getSingle(): boolean {
+  isSingle(): boolean {
     return this.single;
   }
 
@@ -132,7 +133,11 @@ export class Song {
    */
   printInfo(): void {
     console.log(`Song: ${this.name}`);
-    console.log(`Artist: ${this.artist.getName()}`);
+    if (this.author instanceof Artist) {
+      console.log(`Artist: ${this.author.getName()}`);
+    } else if (this.author instanceof Group) {
+      console.log(`Group: ${this.author.getName()}`);
+    }
     console.log(`Duration: ${this.duration}`);
     console.log(`Genres: `);
     for (const genre of this.genre) {

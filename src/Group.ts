@@ -1,13 +1,13 @@
-import {Artists} from './Artists';
+import {Artist} from './Artist';
 import {MusicalGenres} from './MusicalGenres';
 import {Album} from './Album';
 
 /**
  * Groups class describes a group of artists.
  */
-export class Groups {
+export class Group {
   constructor(private name: string,
-              private artists: Artists[],
+              private artists: Artist[],
               private creationYear: number,
               private genres: MusicalGenres[],
               private albums: Album[],
@@ -30,18 +30,18 @@ export class Groups {
   }
 
   /**
-   * getArtists() returns the artists of the group
+   * getArtist() returns the artists of the group
    * @returns {string} the artists of the group
    */
-  getArtists(): Artists[] {
+  getArtist(): Artist[] {
     return this.artists;
   }
 
   /**
-   * setArtists() sets the artists of the group
-   * @param artists {Artists[]} array of artists
+   * setArtist() sets the artists of the group
+   * @param artists {Artist[]} array of artists
    */
-  setArtists(artists: Artists[]): void {
+  setArtist(artists: Artist[]): void {
     this.artists = artists;
   }
 
@@ -49,7 +49,7 @@ export class Groups {
    * addArtist() adds an artist to the group
    * @param artist artist to be added
    */
-  addArtist(artist: Artists): void {
+  addArtist(artist: Artist): void {
     this.artists.push(artist);
   }
 
@@ -191,7 +191,7 @@ export class Groups {
     for (const genre of this.genres) {
       console.log(genre.getName());
     }
-    console.log(`Artists: `);
+    console.log(`Artist: `);
     for (const artist of this.artists) {
       console.log(artist.getName());
     }

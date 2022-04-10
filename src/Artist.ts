@@ -1,11 +1,11 @@
-import {Groups} from './Groups';
+import {Group} from './Group';
 import {MusicalGenres} from './MusicalGenres';
 import {Album} from './Album';
 import {Song} from './Song';
 
-export class Artists {
+export class Artist {
   constructor(private name: string,
-              private groups: Groups[],
+              private groups: Group[],
               private genres: MusicalGenres[],
               private albums: Album[],
               private songs: Song[],
@@ -29,28 +29,28 @@ export class Artists {
   }
 
   /**
-   * getGroups() returns the groups of the artist
-   * @returns {Groups[]} groups of the artist
+   * getGroup() returns the groups of the artist
+   * @returns {Group[]} groups of the artist
    */
-  getGroups(): Groups[] {
+  getGroup(): Group[] {
     return this.groups;
   }
 
   /**
-   * setGroups() sets the groups of the artist
-   * @param groups {Groups[]} groups of the artist
+   * setGroup() sets the groups of the artist
+   * @param groups {Group[]} groups of the artist
    * @returns {void}
    */
-  setGroups(groups: Groups[]): void {
+  setGroup(groups: Group[]): void {
     this.groups = groups;
   }
 
   /**
    * addGroup() adds a group to the artist
-   * @param group {Groups} group to be added
+   * @param group {Group} group to be added
    * @returns {void}
    */
-  addGroup(group: Groups): void {
+  addGroup(group: Group): void {
     this.groups.push(group);
   }
 
@@ -214,7 +214,7 @@ export class Artists {
    */
   printInfo(): void {
     console.log('Name: ' + this.name);
-    console.log('Groups: ');
+    console.log('Group: ');
     for (const group of this.groups) {
       console.log(group.getName());
     }

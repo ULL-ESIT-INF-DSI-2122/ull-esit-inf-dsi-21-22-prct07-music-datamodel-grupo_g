@@ -2,9 +2,9 @@ import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {Song} from '../src/Song';
-import {Artists} from '../src/Artists';
+import {Artist} from '../src/Artist';
 import {Album} from '../src/Album';
-import {Groups} from '../src/Groups';
+import {Group} from '../src/Group';
 import {MusicalGenres} from '../src/MusicalGenres';
 
 describe('Song class - Tests', () => {
@@ -20,29 +20,29 @@ describe('Song class - Tests', () => {
   let song2: Song;
   let song3: Song;
 
-  let artist1: Artists;
-  let artist2: Artists;
-  let artist3: Artists;
+  let artist1: Artist;
+  let artist2: Artist;
+  let artist3: Artist;
 
   let album1: Album;
   let album2: Album;
   let album3: Album;
 
-  let group1: Groups;
-  let group2: Groups;
+  let group1: Group;
+  let group2: Group;
 
   let genre1: MusicalGenres;
   let genre2: MusicalGenres;
 
   beforeEach(() => {
-    artist1 = new Artists('artist1', [group1], [genre1], [album1], [song1, song2], 50000);
-    artist2 = new Artists('artist2', [group2], [genre2], [album2], [song3], 50000);
-    artist3 = new Artists('artist3', [group1], [genre1], [album3], [song1, song2], 50000);
+    artist1 = new Artist('artist1', [group1], [genre1], [album1], [song1, song2], 50000);
+    artist2 = new Artist('artist2', [group2], [genre2], [album2], [song3], 50000);
+    artist3 = new Artist('artist3', [group1], [genre1], [album3], [song1, song2], 50000);
     album1 = new Album('album1', group1, 2000, [genre1], [song1, song2]);
     album2 = new Album('album2', group2, 2015, [genre2], [song3]);
     album3 = new Album('album3', group1, 2000, [genre1], [song1, song2]);
-    group1 = new Groups('group1', [artist1, artist3], 2000, [genre1], [album1, album3], 5000);
-    group2 = new Groups('group2', [artist2], 2015, [genre2], [album2], 5000);
+    group1 = new Group('group1', [artist1, artist3], 2000, [genre1], [album1, album3], 5000);
+    group2 = new Group('group2', [artist2], 2015, [genre2], [album2], 5000);
     genre1 = new MusicalGenres('genre1', [artist1, artist3], [group1], [album1, album3], [song1, song2]);
     genre2 = new MusicalGenres('genre2', [artist2], [group2], [album2], [song3]);
     song1 = new Song('song1', artist1, '3:00', [genre1, genre2], false, 1000);
@@ -64,20 +64,20 @@ describe('Song class - Tests', () => {
     expect(song1.getName()).to.not.be.equal('song1');
   });
 
-  it('getArtist() returns the artists of the song', () => {
-    expect(song1.getArtist()).not.to.be.null;
-    expect(song1.getArtist()).to.be.equal(artist1);
-    expect(song1.getArtist()).to.not.be.equal(artist2);
-    expect(song1.getArtist()).to.not.be.equal(artist3);
+  it('getAuthor() returns the Artist of the song', () => {
+    expect(song1.getAuthor()).not.to.be.null;
+    expect(song1.getAuthor()).to.be.equal(artist1);
+    expect(song1.getAuthor()).to.not.be.equal(artist2);
+    expect(song1.getAuthor()).to.not.be.equal(artist3);
   });
 
-  it('setArtist() sets the artists of the song', () => {
-    expect(song1.getArtist()).not.to.be.null;
-    expect(song1.getArtist()).to.be.equal(artist1);
-    song1.setArtist(artist2);
-    expect(song1.getArtist()).not.to.be.null;
-    expect(song1.getArtist()).to.be.equal(artist2);
-    expect(song1.getArtist()).to.not.be.equal(artist1);
+  it('setArtist() sets the Artist of the song', () => {
+    expect(song1.getAuthor()).not.to.be.null;
+    expect(song1.getAuthor()).to.be.equal(artist1);
+    song1.setAuthor(artist2);
+    expect(song1.getAuthor()).not.to.be.null;
+    expect(song1.getAuthor()).to.be.equal(artist2);
+    expect(song1.getAuthor()).to.not.be.equal(artist1);
   });
 
   it('getDuration() returns the duration of the song', () => {
@@ -138,20 +138,20 @@ describe('Song class - Tests', () => {
     expect(song1.getGenre()).to.have.lengthOf(1);
   });
 
-  it('getSingles() returns the singles of the song', () => {
-    expect(song1.getSingle()).to.be.false;
-    expect(song2.getSingle()).to.be.true;
-    expect(song1.getSingle()).to.not.be.true;
-    expect(song2.getSingle()).to.not.be.false;
+  it('isSingles() returns the singles of the song', () => {
+    expect(song1.isSingle()).to.be.false;
+    expect(song2.isSingle()).to.be.true;
+    expect(song1.isSingle()).to.not.be.true;
+    expect(song2.isSingle()).to.not.be.false;
   });
 
   it('setSingle() sets the singles of the song', () => {
-    expect(song1.getSingle()).to.be.false;
-    expect(song2.getSingle()).to.be.true;
+    expect(song1.isSingle()).to.be.false;
+    expect(song2.isSingle()).to.be.true;
     song1.setSingle(true);
     song2.setSingle(false);
-    expect(song1.getSingle()).to.be.true;
-    expect(song2.getSingle()).to.be.false;
+    expect(song1.isSingle()).to.be.true;
+    expect(song2.isSingle()).to.be.false;
   });
 
   it('getNumRep() returns the number of plays of the song', () => {

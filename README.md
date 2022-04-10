@@ -8,22 +8,22 @@
 
 </div>
 
-# Práctica 7: Digitalizando la colección de música de los abuelos.
-## [Git pages]()
-## ÍNDICE
-- [INTRODUCCIÓN](#INTRODUCCIÓN).
-- [DESARROLLO](#DESARROLLO).
-    - [Clase **_MusicalGenres_**](#Clase-**_MusicalGenres_**).
-    - [Clase **_Song_**](#Clase-**_Song_**).
-    - [Clase **_Album_**](#Clase-**_Album_**).
-    - [Clase **_Groups_**](#Clase-**_Groups_**).
-    - [Clase **_Artists_**](#Clase-**_Artists_**).
-    - [Clase **_Playlist_**](Clase-**_Playlist_**).
-    - [Clase **_Manager_**](Clase-**_Manager_**).
-    - [Interfaz **_Operation_**](Interfaz-**_Operation_**).
-- [CONCLUSIÓN](#CONCLUSIÓN).
-- [INTEGRANTES](#INTEGRANTES).
-# INTRODUCCIÓN 
+# ÍNDICE
+
+- [INTRODUCCIÓN](#id1).
+- [DESARROLLO](#id2).
+    - [Clase MusicalGenres](#id3).
+    - [Clase Song](#id4).
+    - [Clase Album](#id5).
+    - [Clase Group](#id6).
+    - [Clase Artist](#id7).
+    - [Clase Playlist](#id8).
+    - [Clase Manager](#id9).
+    - [Interfaz Operation](#id10).
+- [CONCLUSIÓN](#id11).
+- [INTEGRANTES](#id12).
+
+# INTRODUCCIÓN<a name="id1"></a>
 
 En esta práctica se tendrá que crear un modelo de datos de un sistema de información que permita almacenar una biblioteca de música. El sistema de información deberá permitir la gestión de las canciones, los artistas, los álbumes, los grupos, las playlists y los géneros. Además, el sistema deberá permitir que el usuario interactúe con la base de datos para realizar las siguientes operaciones: 
 
@@ -36,7 +36,7 @@ En esta práctica se tendrá que crear un modelo de datos de un sistema de infor
 
 El código fuente de la práctica se organizará en distintos directorios dentro de la carpeta ```/src```, donde se encontrarán las clases que implementan las funcionalidades del sistema. También se creará la documentación, de forma automática, de todos los ejercicios que hayamos realizado haciendo uso de TypeDoc. Podremos consultar la documentación pulsando sobre el siguiente [_enlace_](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/tree/main/docs) que le llevará al fichero o accediendo manualmente al directorio ```/docs```.
 
-Por otro lado, comentar que se seguirá un control contínuo haciendo uso de **git** y de algunas **Git Actions**, para que el código se pueda mantener en un estado consistente y que se pueda realizar un seguimiento de los cambios que se hagan en el código. Además, se hará uso de otras herramientas como por ejemplo:
+Por otro lado, comentar que se seguirá un control continuo haciendo uso de **git** y de algunas **Git Actions**, para que el código se pueda mantener en un estado consistente y que se pueda realizar un seguimiento de los cambios que se hagan en el código. Además, se hará uso de otras herramientas como por ejemplo:
 
   * Coveralls
   * Istanbul
@@ -44,246 +44,156 @@ Por otro lado, comentar que se seguirá un control contínuo haciendo uso de **g
 
 Para acceder a la página web del informe podrá hacer pulsando sobre este [_enlace_](https://ull-esit-inf-dsi-2122.github.io/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/).
 
-# DESARROLLO
+# DESARROLLO<a name="id2"></a>
 
-## Clase **_MusicalGenres_**
+## **Clase MusicalGenres**<a name="id3"></a>
 
-La clase *MusicalGenres* representa un grupo musical y almacena la siguiente información:
+La clase *MusicalGenres*, definida en el fichero [**_MusicalGenres.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/MusicalGenres.ts), representa un grupo musical y se encarga de almacenar la siguiente información:
 - *Nombre del género musical*: tipo *string*  
 - *Grupos que producen música de ese género*: tipo *lista de grupos musicales*  
 - *Artistas que producen música de ese género*: tipo *lista de artistas* 
 - *Álbumes que hay dentro de la biblioteca relacionados con este género*: tipo *lista de álbumes*
 - *Canciones que hay dentro de la biblioteca de ese género*: tipo *lista de canciones* 
 
-A continuación se muestra el código desarrollado de la clase en cuestión.
+A continuación se muestra el código desarrollado del constructor la clase en cuestión.
 
 ```typescript
-import {Groups} from './Groups';
-import {Artists} from './Artists';
-import {Album} from './Album';
-import {Song} from './Song';
 
-/**
- * Musical genres descibes the musical genres of the music library.
- */
 export class MusicalGenres {
   constructor(private name: string,
               private artists: Artists[],
               private groups: Groups[],
               private albums: Album[],
               private song: Song[]) {}
-  /**
-   * getName() returns the name of the genre.
-   * @returns the name of the genre
-   */
-  getName(): string {
-    return this.name;
-  }
-
-  /**
-   * setName() sets the name of the genre.
-   * @param name the name of the genre
-   */
-  setName(name: string): void {
-    this.name = name;
-  }
-  /**
-   * getArtists() returns the artists of the genre.
-   * @returns the number of artists in the genre
-   */
-  getArtists(): Artists[] {
-    return this.artists;
-  }
-  /**
-  * setArtists() sets the artists of the genre.
-  * @param artists the artists of the genre
-  */
-  setArtists(artists: Artists[]): void {
-    this.artists = artists;
-  }
-
-  /**
-   * addArtist() adds an artist to the genre.
-   * @param artist the artist to be searched
-   */
-  addArtist(artist: Artists): void {
-    this.artists.push(artist);
-  }
-
-  /**
-   * removeArtist() removes an artist from the genre.
-   * @param artist the artist to be removed
-   */
-  removeArtist(artist: string): void {
-    for (let i = 0; i < this.artists.length; i++) {
-      if (this.artists[i].getName() === artist) {
-        this.artists.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * getGArtist() returns the artist or group of the genre.
-   * @returns the group or artist of the genre
-   */
-  getGroups(): Groups[] {
-    return this.groups;
-  }
-
-  /**
-   * setGroups() sets the groups of the genre.
-   * @param groups the groups of the genre
-   */
-  setGroups(groups: Groups[]): void {
-    this.groups = groups;
-  }
-
-  /**
-   * addGenre() adds a genre to the genre.
-   * @param group the group to be searched
-   */
-  addGroup(group: Groups): void {
-    this.groups.push(group);
-  }
-
-  /**
-   * removeGroup() removes a group from the genre.
-   * @param group the group to be searched
-   */
-  removeGroup(group: string): void {
-    for (let i = 0; i < this.groups.length; i++) {
-      if (this.groups[i].getName() === group) {
-        this.groups.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * getAlbums() returns the albums of the genre.
-   * @returns the name of the albums
-   */
-  getAlbums(): Album[] {
-    return this.albums;
-  }
-
-  /**
-   * setAlbums() sets the albums of the genre.
-   * @param albums albums to be modified
-   */
-  setAlbums(albums: Album[]): void {
-    this.albums = albums;
-  }
-
-  /**
-   * addAlbum() adds an album to the genre.
-   * @param album album to be added
-   */
-  addAlbum(album: Album): void {
-    this.albums.push(album);
-  }
-
-  /**
-   * removeGenre() removes the genre from the library.
-   * @param album album to be removed
-   */
-  removeAlbum(album: string): void {
-    for (let i = 0; i < this.albums.length; i++) {
-      if (this.albums[i].getName() === album) {
-        this.albums.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * getSong() returns the song of the genre.
-   * @returns the number of songs in the genre
-   */
-  getSong(): Song[] {
-    return this.song;
-  }
-
-  /**
-   * setSong() sets the song of the genre.
-   * @param songs songs to be modified
-   */
-  setSongs(songs: Song[]): void {
-    this.song = songs;
-  }
-
-  /**
-   * addSong() adds a song to the genre.
-   * @param song song to be added
-   */
-  addSong(song: Song): void {
-    this.song.push(song);
-  }
-
-  /**
-   * removeSong() removes a song from the genre.
-   * @param song song to be removed
-   */
-  removeSong(song: string): void {
-    for (let i = 0; i < this.song.length; i++) {
-      if (this.song[i].getName() === song) {
-        this.song.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * printInfo() prints the information of the genre.
-   */
-  printInfo(): void {
-    console.log(`Genre: ${this.name}`);
-    console.log(`Artists: `);
-    for (let i = 0; i < this.artists.length; i++) {
-      console.log(`${i + 1}. ${this.artists[i].getName()}`);
-    }
-    console.log(`Groups: `);
-    for (let i = 0; i < this.groups.length; i++) {
-      console.log(`${i + 1}. ${this.groups[i].getName()}`);
-    }
-    console.log(`Albums: `);
-    for (let i = 0; i < this.albums.length; i++) {
-      console.log(`${i + 1}. ${this.albums[i].getName()}`);
-    }
-    console.log(`Songs:`);
-    for (let i = 0; i < this.song.length; i++) {
-      console.log(`${i + 1}. ${this.song[i].getName()}`);
-    }
-  }
+  
+  // code goes here...
 }
 ```
-Para poder crear la clase *MusicalGenres*, necesitamos crear una clase que represente a los artistas, grupos y albums (se explicará con más detalles su creación en apartados posteriores).
+Para poder crear la clase *MusicalGenres*, necesitamos crear una clase que represente a los artistas, grupos y albums (se explicará con más detalles la creación de cada uno de ellos en los apartados posteriores).
 
-Los métodos desarrollados en la clase *MusicalGenres* son, como se puede apreciar en el bloque de código, los siguientes:
-- *getName()*: devuelve el nombre del género musical.
-- *setName()*: recibe como parámetro un nombre de tipo ```string``` y modifica el nombre del género musical.
-- *getArtists()*: devuelve los artistas del género musical en cuestión.
-- *setArtists()*: recibe como parámetro un array de tipo ```Artists``` y modifica los artistas del género musical.
-- *addArtist()*: recibe como parámetro una variable de tipo ```Artists``` y añade un artista al género musical.
-- *removeArtist()*: recibe como parámetro una variable de tipo ```string``` que representaría el nombre del artista y lo elimina del género musical.
-- *getGroups()*: devuelve los grupos del género musical.
-- *setGroups()*: recibe como parámetro un array de tipo ```Artists``` modifica los grupos del género musical.
-- *addGroup()*: recibe como parámetro una variable de tipo ```Groups``` y añade un grupo al género musical.
-- *removeGroup()*: recibe como parámetro una variable de tipo ```string``` que representaría el nombre del Grupo y lo elimina del género musical.
-- *getAlbums()*: devuelve los albums del género musical.
-- *setAlbums()*: modifica los albums del género musical.
-- *addAlbum()*: recibe como parámetro una variable de tipo ```Album``` y añade un album al género musical.
-- *removeAlbum()*: elimina un album del género musical recibiendo el nombre del album como parámetro.
-- *getSong()*: devuelve las canciones del género musical.
-- *setSong()*: modifica las canciones del género musical recibiendo como parámetro una variable de tipo ```Song```.
-- *addSong()*: recibe como parámetro una variable de tipo ```Song``` y añade una canción al género musical.
-- *removeSong()*: elimina una canción del género musical recibiendo como parámetro una variable de tipo ```string``` que representaría el nombre de la canción.
-- *printInfo()*: imprime la información del género musical.
-## Clase **_Song_**
-La clase *Song* representa a las canciones de la biblioteca y almacena la siguiente información:
+Los métodos desarrollados en la clase *MusicalGenres* se encargan de realizar las operaciones necesarias para manipular la clase tal y como se propone en el enunciado:
+
+* **Obtener y modificar los atributos**
+  * *Nombre*
+    - *getName*: devuelve el nombre del género musical.
+    ```typescript
+      getName(): string { return this.name; }
+    ```
+    - *setName*: recibe como parámetro un nombre de tipo ```string``` y modifica el nombre del género musical.
+    ```typescript
+      setName(name: string): void { this.name = name; }
+    ```
+  * *Artistas*
+    - *getArtists*: devuelve los artistas del género musical en cuestión.
+    ```typescript
+      getArtists(): Artists[] { return this.artists; }
+    ```
+    - *setArtists*: recibe como parámetro un array de tipo ```Artists``` y modifica los artistas del género musical.
+    ```typescript
+      setArtists(artists: Artists[]): void { this.artists = artists; }
+    ```
+  * *Grupos*
+    - *getGroups*: devuelve los grupos del género musical.
+    ```typescript
+      getGroups(): Groups[] { return this.groups; }
+    ```
+    - *setGroups*: recibe como parámetro un array de tipo ```Artists``` modifica los grupos del género musical.
+    ```typescript
+      setGroups(groups: Groups[]): void { this.groups = groups; }
+    ```
+  * *Álbumes*
+    - *getAlbums*: devuelve los albums del género musical.
+    ```typescript
+      getAlbums(): Album[] { return this.albums; }
+    ```
+    - *setAlbums*: modifica los albums del género musical.
+    ```typescript
+      setAlbums(albums: Album[]): void { this.albums = albums; }
+    ```
+  * *Canciones*
+    - *getSong*: devuelve las canciones del género musical.
+    ```typescript
+      getSong(): Song[] { return this.song; }
+    ```
+    - *setSong*: modifica las canciones del género musical recibiendo como parámetro una variable de tipo ```Song```.
+    ```typescript
+      setSong(song: Song[]): void { this.song = song; }
+    ```
+----------------------------------------------------------------------------------------------------
+
+* *Remover y Añadir*
+  * *Artistas*
+    - *addArtist*: recibe como parámetro una variable de tipo ```Artists``` y añade un artista al género musical.
+    ```typescript
+      addArtist(artist: Artists): void { this.artists.push(artist); }
+    ```
+    - *removeArtist*: recibe como parámetro una variable de tipo ```string``` que representaría el nombre del artista y lo elimina del género musical.
+    ```typescript
+      removeArtist(artist: string): void {
+        for (let i = 0; i < this.artists.length; i++) {
+          if (this.artists[i].getName() === artist) {
+            this.artists.splice(i, 1);
+            break;
+          }
+        }
+      }
+    ```
+  * *Grupos*
+    - *addGroup*: recibe como parámetro una variable de tipo ```Groups``` y añade un grupo al género musical.
+    ```typescript
+      addGroup(group: Groups): void { this.groups.push(group); }
+    ```
+    - *removeGroup*: recibe como parámetro una variable de tipo ```string``` que representaría el nombre del Grupo y lo elimina del género musical.
+    ```typescript
+      removeGroup(group: string): void {
+        for (let i = 0; i < this.groups.length; i++) {
+          if (this.groups[i].getName() === group) {
+            this.groups.splice(i, 1);
+            break;
+          }
+        }
+      }
+    ```
+  * *Álbumes*
+    - *addAlbum*: recibe como parámetro una variable de tipo ```Album``` y añade un album al género musical.
+    ```typescript
+      addAlbum(album: Album): void { this.albums.push(album); }
+    ```
+    - *removeAlbum*: elimina un album del género musical recibiendo el nombre del album como parámetro.
+    ```typescript
+      removeAlbum(album: string): void {
+        for (let i = 0; i < this.albums.length; i++) {
+          if (this.albums[i].getName() === album) {
+            this.albums.splice(i, 1);
+            break;
+          }
+        }
+      }
+    ```
+  * *Canciones*
+    - *addSong*: recibe como parámetro una variable de tipo ```Song``` y añade una canción al género musical.
+    ```typescript
+      addSong(song: Song): void { this.song.push(song); }
+    ```
+    - *removeSong*: elimina una canción del género musical recibiendo como parámetro una variable de tipo ```string``` que representaría el nombre de la canción.
+    ```typescript
+      removeSong(song: string): void {
+        for (let i = 0; i < this.song.length; i++) {
+          if (this.song[i].getName() === song) {
+            this.song.splice(i, 1);
+            break;
+          }
+        }
+      }
+    ```
+----------------------------------------------------------------------------------------------------
+
+## **Clase Song** <a name="id4"></a>
+
+La clase *Song*, definida en el fichero [**_Song.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Song.ts), representa a las canciones de la biblioteca y tiene la función de almacenar la siguiente información:
+
 - *Nombre de la canción*: tipo ```string```
-- *Artista* de la canción: tipo ```Artists```
+- *Author* de la canción: tipo ```Artists``` o ```Groups```
 - *Duración en minutos y segundos*: tipo ```string```
 - *Género* al que pertenece: tipo ```list``` de tipo ```MusicalGenres```
 - *Single*: tipo ```boolean```(determina si la canción fue lanzada como un single o no)
@@ -292,426 +202,308 @@ La clase *Song* representa a las canciones de la biblioteca y almacena la siguie
 A continuación se muestra el código desarrollado de la clase en cuestión.
 
 ```typescript
-import {Artists} from './Artists';
-import {MusicalGenres} from './MusicalGenres';
-/**
- * Song class decribes a song.
- */
 export class Song {
   constructor(private name: string,
-              private artist: Artists,
+              private author: Artists | Groups,
               private duration: string,
               private genre: MusicalGenres[],
               private single: boolean,
               private numRep: number) {}
-  /**
-   * getName() returns the name of the song.
-   * @returns {string} the name of the song
-   */
-  getName(): string {
-    return this.name;
-  }
-
-  /**
-   * setName() sets the name of the song.
-   * @param name the name of the song
-   */
-  setName(name: string): void {
-    this.name = name;
-  }
-
-  /**
-   * getArtist() returns the artist of the song.
-   * @returns {Artists} the artist of the song
-   */
-  getArtist(): Artists {
-    return this.artist;
-  }
-
-  /**
-   * setArtist() sets the artist of the song.
-   * @param artist the artist of the song
-   */
-  setArtist(artist: Artists): void {
-    this.artist = artist;
-  }
-
-  /**
-   * getDuration() returns the duration of the song.
-   * @returns {string} the duration of the song
-   */
-  getDuration(): string {
-    return this.duration;
-  }
-
-  /**
-   * setDuration() sets the duration of the song.
-   * @param duration the duration of the song
-   */
-  setDuration(duration: string): void {
-    this.duration = duration;
-  }
-
-  /**
-   * getGenre() returns the genre of the song.
-   * @returns {MusicalGenres[]} the genre of the song
-   */
-  getGenre(): MusicalGenres[] {
-    return this.genre;
-  }
-
-  /**
-   * setGenre() sets the genre of the song.
-   * @param genre the genre of the song
-   */
-  setGenre(genre: MusicalGenres[]): void {
-    this.genre = genre;
-  }
-
-  /**
-   * addGenre() adds a genre to the song.
-   * @param genre genre to be added
-   */
-  addGenre(genre: MusicalGenres): void {
-    this.genre.push(genre);
-  }
-
-  /**
-   * removeGenre() removes a genre from the song.
-   * @param genre genre to be removed
-   */
-  removeGenre(genre: string): void {
-    for (let i = 0; i < this.genre.length; i++) {
-      if (this.genre[i].getName() === genre) {
-        this.genre.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * getSingle() returns if the song is a single or not.
-   * @returns {boolean} tif the song is a single or not
-   */
-  getSingle(): boolean {
-    return this.single;
-  }
-
-  /**
-   * setSingle() sets if the song is a single or not.
-   * @param single if the song is a single or not
-   */
-  setSingle(single: boolean): void {
-    this.single = single;
-  }
-
-  /**
-   * getNumRep() returns the number of times the song has been repeated.
-   * @returns {number} the number of times the song has been repeated
-   */
-  getNumRep(): number {
-    return this.numRep;
-  }
-
-  /**
-   * setNumRep() sets the number of times the song has been repeated.
-   * @param numRep the number of times the song has been repeated
-   */
-  setNumRep(numRep: number): void {
-    this.numRep = numRep;
-  }
-
-  /**
-   * printInfo() prints song's info.
-   */
-  printInfo(): void {
-    console.log(`Song: ${this.name}`);
-    console.log(`Artist: ${this.artist.getName()}`);
-    console.log(`Duration: ${this.duration}`);
-    console.log(`Genres: `);
-    for (const genre of this.genre) {
-      console.log(`${genre.getName()}`);
-    }
-    console.log(`Single: ${this.single}`);
-    console.log(`Number of repetitions: ${this.numRep}`);
-  }
+  
+  // code goes here ...
 }
 ```
-Los métodos de la clase *Song* incluidos son los siguientes:
-- *getName()*: devuelve el nombre de la canción.
-- *setName()*: modifica el nombre de la canción recibiendo como parámetro una variable de tipo ```string```.
-- *getArtist()*: devuelve el artista de la canción.
-- *setArtist()*: modifica el artista de la canción recibiendo como parámetro una variable de tipo ```Artists```.
-- *getDuration()*: devuelve la duración de la canción.
-- *setDuration()*: modifica la duración de la canción recibiendo como parámetro una variable de tipo ```string```.
-- *getGenre()*: devuelve el género de la canción.
-- *setGenre()*: modifica el género de la canción recibiendo como parámetro una variable de tipo ```MusicalGenres[]```.
-- *addGenre()*: añade un género a la canción recibiendo como parámetro una variable de tipo ```MusicalGenres```.
-- *removeGenre()*: elimina un género de la canción recibiendo como parámetro una variable de tipo ```string```.
-- *getSingle()*: devuelve si la canción es un single o no.
-- *setSingle()*: modifica si la canción es un single o no recibiendo como parámetro una variable de tipo ```boolean```.
-- *getNumRep()*: devuelve el número de veces que la canción ha sido reproducida.
-- *setNumRep()*: modifica el número de veces que la canción ha sido reproducida recibiendo como parámetro una variable de tipo ```number```.
-- *printInfo()*: imprime la información de la canción.
+Los métodos de la clase *Song* necesarios para manipular la clase son los siguientes:
 
-## Clase **_Album_**
+* *Obtener y Modificar*
+  * *Nombre*
+    - *getName*: devuelve el nombre de la canción.
+    ```typescript
+      getName(): string { return this.name; }
+    ```
+    - *setName*: modifica el nombre de la canción recibiendo como parámetro una variable de tipo ```string```.
+    ```typescript
+      setName(name: string): void { this.name = name; }
+    ```
+  * *Author*
+    - *getArtist*: devuelve el author de la canción.
+    ```typescript
+      getAuthor(): Artist | Group { return this.author; }
+    ```
+    - *setArtist*: modifica el artista de la canción recibiendo como parámetro una variable de tipo ```Artists```.
+    ```typescript
+      setAuthor(author: Artists): void { this.author = author; }
+    ```
+  * *Duración*
+    - *getDuration*: devuelve la duración de la canción.
+    ```typescript
+      getDuration(): string { return this.duration; }
+    ```
+    - *setDuration*: modifica la duración de la canción recibiendo como parámetro una variable de tipo ```string```.
+    ```typescript
+      setDuration(duration: string): void { this.duration = duration; }
+    ```
+  * *Género*
+    - *getGenre*: devuelve el género de la canción.
+    ```typescript
+      getGenre(): MusicalGenres[] { return this.genre; }
+    ```
+    - *setGenre*: modifica el género de la canción recibiendo como parámetro una variable de tipo ```MusicalGenres[]```.
+    ```typescript
+      setGenre(genre: MusicalGenres[]): void { this.genre = genre; }
+    ```
+  * *Single*
+    - *isSingle*: devuelve si la canción es un single o no.
+    ```typescript
+      isSingle(): boolean { return this.single; }
+    ```
+    - *setSingle*: modifica si la canción es un single o no recibiendo como parámetro una variable de tipo ```boolean```.
+    ```typescript
+      setSingle(single: boolean): void { this.single = single; }
+    ```
+  * *Reproducción*
+    - *getNumRep*: devuelve el número de veces que la canción ha sido reproducida.
+    ```typescript
+      getNumRep(): number { return this.numRep; }
+    ```
+    - *setNumRep*: modifica el número de veces que la canción ha sido reproducida recibiendo como parámetro una variable de tipo ```number```.
+    ```typescript
+      setNumRep(numRep: number): void { this.numRep = numRep; }
+    ```
+----------------------------------------------------------------------------------------------------
+* *Remover o Añadir*
+  * *Género*
+    - *addGenre*: añade un género a la canción recibiendo como parámetro una variable de tipo ```MusicalGenres```.
+    ```typescript
+      addGenre(genre: MusicalGenres): void { this.genre.push(genre); }
+    ```
+    - *removeGenre*: elimina un género de la canción recibiendo como parámetro una variable de tipo ```string```.
+    ```typescript
+      removeGenre(genre: string): void {
+        for (let i = 0; i < this.genre.length; i++) {
+          if (this.genre[i].getName() === genre) {
+            this.genre.splice(i, 1);
+            break;
+          }
+        }
+      }
+    ```
 
-Se define la clase **Album** para el almacenamiento de información de un disco. Dicha información son: las canciones, año de publicación, nombre del albúm, nombre del artista o grupo que lo publica y los géneros al que pertence.
 
-A contuación se muestra la clase en typescript.
-
-[Album.ts](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Album.ts)
+## **Clase Album**<a name="id5"></a>
+Se define la clase **Album**, definida en el fichero [**_Album.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Album.ts) , para el almacenamiento de información de un disco. Dicha información son: las canciones, año de publicación, nombre del álbum, nombre del artista o grupo que lo publica y los géneros al que pertenece.
 ```typescript
-import {Groups} from './Groups';
-import {Artists} from './Artists';
-import {Song} from './Song';
-import {MusicalGenres} from './MusicalGenres';
-/**
- * Album class
- */
 export class Album {
   constructor(private name: string,
-              private by: Artists | Groups,
+              private author: Artist | Group,
               private year: number,
               private genre: MusicalGenres[],
               private songs: Song[]) {}
-  /**
-   * Getter of the private attribute "name"
-   * @returns {string} Name of the album
-   */
-  getName(): string {
-    return this.name;
-  }
-
-  /**
-   * Setter: modify the private attribute
-   * @param {string} name New name of the album
-   */
-  setName(name: string): void {
-    this.name = name;
-  }
-
-  /**
-   * Getter that indicates if the album was published by artist or by group
-   * @returns {Artists | Groups} Return the type of author
-   */
-  getBy(): Artists | Groups {
-    return this.by;
-  }
-
-  /**
-   * Setter: modify the type of author published the album
-   * @param {Artists | Groups} artistsGroups Object of type Artist or Group
-   */
-  setBy(artistsGroups: (Artists | Groups)): void {
-    this.by = artistsGroups;
-  }
-
-  /**
-   * Getter of the year of the album
-   * @returns {number} Year of the album
-   */
-  getYear(): number {
-    return this.year;
-  }
-
-  /**
-   * Setter: modify the private attribute
-   * @param {number} newYear New year of the album
-   */
-  setYear(newYear: number): void {
-    this.year = newYear;
-  }
-
-  /**
-   * Getter of genres of the album
-   * @returns {MusicalGenres[]}
-   */
-  getGenre(): MusicalGenres[] {
-    return this.genre;
-  }
-
-  /**
-   * Setter: modify the genres of the album
-   * @param {MusicalGenres[]} newGenre New genre of the album
-   */
-  setGenre(newGenre: MusicalGenres[]): void {
-    this.genre = newGenre;
-  }
-
-  /**
-   * Adds a genre in the album
-   * @param {MusicalGenres} newGenre New genre
-   */
-  addGenre(newGenre: MusicalGenres): void {
-    this.genre.push(newGenre);
-  }
-
-  /**
-   * Removes a genre in the album
-   * @param {string} genre Genre to be removed
-   */
-  removeGenre(genre: string): void {
-    for (let i = 0; i < this.genre.length; i++) {
-      if (this.genre[i].getName() === genre) {
-        this.genre.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * Getter of the list of songs of the album
-   * @returns {Song[]} Current songs list
-   */
-  getSongs(): Song[] {
-    return this.songs;
-  }
-
-  /**
-   * Setter: modify the list songs of the album
-   * @param {Song[]} newSong New songs list
-   */
-  setSongs(newSong: Song[]): void {
-    this.songs = newSong;
-  }
-
-  /**
-   * Adds a song in the list of songs of the album
-   * @param {Song} newSong New song
-   */
-  addSongs(newSong: Song): void {
-    this.songs.push(newSong);
-  }
-
-  /**
-   * Revomes a song in the list of songs of the album
-   * @param {string} songs Song to be removed
-   */
-  removeSongs(songs: string): void {
-    for (let i = 0; i < this.songs.length; i++) {
-      if (this.songs[i].getName() === songs) {
-        this.songs.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * Prints album information
-   */
-  printInfo(): void {
-    console.log('Name: ' + this.name);
-    if (this.by instanceof Artists) {
-      console.log('By artists: ' + this.by.getName());
-    }
-    if (this.by instanceof Groups) {
-      console.log('By groups: ' + this.by.getName());
-    }
-    console.log('Year: ' + this.year);
-    console.log('Genres: ');
-    for (const genres of this.genre) {
-      console.log(genres.getName());
-    }
-    console.log('Songs: ');
-    for (const song of this.songs) {
-      console.log(song.getName());
-    }
-  }
+  // code goes here ...
 }
 ```
 
 En la clase _Album_ se ha implementado los métodos necesarios:
-  * _getName_: Retorna el nombre del álbum.
-  * _setName_: Modifica el nombre del álbum.
-  * _getBy_: Retorna un objeto de tipo artista (Artists) o grupo (Groups). Este método indica que el álbum fue publicado por un artista o grupo.
-  * _setBy_: Modifica el tipo de objeto del autor que publica el albúm.
-  * _getYear_: Retorna el año de publicación del albúm.
-  * _setYear_: Modifica el año de publicación.
-  * _getGenre_: Retorna una lista de los géneros que está relaciona el albúm.
-  * _setGenre_: Modifica la lista de géneros del albúm.
-  * _addGenre_: Añade un género pasado por parámetro a la lista de géneros.
-  * _removeGenre_: Elimina un género en específico de la lista de géneros.
-  * _getSongs_: Retorna la lista de canciones que contiene el albúm.
-  * _setSongs_: Modifica la lista actual de canciones por otra nueva.
-  * _addSongs_: Añade una canción a la lista de canciones.
-  * _removeSongs_: Elimina una canción del albúm.
-  * _printInfo_: Se muestra por consola la información almacenada del albúm.
+* **Obtener y modificar:**
+  * *Nombre*
+    - _getName_: Retorna el nombre del álbum.
+    ```typescript
+    getName(): string { return this.name; }
+    ```
+    - _setName_: Modifica el nombre del álbum.
+    ```typescript
+    setName(name: string): void { this.name = name; }
+    ```
+  * *Autor*
+    - _getAuthor_: Retorna un objeto de tipo artista (Artists) o grupo (Groups). Este método indica que el álbum fue publicado por un artista o grupo.
+    ```typescript
+    getAuthor(): Artists | Groups { return this.author; }
+    ```
+    - _setAuthor_: Modifica el tipo de objeto del autor que publica el álbum.
+    ```typescript
+    setAuthor(artistsGroups: (Artists | Groups)): void { this.author = artistsGroup; }
+    ```
+  * *Año*
+    - _getYear_: Retorna el año de publicación del álbum.
+    ```typescript
+    getYear(): number { return this.year; }
+    ```
+    - _setYear_: Modifica el año de publicación.
+    ```typescript
+    setYear(newYear: number): void { this.year = newYear; }
+    ```
+  * *Género musicales*
+    - _getGenre_: Retorna una lista de los géneros que está relaciona el álbum.
+    ```typescript
+    getGenre(): MusicalGenres[] { return this.genre; }
+    ```
+    - _setGenre_: Modifica la lista de géneros del álbum.
+    ```typescript
+    setGenre(newGenre: MusicalGenres[]): void { this.genre = newGenre; }
+    ```
+  * *Canciones*
+    - _getSongs_: Retorna la lista de canciones que contiene el álbum.
+    ```typescript
+    getSongs(): Song[] { return this.songs; }
+    ```
+    - _setSongs_: Modifica la lista actual de canciones por otra nueva.
+    ```typescript
+    setSongs(newSong: Song[]): void { this.songs = newSong; }
+    ```
+* **Añadir y eliminar:**
+  * *Género musicales*
+    - _addGenre_: Añade un género pasado por parámetro a la lista de géneros.
+    ```typescript
+    addGenre(newGenre: MusicalGenres): void { this.genre.push(newGenre); }
+    ```
+    - _removeGenre_: Elimina un género en específico de la lista de géneros.
+    ```typescript
+    removeGenre(genre: string): void {
+      for (let i = 0; i < this.genre.length; i++) {
+        if (this.genre[i].getName() === genre) {
+          this.genre.splice(i, 1);
+          break;
+        }
+      }
+    }
+    ```
+  * *Canciones*
+    - _addSongs_: Añade una canción a la lista de canciones.
+    ```typescript
+    addSongs(newSong: Song): void { this.songs.push(newSong); }
+    ```
+    - _removeSongs_: Elimina una canción del álbum.
+    ```typescript
+    removeSongs(songs: string): void {
+      for (let i = 0; i < this.songs.length; i++) {
+        if (this.songs[i].getName() === songs) {
+          this.songs.splice(i, 1);
+          break;
+        }
+      }
+    }
+    ```
 
-## Clase **_Groups_**
+## **Clase Group**<a name="id6"></a>
 
-La clase **Group** se encargará de almacenar toda la información de cada uno de los grupos, incluyendo su nombre, artistas que lo componen, año de creación, géneros musicales, albúms y número de oyentes que tenga mesualmente. 
+La clase **Group**, definida en el fichero [_**Group.ts**_](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Group.ts), se encargará de almacenar toda la información de cada uno de los grupos, incluyendo su nombre, artistas que lo componen, año de creación, géneros musicales, albums y número de oyentes que tenga mensualmente. 
+
+``` typescript
+export class Group {
+  constructor(private name: string,
+              private artists: Artist[],
+              private creationYear: number,
+              private genres: MusicalGenres[],
+              private albums: Album[],
+              private numFollowers: number) {}
+  // code goes here ...
+}
+```
 
 Al igual que en las clases anteriores, para poder manejar la información de los grupos, se tendrá que crear un conjunto de métodos que permitan realizar ciertas acciones como por ejemplo: 
 
   * **Obtener y modificar:**
-    -  **El nombre del grupo.**
-      
-        ``` typescript
-        getName(): string {
-            return this.name;
-        }
+    * *Nombre*
+      - *getName*: devuelve el nombre del género musical.
 
-        ------------------------------------------------
+      ```typescript
+        getName(): string { return this.name; }
+      ```
+      - *setName*: recibe como parámetro un nombre de tipo ```string``` y modifica el nombre del género musical.
 
-        setName(name: string): void {
-          this.name = name;
-        }
-        ```
+      ```typescript
+        setName(name: string): void { this.name = name; }
+      ``` 
 
-    -  **El número de oyentes del grupo.**
+    * *Número de oyentes*
+      - *getNumFollowers*: devuelve el número de oyentes que tenga el grupo.
        
         ``` typescript
-        getNumFollowers(): number {
-          for (const group of this.groups) {
-            this.numFollowers += group.getNumFollowers();
-          }
-          return this.numFollowers;
-        }
+        getNumFollowers(): number { return this.numFollowers; }
+        ```
 
-        ---------------------------------------
+      - *setNumFollowers*: asigna al grupo un nuevo número de oyentes.
 
-        setNumFollowers(numFollowers: number): void {
-          this.numFollowers = numFollowers;
-        }
+        ``` typescript
+        setNumFollowers(numFollowers: number): void { this.numFollowers = numFollowers; }
         ```
         
-    -  **El año de creación del grupo.** 
+    * *Año de creación* 
+      - *getCreationYear*: devuelve el año de creación del grupo.
 
         ``` typescript
-        getCreationYear(): number {
-          return this.creationYear;
-        }
-
-        ---------------------------------------
-
-        setCreationYear(creationYear: number): void {
-          this.creationYear = creationYear;
-        }
+        getCreationYear(): number { return this.creationYear; }
         ```
 
-  * **Obtener, modificar, añadir y eliminar:** 
-    -  **Los artistas que componen el grupo.**
+      - *setCreationYear*: asigna al grupo un nuevo año de creación de este.
+
+        ``` typescript
+        setCreationYear(creationYear: number): void { this.creationYear = creationYear; }
+        ```
+
+    * *Artistas*
+      - *getArtists*: devuelve los artistas que componen el grupo.
       
         ``` typescript
-        getArtists(): Artist[] {
-          return this.artists;
-        }
+        getArtists(): Artist[] { return this.artists; }
+        ```
 
-        ------------------------------------------------
+      - *setArtists*: asigna al grupo nuevos integrantes.
 
-        setArtists(artists: Artist[]): void {
-          this.artists = artists;
-        }
+        ``` typescript
+        setArtists(artists: Artist[]): void { this.artists = artists; }
+        ```
 
-        ------------------------------------------------
+    * *Géneros musicales*
+      - *getGenres*: devuelve los géneros musicales del grupo.
+        
+        ``` typescript
+        getGenres(): MusicalGenres[] { return this.genres; }
+        ```
 
-        addArtist(artist: Artist): void {
-          this.artists.push(artist);
-        }
+      - *setGenres*: asigna los géneros musicales al grupo.
 
-        ------------------------------------------------
+        ``` typescript
+        setGenres(genres: MusicalGenres[]): void { this.genres = genres; }
+        ```
+        
+    * *Álbumes*
+      - *getAlbums*: devuelve los álbumes del grupo.
+          
+        ``` typescript
+        getAlbums(): Album[] { return this.albums; }
+        ```
 
+      - *setAlbums*: asigna álbumes al grupo.
+
+        ``` typescript
+        setAlbums(albums: Album[]): void { this.albums = albums; }
+        ```
+
+    * *Canciones*
+      - *getSongs*: devuelve las canciones del grupo.
+          
+        ``` typescript
+        getSongs(): Song[] { return this.songs; }
+        ```
+
+      - *setSongs*: asigna canciones al grupo.
+
+        ``` typescript
+        setSongs(songs: Song[]): void { this.songs = songs; }
+        ```
+
+  * **Añadir y eliminar:** 
+    * *Artistas*
+      - *addArtists*: añade al grupo nuevos integrantes.
+      
+        ``` typescript
+        addArtist(artist: Artist): void { this.artists.push(artist); }
+        ```
+
+      - *removeArtists*: elimina integrantes del grupo.
+
+        ``` typescript
         removeArtist(artist: string): void {
           for (let i = 0; i < this.artists.length; i++) {
             if (this.artists[i].getName() === artist) {
@@ -721,27 +513,16 @@ Al igual que en las clases anteriores, para poder manejar la información de los
           }
         }
         ```
-    -  **Los géneros musicales del grupo.**
+    * *Géneros musicales*
+      - *addGenre*: añade al grupo un nuevo género.
         
         ``` typescript
-        getGenres(): MusicalGenres[] {
-          return this.genres;
-        }
+        addGenre(genre: MusicalGenres): void { this.genres.push(genre); }
+        ```
 
-        ------------------------------------------------
+      - *removeGenre*: elimina del grupo un género musical.
 
-        setGenres(genres: MusicalGenres[]): void {
-          this.genres = genres;
-        }
-
-        ------------------------------------------------
-
-        addGenre(genre: MusicalGenres): void {
-          this.genres.push(genre);
-        }
-
-        ------------------------------------------------
-
+        ``` typescript
         removeGenre(genre: string): void {
           for (let i = 0; i < this.genres.length; i++) {
             if (this.genres[i].getName() === genre) {
@@ -751,27 +532,17 @@ Al igual que en las clases anteriores, para poder manejar la información de los
           }
         }
         ```
-    -  **Los albúms del grupo.**
+  
+    * *Álbumes* 
+      - *addAlbum*: añade al grupo un nuevo género.
           
         ``` typescript
-        getAlbums(): Album[] {
-          return this.albums;
-        }
+        addAlbum(album: Album): void { this.albums.push(album); }
+        ```
 
-        ------------------------------------------------
+      - *removeAlbum*: elimina del grupo un nuevo género.
 
-        setAlbums(albums: Album[]): void {
-          this.albums = albums;
-        }
-
-        ------------------------------------------------
-
-        addAlbum(album: Album): void {
-          this.albums.push(album);
-        }
-
-        ------------------------------------------------
-
+        ```typescript
         removeAlbum(album: string): void {
           for (let i = 0; i < this.albums.length; i++) {
             if (this.albums[i].getName() === album) {
@@ -781,27 +552,17 @@ Al igual que en las clases anteriores, para poder manejar la información de los
           }
         }
         ```
-    -  **Las canciones del grupo.**
+
+    * *Canciones*
+      - *addSong*: añade al grupo una nueva canción.
           
         ``` typescript
-        getSongs(): Song[] {
-          return this.songs;
-        }
+        addSong(song: Song): void { this.songs.push(song); }
+        ```
 
-        ------------------------------------------------
+      - *removeSong*: elimina del grupo una canción.
 
-        setSongs(songs: Song[]): void {
-          this.songs = songs;
-        }
-
-        ------------------------------------------------
-
-        addSong(song: Song): void {
-          this.songs.push(song);
-        }
-
-        ------------------------------------------------
-
+        ```typescript
         removeSong(song: string): void {
           for (let i = 0; i < this.songs.length; i++) {
             if (this.songs[i].getName() === song) {
@@ -812,63 +573,119 @@ Al igual que en las clases anteriores, para poder manejar la información de los
         }
         ```
 
-## Clase **_Artists_**
+## **Clase Artist**<a name="id7"></a>
 
-La clase **Artist** se encargará de almacenar toda la información de cada uno de los artistas, incluyendo su nombre, género musical, grupo o grupos a los que pertenece (en caso de pertenecer a algún grupo), albúms, canciones y número de oyentes que tenga mesualmente. 
+La clase **Artist**, definida en el fichero [_**Artist.ts**_](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Artist.ts), se encargará de almacenar toda la información de cada uno de los artistas, incluyendo su nombre, género musical, grupo o grupos a los que pertenece (en caso de pertenecer a algún grupo), albums, canciones y número de oyentes que tenga mensualmente. 
+
+``` typescript
+export class Artist {
+  constructor(private name: string,
+              private groups: Group[],
+              private genres: MusicalGenres[],
+              private albums: Album[],
+              private songs: Song[],
+              private numFollowers: number) {}
+  // code goes here ...
+}
+```
 
 Para poder manejar la información de los artistas, se tendrá que crear un conjunto de métodos que permitan realizar acciones como las siguientes:
 
   * **Obtener y modificar:**
-    -  El nombre del artista: 
+    * *Nombre*
+      - *getName*: devuelve el nombre del género musical.
 
-        ``` typescript
-        getName(): string {
-            return this.name;
-        }
+      ```typescript
+        getName(): string { return this.name; }
+      ```
+      - *setName*: recibe como parámetro un nombre de tipo ```string``` y modifica el nombre del género musical.
 
-        -----------------------------
+      ```typescript
+        setName(name: string): void { this.name = name; }
+      ``` 
 
-        setName(name: string): void {
-            this.name = name;
-        }
-        ```
-    -  El número de oyentes del artista: 
-
+    * *Número de oyentes*
+      - *getNumFollowers*: devuelve el número de oyentes que tenga el grupo.
+       
         ``` typescript
         getNumFollowers(): number {
-            return this.numFollowers;
-        }
-
-        ---------------------------------------
-
-        setNumFollowers(numFollowers: number): void {
-            this.numFollowers = numFollowers;
+          for (const group of this.groups) {
+            this.numFollowers += group.getNumFollowers();
+          }
+          return this.numFollowers;
         }
         ```
+
+      - *setNumFollowers*: asigna al grupo un nuevo número de oyentes.
+
+        ``` typescript
+        setNumFollowers(numFollowers: number): void { this.numFollowers = numFollowers; }
+        ```
+
         >> Como se puede observar, el número de oyentes de un artista dependerá de sus propios oyentes además de los oyentes de los grupos a los que pertenece. 
 
-  * **Obtener, modificar, añadir y eliminar:** 
-    -  El o los grupos al que pertenece el artista: 
+    * *Grupos* 
+      - *getGroups*: devuelve los grupos a los que pertenece el artista.
+
+        ``` typescript
+        getGroups(): Group[] { return this.groups; }
+        ```
+
+      - *setGroups*: asigna los grupos a los que pertenece el artista.
+      
+        ```typescript
+        setGroups(groups: Group[]): void { this.groups = groups; }
+        ```
+
+    * *Géneros musicales*
+      - *getGenres*: devuelve los géneros musicales del grupo.
+        
+        ``` typescript
+        getGenres(): MusicalGenres[] { return this.genres; }
+        ```
+
+      - *setGenres*: asigna los géneros musicales al grupo.
+
+        ``` typescript
+        setGenres(genres: MusicalGenres[]): void { this.genres = genres; }
+        ```
+        
+    * *Álbumes*
+      - *getAlbums*: devuelve los álbumes del grupo.
+          
+        ``` typescript
+        getAlbums(): Album[] { return this.albums; }
+        ```
+
+      - *setAlbums*: asigna álbumes al grupo.
+
+        ``` typescript
+        setAlbums(albums: Album[]): void { this.albums = albums; }
+        ```
+
+    * *Canciones*
+      - *getSongs*: devuelve las canciones del grupo.
+          
+        ``` typescript
+        getSongs(): Song[] { return this.songs; }
+        ```
+
+      - *setSongs*: asigna canciones al grupo.
+
+        ``` typescript
+        setSongs(songs: Song[]): void { this.songs = songs; }
+        ```
+
+  * **Añadir y eliminar:** 
+    * *Grupos* 
+      - *addGroup*: añade un nuevo grupo al que pertenece el artista.
       
         ``` typescript
-        getGroups(): Group[] {
-          return this.groups;
-        }
+        addGroup(group: Group): void { this.groups.push(group); }
+        ```
+      - *removeGroup*: elimina uno de los grupos al que pertenece el artista.
 
-        ------------------------------------------------
-
-        setGroups(groups: Group[]): void {
-          this.groups = groups;
-        }
-
-        ------------------------------------------------
-
-        addGroup(group: Group): void {
-          this.groups.push(group);
-        }
-
-        ------------------------------------------------
-
+        ```typescript
         removeGroup(group: string): void {
           for (let i = 0; i < this.groups.length; i++) {
             if (this.groups[i].getName() === group) {
@@ -878,27 +695,17 @@ Para poder manejar la información de los artistas, se tendrá que crear un conj
           }
         }
         ```
-    -  El género musical del artista: 
-      
+
+    * *Géneros musicales*
+      - *addGenre*: añade al grupo un nuevo género.
+        
         ``` typescript
-        getGenre(): string {
-          return this.genre;
-        }
+        addGenre(genre: MusicalGenres): void { this.genres.push(genre); }
+        ```
 
-        ------------------------------------------------
+      - *removeGenre*: elimina del grupo un género musical.
 
-        setGenre(genre: string): void {
-          this.genre = genre;
-        }
-
-        ------------------------------------------------
-
-        addGenre(genre: MusicalGenres): void {
-          this.genres.push(genre);
-        }
-
-        ------------------------------------------------
-
+        ``` typescript
         removeGenre(genre: string): void {
           for (let i = 0; i < this.genres.length; i++) {
             if (this.genres[i].getName() === genre) {
@@ -908,27 +715,17 @@ Para poder manejar la información de los artistas, se tendrá que crear un conj
           }
         }
         ```
-    -  Los albúms del artista: 
         
+    * *Álbumes* 
+      - *addAlbum*: añade al grupo un nuevo género.
+          
         ``` typescript
-        getAlbums(): Album[] {
-          return this.albums;
-        }
+        addAlbum(album: Album): void { this.albums.push(album); }
+        ```
 
-        ------------------------------------------------
+      - *removeAlbum*: elimina del grupo un nuevo género.
 
-        setAlbums(albums: Album[]): void {
-          this.albums = albums;
-        }
-
-        ------------------------------------------------
-
-        addAlbum(album: Album): void {
-          this.albums.push(album);
-        }
-
-        ------------------------------------------------
-
+        ```typescript
         removeAlbum(album: string): void {
           for (let i = 0; i < this.albums.length; i++) {
             if (this.albums[i].getName() === album) {
@@ -938,27 +735,17 @@ Para poder manejar la información de los artistas, se tendrá que crear un conj
           }
         }
         ```
-    -  Las canciones del artista: 
+
+    * *Canciones*
+      - *addSong*: añade al grupo una nueva canción.
           
         ``` typescript
-        getSongs(): Song[] {
-          return this.songs;
-        }
+        addSong(song: Song): void { this.songs.push(song); }
+        ```
 
-        ------------------------------------------------
+      - *removeSong*: elimina del grupo una canción.
 
-        setSongs(songs: Song[]): void {
-          this.songs = songs;
-        }
-
-        ------------------------------------------------
-
-        addSong(song: Song): void {
-          this.songs.push(song);
-        }
-
-        ------------------------------------------------
-
+        ```typescript
         removeSong(song: string): void {
           for (let i = 0; i < this.songs.length; i++) {
             if (this.songs[i].getName() === song) {
@@ -969,178 +756,95 @@ Para poder manejar la información de los artistas, se tendrá que crear un conj
         }
         ```
 
-## Clase **_Playlist_**
+## **Clase Playlist**<a name="id8"></a>
 
-La clase **Playlist** funcionará como una lista de reproducción de música. En ella, contendrá: el nombre de la playlist, las canciones, la duración total de todas las canaciones y los géneros musicales al que pertenece.
-
-A contuación se muestra la clase en typescript.
-
-[Playlist.ts](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Playlist.ts)
-
-```typescript
-import {Song} from './Song';
-import {MusicalGenres} from './MusicalGenres';
-/**
- * Playlist class
- */
-export class Playlist {
-  constructor(private name: string,
-              private songs: Song[],
-              private duration: string,
-              private genres: MusicalGenres[]) {}
-  /**
-   * Getter of the private attribute "name"
-   * @returns {string} Name of the playlist
-   */
-  getName(): string {
-    return this.name;
-  }
-
-  /**
-   * Setter: modify the private attribute
-   * @param {string} newName New name of the playlist
-   */
-  setName(newName: string): void {
-    this.name = newName;
-  }
-
-  /**
-   * Getter of the private attribute "songs"
-   * @returns {Song[]} Songs of playlist
-   */
-  getSongs(): Song[] {
-    return this.songs;
-  }
-
-  /**
-   * Setter: modify the list of songs in the playlist
-   * @param {Song[]} newSongs New list of songs
-   */
-  setSongs(newSongs: Song[]): void {
-    this.songs = newSongs;
-  }
-
-  /**
-   * Adds a song in the list of songs in the playlist
-   * @param {Song} newSong New song
-   */
-  addSong(newSong: Song): void {
-    this.songs.push(newSong);
-  }
-
-  /**
-   * Revomes a song in the list of songs in the playlist
-   * @param {string} songs Song to be removed
-   */
-  removeSongs(songs: string): void {
-    for (let i = 0; i < this.songs.length; i++) {
-      if (this.songs[i].getName() === songs) {
-        this.songs.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * Getter of the private attribute "duration"
-   * @returns {string} Duration of the all songs on the playlist
-   */
-  getDuration(): string {
-    return this.duration;
-  }
-
-  /**
-   * Setter: modify the durations of th all songs on the playlist
-   * @param {string} newDuration New Duration
-   */
-  setDuration(newDuration: string): void {
-    this.duration = newDuration;
-  }
-
-  /**
-   * Getter of genres of the playlist
-   * @returns {MusicalGenres[]} Current genres of the playlist
-   */
-  getGenres(): MusicalGenres[] {
-    return this.genres;
-  }
-
-  /**
-   * Setter: modify de current genres
-   * @param {MusicalGenres[]} newGenres New genres of the playlist
-   */
-  setGenres(newGenres: MusicalGenres[]): void {
-    this.genres = newGenres;
-  }
-
-  /**
-   * Adds a genre in the list of genres in the playlist
-   * @param {MusicalGenres} newGenre New genre
-   */
-
-  addGenres(newGenre: MusicalGenres): void {
-    this.genres.push(newGenre);
-  }
-
-  /**
-   * Removes a genre in the list of genres in the playlist
-   * @param {string} genre Genre to be removed
-   */
-  removeGenres(genre: string): void {
-    for (let i = 0; i < this.genres.length; i++) {
-      if (this.genres[i].getName() === genre) {
-        this.genres.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  /**
-   * Prints playlist information
-   */
-  printInfo(): void {
-    console.log('Name:' + this.name);
-    console.log('Songs: ');
-    for (const song of this.songs) {
-      console.log(song.getName());
-    }
-    console.log('Duration: ' + this.duration);
-    console.log('Genres: ');
-    for (const genre of this.genres) {
-      console.log(genre.getName());
-    }
-  }
-}
-```
+La clase **Playlist**, definida en el fichero [**_Playlist.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Playlist.ts), funcionará como una lista de reproducción de música. En ella, contendrá: el nombre de la playlist, las canciones, la duración total de todas las canciones y los géneros musicales al que pertenece.
 
 En la clase _Playlist_ se ha implementado los siguientes métodos:
-* _getName_: Retorna el nombre de la playlist.
-* _setName_: Modifica el nombre actual de la lista de reproducción por uno nuevo.
-*  _getSongs_: Devuelve la lista de canciones almacenadas en la playlist.
-* _setSongs_: Cambia la lista de canciones por una nueva lista pasada por parámetro.
-* _addSong_: Añade una canción a la lista de canciones.
-* _removeSongs_: Elimina una canción específica de la lista de canciones.
-* _getDuration_: Retorna la duración de la playlist.
-* _setDuration_: Modifica la duración de la lista de reproducción.
-* _getGenres_: Devuelve la lista de géneros musicales que pertenece la playlist.
-* _setGenres_: Cambia la lista actual de géneros musicales por uno nuevo.
-* _addGenres_: Añade un género musical a la lista de géneros musicales.
-* _removeGenres_: Elimina un género musical de la lista de géneros mucicales al que pertenece la playlist.
-* _printInfo_: Muestra la información de la playlist.
+* **Obtener y modificar:**
+  * *Nombre*
+    - _getName_: Retorna el nombre de la playlist.
+      ```typescript
+      getName(): string { return this.name; }
+      ```
+    - _setName_: Modifica el nombre actual de la lista de reproducción por uno nuevo.
+      ```typescript
+      setName(newName: string): void { this.name = newName; }
+      ```
+  * *Canciones*
+    -  _getSongs_: Devuelve la lista de canciones almacenadas en la playlist.
+      ```typescript
+      getSongs(): Song[] { return this.songs; }
+      ```
+    - _setSongs_: Cambia la lista de canciones por una nueva lista pasada por parámetro.
+      ```typescript
+      setSongs(newSongs: Song[]): void { this.songs = newSongs; }
+      ```
+  * *Duración*
+    - _getDuration_: Retorna la duración de la playlist.
+      ```typescript
+      getDuration(): string { return this.duration; }
+      ```
+    - _setDuration_: Modifica la duración de la lista de reproducción.
+      ```typescript
+      setDuration(newDuration: string): void { this.duration = newDuration; }
+      ```
+  * *Géneros musicales*
+    - _getGenres_: Devuelve la lista de géneros musicales que pertenece la playlist.
+      ```typescript
+      getGenres(): MusicalGenres[] { return this.genres; }
+      ```
+    - _setGenres_: Cambia la lista actual de géneros musicales por uno nuevo.
+      ```typescript
+      setGenres(newGenres: MusicalGenres[]): void { this.genres = newGenres; }
+      ```
+* **Añadir y eliminar:** 
+  * *Géneros musicales*
+    - _addGenres_: Añade un género musical a la lista de géneros musicales.
+      ```typescript
+      addGenres(newGenre: MusicalGenres): void { this.genres.push(newGenre); }
+      ```
+    - _removeGenres_: Elimina un género musical de la lista de géneros musicales al que pertenece la playlist.
+      ```typescript
+      removeGenres(genre: string): void {
+        for (let i = 0; i < this.genres.length; i++) {
+          if (this.genres[i].getName() === genre) {
+            this.genres.splice(i, 1);
+            break;
+          }
+        }
+      }
+      ```
+  * *Canciones*
+    - _addSong_: Añade una canción a la lista de canciones.
+      ```typescript
+      addSong(newSong: Song): void { this.songs.push(newSong); }
+      ```
+    - _removeSongs_: Elimina una canción específica de la lista de canciones.
+      ```typescript
+      removeSongs(songs: string): void {
+        for (let i = 0; i < this.songs.length; i++) {
+          if (this.songs[i].getName() === songs) {
+            this.songs.splice(i, 1);
+            break;
+          }
+        }
+      }
+      ```
 
-## Clase **_Manager_**
+## Clase **_Manager_**<a name="id9"></a>
 
 
-## Interfaz **_Operation_**
-
-
-
-# CONCLUSIÓN
+## Interfaz **_Operation_**<a name="id10"></a>
 
 
 
+# CONCLUSIÓN<a name="id11"></a>
 
-### INTEGRANTES
+
+
+
+### INTEGRANTES<a name="id12"></a>
 
 - **Gabriel Alberto Luis Freitas:** alu0101348421
 - **Dana Belen Choque Zárate:** alu0101328348

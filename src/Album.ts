@@ -1,5 +1,5 @@
-import {Groups} from './Groups';
-import {Artists} from './Artists';
+import {Group} from './Group';
+import {Artist} from './Artist';
 import {Song} from './Song';
 import {MusicalGenres} from './MusicalGenres';
 /**
@@ -7,7 +7,7 @@ import {MusicalGenres} from './MusicalGenres';
  */
 export class Album {
   constructor(private name: string,
-              private by: Artists | Groups,
+              private author: Artist | Group,
               private year: number,
               private genre: MusicalGenres[],
               private songs: Song[]) {}
@@ -29,18 +29,18 @@ export class Album {
 
   /**
    * Getter that indicates if the album was published by artist or by group
-   * @returns {Artists | Groups} Return the type of author
+   * @returns {Artist | Group} Return the type of author
    */
-  getBy(): Artists | Groups {
-    return this.by;
+  getAuthor(): Artist | Group {
+    return this.author;
   }
 
   /**
    * Setter: modify the type of author published the album
-   * @param {Artists | Groups} artistsGroups Object of type Artist or Group
+   * @param {Artist | Group} artistsGroup Object of type Artist or Group
    */
-  setBy(artistsGroups: (Artists | Groups)): void {
-    this.by = artistsGroups;
+  setAuthor(artistsGroup: (Artist | Group)): void {
+    this.author = artistsGroup;
   }
 
   /**
@@ -138,11 +138,11 @@ export class Album {
    */
   printInfo(): void {
     console.log('Name: ' + this.name);
-    if (this.by instanceof Artists) {
-      console.log('By artists: ' + this.by.getName());
+    if (this.author instanceof Artist) {
+      console.log('By artists: ' + this.author.getName());
     }
-    if (this.by instanceof Groups) {
-      console.log('By groups: ' + this.by.getName());
+    if (this.author instanceof Group) {
+      console.log('By groups: ' + this.author.getName());
     }
     console.log('Year: ' + this.year);
     console.log('Genres: ');

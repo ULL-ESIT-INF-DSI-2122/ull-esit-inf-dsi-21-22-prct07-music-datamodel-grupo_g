@@ -2,8 +2,8 @@ import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import {Album} from '../src/Album';
-import {Groups} from '../src/Groups';
-import {Artists} from '../src/Artists';
+import {Group} from '../src/Group';
+import {Artist} from '../src/Artist';
 import {Song} from '../src/Song';
 import {MusicalGenres} from '../src/MusicalGenres';
 
@@ -16,7 +16,7 @@ describe('Album class - Test', () => {
     console.log = log;
   });
 
-  let theWeeknd: Artists;
+  let theWeeknd: Artist;
 
   let danwFM: Album;
 
@@ -24,20 +24,20 @@ describe('Album class - Test', () => {
   let sacrifice: Song;
   let outOfTime: Song;
 
-  let group1: Groups;
+  let group1: Group;
 
   let musicalGenreRB: MusicalGenres;
   let musicalGenre01: MusicalGenres;
 
   beforeEach(() => {
-    group1 = new Groups('Group1', [], 2022, [], [], 10);
+    group1 = new Group('Group1', [], 2022, [], [], 10);
     sacrifice = new Song('Sacrifice', theWeeknd, '3.08', [musicalGenreRB], false, 148302453);
     outOfTime = new Song('Out Of Time', theWeeknd, '3.34', [musicalGenreRB], false, 6100242);
     song1 = new Song('song1', theWeeknd, '0.00', [musicalGenre01], true, 8908);
     musicalGenreRB = new MusicalGenres('rb', [theWeeknd], [], [danwFM], [sacrifice, outOfTime]);
     musicalGenre01 = new MusicalGenres('rock', [], [], [], []);
     danwFM = new Album('Danw FM', theWeeknd, 2022, [musicalGenreRB], [sacrifice, outOfTime]);
-    theWeeknd = new Artists('Theweeknd', [], [musicalGenreRB], [danwFM], [sacrifice], 77841866);
+    theWeeknd = new Artist('Theweeknd', [], [musicalGenreRB], [danwFM], [sacrifice], 77841866);
   });
 
   it('getName() return the name of the album', () => {
@@ -53,17 +53,17 @@ describe('Album class - Test', () => {
     expect(danwFM.getName()).to.be.equal('After Hours');
   });
 
-  it('getBy() return if the album was published by artist or by group', () => {
-    expect(danwFM.getBy).to.exist;
-    expect(danwFM.getBy).to.be.a('function');
-    expect(danwFM.getBy()).to.be.instanceOf(Artists);
+  it('getAuthor() return if the album was published by artist or by group', () => {
+    expect(danwFM.getAuthor).to.exist;
+    expect(danwFM.getAuthor).to.be.a('function');
+    expect(danwFM.getAuthor()).to.be.instanceOf(Artist);
   });
 
-  it('setBy() modify the album was published by artist or by group', () => {
-    expect(danwFM.setBy).to.exist;
-    expect(danwFM.setBy).to.be.a('function');
-    danwFM.setBy(group1);
-    expect(danwFM.getBy()).to.be.instanceOf(Groups);
+  it('setAuthor() modify the album was published by artist or by group', () => {
+    expect(danwFM.setAuthor).to.exist;
+    expect(danwFM.setAuthor).to.be.a('function');
+    danwFM.setAuthor(group1);
+    expect(danwFM.getAuthor()).to.be.instanceOf(Group);
   });
 
   it('getYear() return the published year of the album', () => {

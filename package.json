@@ -7,7 +7,7 @@
     "test": "mocha",
     "coverage": "nyc npm test",
     "coveralls": "nyc npm test && nyc report --reporter=lcov",
-    "start": "tsc-watch --onSuccess 'node dist/MusicalGenres.js'",
+    "start": "tsc-watch --onSuccess 'node dist/lowdb.js'",
     "doc": "typedoc",
     "make": "node ./dist/*.js"
   },
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.0",
     "@types/inquirer": "^8.2.1",
+    "@types/lowdb": "^1.0.11",
     "@types/mocha": "^9.1.0",
     "@types/sinon": "^10.0.11",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
@@ -33,7 +34,7 @@
     "eslint": "^8.12.0",
     "eslint-config-google": "^0.14.0",
     "inquirer": "^7.3.3",
-    "lowdb": "^3.0.0",
+    "lowdb": "1.0.0",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
     "sinon": "^13.0.1",
