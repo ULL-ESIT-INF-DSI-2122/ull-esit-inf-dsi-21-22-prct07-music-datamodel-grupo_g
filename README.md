@@ -25,11 +25,26 @@
 - [INTEGRANTES](#INTEGRANTES).
 # INTRODUCCIÓN 
 
+En esta práctica se tendrá que crear un modelo de datos de un sistema de información que permita almacenar una biblioteca de música. El sistema de información deberá permitir la gestión de las canciones, los artistas, los álbumes, los grupos, las playlists y los géneros. Además, el sistema deberá permitir que el usuario interactúe con la base de datos para realizar las siguientes operaciones: 
 
+  * Crear nuevas playlists
+  * Añadir canciones a una playlist
+  * Eliminar canciones de una playlist
+  * Guardar y/o eliminar una playlist
+  * Realizar búsquedas
+  * Mostrar la información de una canción, artistas, etc.
 
+El código fuente de la práctica se organizará en distintos directorios dentro de la carpeta ```/src```, donde se encontrarán las clases que implementan las funcionalidades del sistema. También se creará la documentación, de forma automática, de todos los ejercicios que hayamos realizado haciendo uso de TypeDoc. Podremos consultar la documentación pulsando sobre el siguiente [_enlace_](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/tree/main/docs) que le llevará al fichero o accediendo manualmente al directorio ```/docs```.
+
+Por otro lado, comentar que se seguirá un control contínuo haciendo uso de **git** y de algunas **Git Actions**, para que el código se pueda mantener en un estado consistente y que se pueda realizar un seguimiento de los cambios que se hagan en el código. Además, se hará uso de otras herramientas como por ejemplo:
+
+  * Coveralls
+  * Istanbul
+  * Sonar Cloud
+
+Para acceder a la página web del informe podrá hacer pulsando sobre este [_enlace_](https://ull-esit-inf-dsi-2122.github.io/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/).
 
 # DESARROLLO
-
 
 ## Clase **_MusicalGenres_**
 
@@ -625,9 +640,334 @@ En la clase _Album_ se ha implementado los métodos necesarios:
 
 ## Clase **_Groups_**
 
+La clase **Group** se encargará de almacenar toda la información de cada uno de los grupos, incluyendo su nombre, artistas que lo componen, año de creación, géneros musicales, albúms y número de oyentes que tenga mesualmente. 
+
+Al igual que en las clases anteriores, para poder manejar la información de los grupos, se tendrá que crear un conjunto de métodos que permitan realizar ciertas acciones como por ejemplo: 
+
+  * **Obtener y modificar:**
+    -  **El nombre del grupo.**
+      
+        ``` typescript
+        getName(): string {
+            return this.name;
+        }
+
+        ------------------------------------------------
+
+        setName(name: string): void {
+          this.name = name;
+        }
+        ```
+
+    -  **El número de oyentes del grupo.**
+       
+        ``` typescript
+        getNumFollowers(): number {
+          for (const group of this.groups) {
+            this.numFollowers += group.getNumFollowers();
+          }
+          return this.numFollowers;
+        }
+
+        ---------------------------------------
+
+        setNumFollowers(numFollowers: number): void {
+          this.numFollowers = numFollowers;
+        }
+        ```
+        
+    -  **El año de creación del grupo.** 
+
+        ``` typescript
+        getCreationYear(): number {
+          return this.creationYear;
+        }
+
+        ---------------------------------------
+
+        setCreationYear(creationYear: number): void {
+          this.creationYear = creationYear;
+        }
+        ```
+
+  * **Obtener, modificar, añadir y eliminar:** 
+    -  **Los artistas que componen el grupo.**
+      
+        ``` typescript
+        getArtists(): Artist[] {
+          return this.artists;
+        }
+
+        ------------------------------------------------
+
+        setArtists(artists: Artist[]): void {
+          this.artists = artists;
+        }
+
+        ------------------------------------------------
+
+        addArtist(artist: Artist): void {
+          this.artists.push(artist);
+        }
+
+        ------------------------------------------------
+
+        removeArtist(artist: string): void {
+          for (let i = 0; i < this.artists.length; i++) {
+            if (this.artists[i].getName() === artist) {
+              this.artists.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
+    -  **Los géneros musicales del grupo.**
+        
+        ``` typescript
+        getGenres(): MusicalGenres[] {
+          return this.genres;
+        }
+
+        ------------------------------------------------
+
+        setGenres(genres: MusicalGenres[]): void {
+          this.genres = genres;
+        }
+
+        ------------------------------------------------
+
+        addGenre(genre: MusicalGenres): void {
+          this.genres.push(genre);
+        }
+
+        ------------------------------------------------
+
+        removeGenre(genre: string): void {
+          for (let i = 0; i < this.genres.length; i++) {
+            if (this.genres[i].getName() === genre) {
+              this.genres.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
+    -  **Los albúms del grupo.**
+          
+        ``` typescript
+        getAlbums(): Album[] {
+          return this.albums;
+        }
+
+        ------------------------------------------------
+
+        setAlbums(albums: Album[]): void {
+          this.albums = albums;
+        }
+
+        ------------------------------------------------
+
+        addAlbum(album: Album): void {
+          this.albums.push(album);
+        }
+
+        ------------------------------------------------
+
+        removeAlbum(album: string): void {
+          for (let i = 0; i < this.albums.length; i++) {
+            if (this.albums[i].getName() === album) {
+              this.albums.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
+    -  **Las canciones del grupo.**
+          
+        ``` typescript
+        getSongs(): Song[] {
+          return this.songs;
+        }
+
+        ------------------------------------------------
+
+        setSongs(songs: Song[]): void {
+          this.songs = songs;
+        }
+
+        ------------------------------------------------
+
+        addSong(song: Song): void {
+          this.songs.push(song);
+        }
+
+        ------------------------------------------------
+
+        removeSong(song: string): void {
+          for (let i = 0; i < this.songs.length; i++) {
+            if (this.songs[i].getName() === song) {
+              this.songs.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
 
 ## Clase **_Artists_**
 
+La clase **Artist** se encargará de almacenar toda la información de cada uno de los artistas, incluyendo su nombre, género musical, grupo o grupos a los que pertenece (en caso de pertenecer a algún grupo), albúms, canciones y número de oyentes que tenga mesualmente. 
+
+Para poder manejar la información de los artistas, se tendrá que crear un conjunto de métodos que permitan realizar acciones como las siguientes:
+
+  * **Obtener y modificar:**
+    -  El nombre del artista: 
+
+        ``` typescript
+        getName(): string {
+            return this.name;
+        }
+
+        -----------------------------
+
+        setName(name: string): void {
+            this.name = name;
+        }
+        ```
+    -  El número de oyentes del artista: 
+
+        ``` typescript
+        getNumFollowers(): number {
+            return this.numFollowers;
+        }
+
+        ---------------------------------------
+
+        setNumFollowers(numFollowers: number): void {
+            this.numFollowers = numFollowers;
+        }
+        ```
+        >> Como se puede observar, el número de oyentes de un artista dependerá de sus propios oyentes además de los oyentes de los grupos a los que pertenece. 
+
+  * **Obtener, modificar, añadir y eliminar:** 
+    -  El o los grupos al que pertenece el artista: 
+      
+        ``` typescript
+        getGroups(): Group[] {
+          return this.groups;
+        }
+
+        ------------------------------------------------
+
+        setGroups(groups: Group[]): void {
+          this.groups = groups;
+        }
+
+        ------------------------------------------------
+
+        addGroup(group: Group): void {
+          this.groups.push(group);
+        }
+
+        ------------------------------------------------
+
+        removeGroup(group: string): void {
+          for (let i = 0; i < this.groups.length; i++) {
+            if (this.groups[i].getName() === group) {
+              this.groups.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
+    -  El género musical del artista: 
+      
+        ``` typescript
+        getGenre(): string {
+          return this.genre;
+        }
+
+        ------------------------------------------------
+
+        setGenre(genre: string): void {
+          this.genre = genre;
+        }
+
+        ------------------------------------------------
+
+        addGenre(genre: MusicalGenres): void {
+          this.genres.push(genre);
+        }
+
+        ------------------------------------------------
+
+        removeGenre(genre: string): void {
+          for (let i = 0; i < this.genres.length; i++) {
+            if (this.genres[i].getName() === genre) {
+              this.genres.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
+    -  Los albúms del artista: 
+        
+        ``` typescript
+        getAlbums(): Album[] {
+          return this.albums;
+        }
+
+        ------------------------------------------------
+
+        setAlbums(albums: Album[]): void {
+          this.albums = albums;
+        }
+
+        ------------------------------------------------
+
+        addAlbum(album: Album): void {
+          this.albums.push(album);
+        }
+
+        ------------------------------------------------
+
+        removeAlbum(album: string): void {
+          for (let i = 0; i < this.albums.length; i++) {
+            if (this.albums[i].getName() === album) {
+              this.albums.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
+    -  Las canciones del artista: 
+          
+        ``` typescript
+        getSongs(): Song[] {
+          return this.songs;
+        }
+
+        ------------------------------------------------
+
+        setSongs(songs: Song[]): void {
+          this.songs = songs;
+        }
+
+        ------------------------------------------------
+
+        addSong(song: Song): void {
+          this.songs.push(song);
+        }
+
+        ------------------------------------------------
+
+        removeSong(song: string): void {
+          for (let i = 0; i < this.songs.length; i++) {
+            if (this.songs[i].getName() === song) {
+              this.songs.splice(i, 1);
+              break;
+            }
+          }
+        }
+        ```
 
 ## Clase **_Playlist_**
 
