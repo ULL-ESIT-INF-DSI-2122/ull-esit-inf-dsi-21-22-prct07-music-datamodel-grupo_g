@@ -1,9 +1,11 @@
 import {Song} from '../Song/Song';
 import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+import {Manage} from './Manage';
+
 /**
  * Playlist class
  */
-export class Playlist {
+export class Playlist implements Manage {
   constructor(private name: string,
               private songs: Song[],
               private duration: string,
@@ -52,7 +54,7 @@ export class Playlist {
    * Revomes a song in the list of songs in the playlist
    * @param {string} songs Song to be removed
    */
-  removeSongs(songs: string): void {
+  removeSong(songs: string): void {
     for (let i = 0; i < this.songs.length; i++) {
       if (this.songs[i].getName() === songs) {
         this.songs.splice(i, 1);
@@ -97,7 +99,7 @@ export class Playlist {
    * Adds a genre in the list of genres in the playlist
    * @param {MusicalGenres} newGenre New genre
    */
-  addGenres(newGenre: MusicalGenres): void {
+  addGenre(newGenre: MusicalGenres): void {
     this.genres.push(newGenre);
   }
 
@@ -105,7 +107,7 @@ export class Playlist {
    * Removes a genre in the list of genres in the playlist
    * @param {string} genre Genre to be removed
    */
-  removeGenres(genre: string): void {
+  removeGenre(genre: string): void {
     for (let i = 0; i < this.genres.length; i++) {
       if (this.genres[i].getName() === genre) {
         this.genres.splice(i, 1);

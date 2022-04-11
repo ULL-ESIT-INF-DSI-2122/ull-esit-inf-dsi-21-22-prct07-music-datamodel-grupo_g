@@ -2,10 +2,11 @@ import {Group} from '../Group/Group';
 import {Artist} from '../Artist/Artist';
 import {Song} from '../Song/Song';
 import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+import {Manage} from './Manage';
 /**
  * Album class
  */
-export class Album {
+export class Album implements Manage {
   constructor(private name: string,
               private author: Artist | Group,
               private year: number,
@@ -63,7 +64,7 @@ export class Album {
    * Getter of genres of the album
    * @returns {MusicalGenres[]}
    */
-  getGenre(): MusicalGenres[] {
+  getGenres(): MusicalGenres[] {
     return this.genre;
   }
 
@@ -71,7 +72,7 @@ export class Album {
    * Setter: modify the genres of the album
    * @param {MusicalGenres[]} newGenre New genre of the album
    */
-  setGenre(newGenre: MusicalGenres[]): void {
+  setGenres(newGenre: MusicalGenres[]): void {
     this.genre = newGenre;
   }
 
@@ -116,7 +117,7 @@ export class Album {
    * Adds a song in the list of songs of the album
    * @param {Song} newSong New song
    */
-  addSongs(newSong: Song): void {
+  addSong(newSong: Song): void {
     this.songs.push(newSong);
   }
 
@@ -124,7 +125,7 @@ export class Album {
    * Revomes a song in the list of songs of the album
    * @param {string} songs Song to be removed
    */
-  removeSongs(songs: string): void {
+  removeSong(songs: string): void {
     for (let i = 0; i < this.songs.length; i++) {
       if (this.songs[i].getName() === songs) {
         this.songs.splice(i, 1);

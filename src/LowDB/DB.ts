@@ -7,7 +7,7 @@ import {Album} from '../Album/Album';
 import {Song} from '../Song/Song';
 import {Playlist} from '../Playlist/Playlist';
 
-const adapter = new FileSync('./Database/db.json');
+const adapter = new FileSync('./src/models/db.json');
 const db = low(adapter);
 
 // Singleton class for database management

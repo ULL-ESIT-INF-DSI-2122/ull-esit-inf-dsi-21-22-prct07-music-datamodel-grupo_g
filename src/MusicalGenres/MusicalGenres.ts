@@ -2,11 +2,12 @@ import {Group} from '../Group/Group';
 import {Artist} from '../Artist/Artist';
 import {Album} from '../Album/Album';
 import {Song} from '../Song/Song';
+import {Manage} from './Manage';
 
 /**
  * Musical genres describes the musical genres of the music library.
  */
-export class MusicalGenres {
+export class MusicalGenres implements Manage {
   constructor(private name: string,
               private artists: Artist[],
               private groups: Group[],
@@ -31,14 +32,14 @@ export class MusicalGenres {
    * getArtist() returns the artists of the genre.
    * @returns the number of artists in the genre
    */
-  getArtist(): Artist[] {
+  getArtists(): Artist[] {
     return this.artists;
   }
   /**
   * setArtist() sets the artists of the genre.
   * @param artists the artists of the genre
   */
-  setArtist(artists: Artist[]): void {
+  setArtists(artists: Artist[]): void {
     this.artists = artists;
   }
 
@@ -67,7 +68,7 @@ export class MusicalGenres {
    * getGArtist() returns the artist or group of the genre.
    * @returns the group or artist of the genre
    */
-  getGroup(): Group[] {
+  getGroups(): Group[] {
     return this.groups;
   }
 
@@ -75,7 +76,7 @@ export class MusicalGenres {
    * setGroup() sets the groups of the genre.
    * @param groups the groups of the genre
    */
-  setGroup(groups: Group[]): void {
+  setGroups(groups: Group[]): void {
     this.groups = groups;
   }
 
@@ -141,7 +142,7 @@ export class MusicalGenres {
    * getSong() returns the song of the genre.
    * @returns the number of songs in the genre
    */
-  getSong(): Song[] {
+  getSongs(): Song[] {
     return this.song;
   }
 

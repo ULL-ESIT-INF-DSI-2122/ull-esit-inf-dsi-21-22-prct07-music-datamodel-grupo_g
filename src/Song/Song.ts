@@ -1,10 +1,12 @@
 import {Artist} from '../Artist/Artist';
 import {Group} from '../Group/Group';
 import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+import {Manage} from './Manage';
+
 /**
  * Song class describes a song.
  */
-export class Song {
+export class Song implements Manage {
   constructor(private name: string,
               private author: Artist | Group,
               private duration: string,
@@ -63,7 +65,7 @@ export class Song {
    * getGenre() returns the genre of the song.
    * @returns {MusicalGenres[]} the genre of the song
    */
-  getGenre(): MusicalGenres[] {
+  getGenres(): MusicalGenres[] {
     return this.genre;
   }
 
@@ -71,7 +73,7 @@ export class Song {
    * setGenre() sets the genre of the song.
    * @param genre the genre of the song
    */
-  setGenre(genre: MusicalGenres[]): void {
+  setGenres(genre: MusicalGenres[]): void {
     this.genre = genre;
   }
 

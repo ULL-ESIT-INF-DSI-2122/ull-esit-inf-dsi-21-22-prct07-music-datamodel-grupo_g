@@ -2,8 +2,9 @@ import {Group} from '../Group/Group';
 import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
 import {Album} from '../Album/Album';
 import {Song} from '../Song/Song';
+import {Manage} from './Manage';
 
-export class Artist {
+export class Artist implements Manage {
   constructor(private name: string,
               private groups: Group[],
               private genres: MusicalGenres[],
@@ -32,7 +33,7 @@ export class Artist {
    * getGroup() returns the groups of the artist
    * @returns {Group[]} groups of the artist
    */
-  getGroup(): Group[] {
+  getGroups(): Group[] {
     return this.groups;
   }
 
@@ -41,7 +42,7 @@ export class Artist {
    * @param groups {Group[]} groups of the artist
    * @returns {void}
    */
-  setGroup(groups: Group[]): void {
+  setGroups(groups: Group[]): void {
     this.groups = groups;
   }
 

@@ -1,11 +1,12 @@
 import {Artist} from '../Artist/Artist';
 import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
 import {Album} from '../Album/Album';
+import {Manage} from './Manage';
 
 /**
  * Groups class describes a group of artists.
  */
-export class Group {
+export class Group implements Manage {
   constructor(private name: string,
               private artists: Artist[],
               private creationYear: number,
@@ -33,7 +34,7 @@ export class Group {
    * getArtist() returns the artists of the group
    * @returns {string} the artists of the group
    */
-  getArtist(): Artist[] {
+  getArtists(): Artist[] {
     return this.artists;
   }
 
@@ -41,7 +42,7 @@ export class Group {
    * setArtist() sets the artists of the group
    * @param artists {Artist[]} array of artists
    */
-  setArtist(artists: Artist[]): void {
+  setArtists(artists: Artist[]): void {
     this.artists = artists;
   }
 

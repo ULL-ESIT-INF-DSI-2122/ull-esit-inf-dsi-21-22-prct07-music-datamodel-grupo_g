@@ -1,11 +1,11 @@
 import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {Album} from '../src/Album';
-import {Group} from '../src/Group';
-import {Artist} from '../src/Artist';
-import {Song} from '../src/Song';
-import {MusicalGenres} from '../src/MusicalGenres';
+import {Album} from '../../src/Album/Album';
+import {Group} from '../../src/Group/Group';
+import {Artist} from '../../src/Artist/Artist';
+import {Song} from '../../src/Song/Song';
+import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
 
 describe('Album class - Test', () => {
   const log = console.log;
@@ -80,16 +80,16 @@ describe('Album class - Test', () => {
   });
 
   it('getGenre() return genres list of the album', () => {
-    expect(danwFM.getGenre).to.exist;
-    expect(danwFM.getGenre).to.be.a('function');
-    expect(danwFM.getGenre()).to.deep.equal([musicalGenreRB]);
+    expect(danwFM.getGenres).to.exist;
+    expect(danwFM.getGenres).to.be.a('function');
+    expect(danwFM.getGenres()).to.deep.equal([musicalGenreRB]);
   });
 
   it('setGenre() modified genre in album genre list', () => {
-    expect(danwFM.setGenre).to.exist;
-    expect(danwFM.setGenre).to.be.a('function');
-    danwFM.setGenre([musicalGenre01]);
-    expect(danwFM.getGenre()).to.deep.equal([musicalGenre01]);
+    expect(danwFM.setGenres).to.exist;
+    expect(danwFM.setGenres).to.be.a('function');
+    danwFM.setGenres([musicalGenre01]);
+    expect(danwFM.getGenres()).to.deep.equal([musicalGenre01]);
   });
 
   it('addGenre() genre added on album', () => {
@@ -97,8 +97,8 @@ describe('Album class - Test', () => {
     expect(danwFM.addGenre).to.exist;
     expect(danwFM.addGenre).to.be.a('function');
     danwFM.addGenre(musicalGenrePop);
-    expect(danwFM.getGenre()).to.deep.equal([musicalGenreRB, musicalGenrePop]);
-    expect(danwFM.getGenre().length).to.be.equal(2);
+    expect(danwFM.getGenres()).to.deep.equal([musicalGenreRB, musicalGenrePop]);
+    expect(danwFM.getGenres().length).to.be.equal(2);
   });
 
   it('removeGenre() genre removed on album', () => {
@@ -109,10 +109,10 @@ describe('Album class - Test', () => {
     expect(danwFM2.removeGenre).to.be.a('function');
     danwFM.removeGenre('rb');
     danwFM2.removeGenre('pop');
-    expect(danwFM.getGenre()).to.deep.equal([]);
-    expect(danwFM2.getGenre()).to.deep.equal([musicalGenreRB]);
-    expect(danwFM.getGenre().length).to.be.equal(0);
-    expect(danwFM2.getGenre().length).to.be.equal(1);
+    expect(danwFM.getGenres()).to.deep.equal([]);
+    expect(danwFM2.getGenres()).to.deep.equal([musicalGenreRB]);
+    expect(danwFM.getGenres().length).to.be.equal(0);
+    expect(danwFM2.getGenres().length).to.be.equal(1);
   });
 
   it('getSongs() return the songs of the album', () => {
@@ -130,21 +130,21 @@ describe('Album class - Test', () => {
 
   it('addSongs() added song in song list', () => {
     const song2: Song = new Song('song2', theWeeknd, '2.00', [], true, 90);
-    expect(danwFM.addSongs).to.exist;
-    expect(danwFM.addSongs).to.be.a('function');
-    danwFM.addSongs(song2);
+    expect(danwFM.addSong).to.exist;
+    expect(danwFM.addSong).to.be.a('function');
+    danwFM.addSong(song2);
     expect(danwFM.getSongs()).to.deep.equal([sacrifice, outOfTime, song2]);
     expect(danwFM.getSongs().length).to.be.equal(3);
   });
 
   it('removeSongs() removed song in song list', () => {
     const danwFM2: Album = new Album('Danw FM', group1, 2022, [], [sacrifice, outOfTime]);
-    expect(danwFM.removeSongs).to.exist;
-    expect(danwFM2.removeSongs).to.exist;
-    expect(danwFM.removeSongs).to.be.a('function');
-    expect(danwFM2.removeSongs).to.be.a('function');
-    danwFM.removeSongs('Sacrifice');
-    danwFM2.removeSongs('song1');
+    expect(danwFM.removeSong).to.exist;
+    expect(danwFM2.removeSong).to.exist;
+    expect(danwFM.removeSong).to.be.a('function');
+    expect(danwFM2.removeSong).to.be.a('function');
+    danwFM.removeSong('Sacrifice');
+    danwFM2.removeSong('song1');
     expect(danwFM.getSongs()).to.deep.equal([outOfTime]);
     expect(danwFM2.getSongs()).to.deep.equal([sacrifice, outOfTime]);
     expect(danwFM.getSongs().length).to.be.equal(1);

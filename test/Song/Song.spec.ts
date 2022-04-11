@@ -1,11 +1,11 @@
 import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {Song} from '../src/Song';
-import {Artist} from '../src/Artist';
-import {Album} from '../src/Album';
-import {Group} from '../src/Group';
-import {MusicalGenres} from '../src/MusicalGenres';
+import {Song} from '../../src/Song/Song';
+import {Artist} from '../../src/Artist/Artist';
+import {Album} from '../../src/Album/Album';
+import {Group} from '../../src/Group/Group';
+import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
 
 describe('Song class - Tests', () => {
   const log = console.log;
@@ -98,46 +98,46 @@ describe('Song class - Tests', () => {
   });
 
   it('getGenres() returns the genres of the song', () => {
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.be.lengthOf(2);
-    expect(song1.getGenre()).to.include(genre1);
-    expect(song1.getGenre()).to.include(genre2);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.be.lengthOf(2);
+    expect(song1.getGenres()).to.include(genre1);
+    expect(song1.getGenres()).to.include(genre2);
   });
 
   it('setGenres() sets the genres of the song', () => {
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.be.lengthOf(2);
-    expect(song1.getGenre()).to.include(genre1);
-    song1.setGenre([genre2]);
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.have.lengthOf(1);
-    expect(song1.getGenre()).to.include(genre2);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.be.lengthOf(2);
+    expect(song1.getGenres()).to.include(genre1);
+    song1.setGenres([genre2]);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.have.lengthOf(1);
+    expect(song1.getGenres()).to.include(genre2);
   });
 
   it('addGenre() adds a genre to the song', () => {
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.be.lengthOf(2);
-    expect(song1.getGenre()).to.include(genre1);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.be.lengthOf(2);
+    expect(song1.getGenres()).to.include(genre1);
     song1.addGenre(genre2);
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.have.lengthOf(3);
-    expect(song1.getGenre()).to.include(genre2);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.have.lengthOf(3);
+    expect(song1.getGenres()).to.include(genre2);
   });
 
   it('removeGenre() removes a genre from the song', () => {
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.be.lengthOf(2);
-    expect(song1.getGenre()).to.include(genre1);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.be.lengthOf(2);
+    expect(song1.getGenres()).to.include(genre1);
     song1.removeGenre(genre2.getName());
-    expect(song1.getGenre()).not.to.be.null;
-    expect(song1.getGenre()).to.be.an('array');
-    expect(song1.getGenre()).to.have.lengthOf(1);
+    expect(song1.getGenres()).not.to.be.null;
+    expect(song1.getGenres()).to.be.an('array');
+    expect(song1.getGenres()).to.have.lengthOf(1);
   });
 
   it('isSingles() returns the singles of the song', () => {

@@ -1,11 +1,11 @@
 import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {Group} from '../src/Group';
-import {Artist} from '../src/Artist';
-import {MusicalGenres} from '../src/MusicalGenres';
-import {Album} from '../src/Album';
-import {Song} from '../src/Song';
+import {Group} from '../../src/Group/Group';
+import {Artist} from '../../src/Artist/Artist';
+import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
+import {Album} from '../../src/Album/Album';
+import {Song} from '../../src/Song/Song';
 
 
 describe('Group class - Tests', () => {
@@ -59,17 +59,17 @@ describe('Group class - Tests', () => {
   });
 
   it('getArtists() return the artists of the group', () => {
-    expect(groups.getArtist).to.exist;
-    expect(groups.getArtist).to.be.a('function');
-    expect(groups.getArtist()).to.be.deep.equal([artists_]);
+    expect(groups.getArtists).to.exist;
+    expect(groups.getArtists).to.be.a('function');
+    expect(groups.getArtists()).to.be.deep.equal([artists_]);
   });
 
   it('setArtists() sets the artists of the group', () => {
     const artist = new Artist('Rihanna', [], [], [], [], 0);
-    expect(groups.setArtist).to.exist;
-    expect(groups.setArtist).to.be.a('function');
-    groups.setArtist([artist]);
-    expect(groups.getArtist()).to.be.deep.equal([artist]);
+    expect(groups.setArtists).to.exist;
+    expect(groups.setArtists).to.be.a('function');
+    groups.setArtists([artist]);
+    expect(groups.getArtists()).to.be.deep.equal([artist]);
   });
 
   it('addArtist() add a new artist', () => {
@@ -77,19 +77,19 @@ describe('Group class - Tests', () => {
     expect(groups.addArtist).to.exist;
     expect(groups.addArtist).to.be.a('function');
     groups.addArtist(artist);
-    expect(groups.getArtist()).to.be.deep.equal([artists_, artist]);
-    expect(groups.getArtist().length).to.be.equal(2);
+    expect(groups.getArtists()).to.be.deep.equal([artists_, artist]);
+    expect(groups.getArtists().length).to.be.equal(2);
   });
 
   it('removeArtist() remove an artist', () => {
     expect(groups.removeArtist).to.exist;
     expect(groups.removeArtist).to.be.a('function');
     groups.removeArtist('Rihanna');
-    expect(groups.getArtist()).to.be.deep.equal([artists_]);
-    expect(groups.getArtist().length).to.be.equal(1);
+    expect(groups.getArtists()).to.be.deep.equal([artists_]);
+    expect(groups.getArtists().length).to.be.equal(1);
     groups.removeArtist('Beyonce');
-    expect(groups.getArtist()).to.be.deep.equal([]);
-    expect(groups.getArtist().length).to.be.equal(0);
+    expect(groups.getArtists()).to.be.deep.equal([]);
+    expect(groups.getArtists().length).to.be.equal(0);
   });
 
   it('getCreationDate() return the creation date of the group', () => {

@@ -1,11 +1,11 @@
 import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {Artist} from '../src/Artist';
-import {Song} from '../src/Song';
-import {MusicalGenres} from '../src/MusicalGenres';
-import {Album} from '../src/Album';
-import {Playlist} from '../src/Playlist';
+import {Artist} from '../../src/Artist/Artist';
+import {Song} from '../../src/Song/Song';
+import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
+import {Album} from '../../src/Album/Album';
+import {Playlist} from '../../src/Playlist/Playlist';
 
 describe('Playlist class - Tests', () => {
   const log = console.log;
@@ -85,14 +85,14 @@ describe('Playlist class - Tests', () => {
     expect(playlist.getSongs().length).to.be.equal(5);
   });
 
-  it('removeSongs() removed song in song list', () => {
+  it('removeSong() removed song in song list', () => {
     const playlist2 = new Playlist('Playlist 2', [], '', []);
-    expect(playlist.removeSongs).to.exist;
-    expect(playlist2.removeSongs).to.exist;
-    expect(playlist.removeSongs).to.be.a('function');
-    expect(playlist2.removeSongs).to.be.a('function');
-    playlist.removeSongs('Sacrifice');
-    playlist2.removeSongs('Circles');
+    expect(playlist.removeSong).to.exist;
+    expect(playlist2.removeSong).to.exist;
+    expect(playlist.removeSong).to.be.a('function');
+    expect(playlist2.removeSong).to.be.a('function');
+    playlist.removeSong('Sacrifice');
+    playlist2.removeSong('Circles');
     expect(playlist.getSongs()).to.deep.equal([circles, dieForMe, outOfTime]);
     expect(playlist2.getSongs()).to.deep.equal([]);
     expect(playlist.getSongs().length).to.be.equal(3);
@@ -125,23 +125,23 @@ describe('Playlist class - Tests', () => {
     expect(playlist.getGenres()).to.deep.equal([musicalGenre01]);
   });
 
-  it('addGenres() genre added on playlist', () => {
+  it('addGenre() genre added on playlist', () => {
     const musicalGenrePop: MusicalGenres = new MusicalGenres('pop', [theWeeknd], [], [danwFM], [sacrifice]);
-    expect(playlist.addGenres).to.exist;
-    expect(playlist.addGenres).to.be.a('function');
-    playlist.addGenres(musicalGenrePop);
+    expect(playlist.addGenre).to.exist;
+    expect(playlist.addGenre).to.be.a('function');
+    playlist.addGenre(musicalGenrePop);
     expect(playlist.getGenres()).to.deep.equal([musicalGenreHipHop, musicalGenreRB, musicalGenrePop]);
     expect(playlist.getGenres().length).to.be.equal(3);
   });
 
-  it('removeGenres() genre removed on playlist', () => {
+  it('removeGenre() genre removed on playlist', () => {
     const playlist2: Playlist = new Playlist('Playlist 2', [circles], '0.00', [musicalGenre01]);
-    expect(playlist.removeGenres).to.exist;
-    expect(playlist2.removeGenres).to.exist;
-    expect(playlist.removeGenres).to.be.a('function');
-    expect(playlist2.removeGenres).to.be.a('function');
-    playlist.removeGenres('rb');
-    playlist2.removeGenres('pop');
+    expect(playlist.removeGenre).to.exist;
+    expect(playlist2.removeGenre).to.exist;
+    expect(playlist.removeGenre).to.be.a('function');
+    expect(playlist2.removeGenre).to.be.a('function');
+    playlist.removeGenre('rb');
+    playlist2.removeGenre('pop');
     expect(playlist.getGenres()).to.deep.equal([musicalGenreHipHop]);
     expect(playlist2.getGenres()).to.deep.equal([musicalGenre01]);
     expect(playlist.getGenres().length).to.be.equal(1);

@@ -1,11 +1,11 @@
 import 'mocha';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import {Artist} from '../src/Artist';
-import {Group} from '../src/Group';
-import {MusicalGenres} from '../src/MusicalGenres';
-import {Album} from '../src/Album';
-import {Song} from '../src/Song';
+import {Artist} from '../../src/Artist/Artist';
+import {Group} from '../../src/Group/Group';
+import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
+import {Album} from '../../src/Album/Album';
+import {Song} from '../../src/Song/Song';
 
 
 describe('Artists class - Tests', () => {
@@ -63,16 +63,16 @@ describe('Artists class - Tests', () => {
   });
 
   it('getGroups() returns groups', () => {
-    expect(artists.getGroup).to.exist;
-    expect(artists.getGroup).to.be.a('function');
-    expect(artists.getGroup()).to.be.deep.equal([group1, group2]);
+    expect(artists.getGroups).to.exist;
+    expect(artists.getGroups).to.be.a('function');
+    expect(artists.getGroups()).to.be.deep.equal([group1, group2]);
   });
 
   it('setGroups() sets groups', () => {
-    expect(artists.setGroup).to.exist;
-    expect(artists.setGroup).to.be.a('function');
-    artists.setGroup([new Group('', [], 0, [], [], 0)]);
-    expect(artists.getGroup()).to.be.deep.equal([new Group('', [], 0, [], [], 0)]);
+    expect(artists.setGroups).to.exist;
+    expect(artists.setGroups).to.be.a('function');
+    artists.setGroups([new Group('', [], 0, [], [], 0)]);
+    expect(artists.getGroups()).to.be.deep.equal([new Group('', [], 0, [], [], 0)]);
   });
 
   it('addGroup() add new group', () => {
@@ -80,19 +80,19 @@ describe('Artists class - Tests', () => {
     expect(artists.addGroup).to.exist;
     expect(artists.addGroup).to.be.a('function');
     artists.addGroup(group);
-    expect(artists.getGroup()).to.be.deep.equal([group1, group2, group]);
-    expect(artists.getGroup().length).to.be.equal(3);
+    expect(artists.getGroups()).to.be.deep.equal([group1, group2, group]);
+    expect(artists.getGroups().length).to.be.equal(3);
   });
 
   it('removeGroup() remove a group', () => {
     expect(artists.removeGroup).to.exist;
     expect(artists.removeGroup).to.be.a('function');
     artists.removeGroup(group1.getName());
-    expect(artists.getGroup()).to.deep.equal([group2]);
-    expect(artists.getGroup().length).to.be.equal(1);
+    expect(artists.getGroups()).to.deep.equal([group2]);
+    expect(artists.getGroups().length).to.be.equal(1);
     artists.removeGroup('G10');
-    expect(artists.getGroup()).to.deep.equal([group2]);
-    expect(artists.getGroup().length).to.be.equal(1);
+    expect(artists.getGroups()).to.deep.equal([group2]);
+    expect(artists.getGroups().length).to.be.equal(1);
   });
 
   it('getGenres() returns genres', () => {
