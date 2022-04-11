@@ -70,7 +70,9 @@ export class UI {
       songs.sort((a, b) => b.name.localeCompare(a.name));
     }
 
-    songs.map((song: any) => console.log(song.name));
+    console.log();
+    songs.map((song: any) => console.log('\x1b[032m' + song.name + '\x1b[0m'));
+    console.log();
 
     await this.inquirer.prompt([
       {
@@ -100,7 +102,9 @@ export class UI {
       albums.sort((a, b) => b.name.localeCompare(a.name));
     }
 
-    albums.map((album: any) => console.log(album.name));
+    console.log();
+    albums.map((album: any) => console.log('\x1b[032m' + album.name + '\x1b[0m'));
+    console.log();
 
     await this.inquirer.prompt([
       {
@@ -130,7 +134,9 @@ export class UI {
       playlists.sort((a, b) => b.name.localeCompare(a.name));
     }
 
-    playlists.map((playlist: any) => console.log(playlist.name));
+    console.log();
+    playlists.map((playlist: any) => console.log('\x1b[032m' + playlist.name + '\x1b[0m'));
+    console.log();
 
     await this.inquirer.prompt([
       {
@@ -144,23 +150,11 @@ export class UI {
   }
 
   private async showAlbumsByYear(): Promise<void> {
-    const ascendent = await this.inquirer.prompt([
-      {
-        type: 'list',
-        name: 'ascendent',
-        message: 'Do you want to show albums in ascendent order?',
-        choices: ['Yes', 'No']
-      }
-    ]);
-
     const albums = this.db.getAlbums();
-    if (ascendent.ascendent === 'Yes') {
-      albums.sort((a, b) => a.year - b.year);
-    } else {
-      albums.sort((a, b) => b.year - a.year);
-    }
-
-    albums.map((album: any) => console.log(album.name));
+    albums.sort((a, b) => a.year - b.year);
+    console.log();
+    albums.map((album: any) => console.log('\x1b[32m' + album.name + '\x1b[36m' + ('.'.repeat(80 - album.name.length - album.year.toString().length)) + '\x1b[32m' + album.year + '\x1b[0m'));
+    console.log();
 
     await this.inquirer.prompt([
       {
@@ -174,23 +168,12 @@ export class UI {
   }
 
   private async showSongsByNumberOfPlays(): Promise<void> {
-    const ascendent = await this.inquirer.prompt([
-      {
-        type: 'list',
-        name: 'ascendent',
-        message: 'Do you want to show songs in ascendent order?',
-        choices: ['Yes', 'No']
-      }
-    ]);
-
     const songs = this.db.getSongs();
-    if (ascendent.ascendent === 'Yes') {
-      songs.sort((a, b) => a.numRep - b.numRep);
-    } else {
-      songs.sort((a, b) => b.numRep - a.numRep);
-    }
+    songs.sort((a, b) => b.numRep - a.numRep);
 
-    songs.map((song: any) => console.log(song.name));
+    console.log();
+    songs.map((song: any) => console.log('\x1b[32m' + song.name + '\x1b[36m' + ('.'.repeat(80 - song.name.length - song.numRep.toString().length)) + '\x1b[32m' + song.numRep + '\x1b[0m'));
+    console.log();
 
     await this.inquirer.prompt([
       {
@@ -205,7 +188,10 @@ export class UI {
 
   private async showSingles(): Promise<void> {
     const singles = this.db.getSongs().filter((song: any) => song.isSingle);
-    singles.forEach((song: any) => console.log(song.name));
+
+    console.log();
+    singles.forEach((song: any) => console.log('\x1b[32m' + song.name + '\x1b[0m'));
+    console.log();
 
     await this.inquirer.prompt([
       {
