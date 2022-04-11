@@ -205,7 +205,7 @@ export class UI {
 
   private async showSingles(): Promise<void> {
     const singles = this.db.getSongs().filter((song: any) => song.isSingle);
-    singles.map((song: any) => console.log(song.name));
+    singles.forEach((song: any) => console.log(song.name));
 
     await this.inquirer.prompt([
       {
