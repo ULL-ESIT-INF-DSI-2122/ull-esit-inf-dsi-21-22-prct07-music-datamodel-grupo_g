@@ -1,6 +1,5 @@
 <br>
 
-
 [![Tests](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/actions/workflows/tests.yml/badge.svg)](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/actions/workflows/tests.yml) [![Coveralls](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/actions/workflows/coveralls.yml/badge.svg)](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/actions/workflows/coveralls.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ULL-ESIT-INF-DSI-2122_ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ULL-ESIT-INF-DSI-2122_ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g)
 
 
@@ -56,7 +55,7 @@ Para acceder a la página web del informe podrá hacer pulsando sobre este [_enl
 # CLASES<a name="id2"></a>
 
 ## **Clase Album**<a name="id3"></a>
-Se define la clase **Album**, definida en el fichero [**_Album.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Album/Album.ts), para el almacenamiento de información de un disco:
+Se define la clase **Album**, definida en el fichero [**_Album.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Album/Album.ts), para el almacenamiento de información de un disco:
 
 - **Nombre del álbum**: ```string```
 - **Autor del álbum**: ```Artist``` o ```Group```
@@ -77,7 +76,7 @@ export class Album implements Manage {
 }
 ```
 
-En la clase _Album_ se ha implementado los métodos necesarios:
+En la clase **Album** se ha implementado los métodos necesarios:
 
 * **Obtener y modificar los atributos**
   * *Nombre*
@@ -585,7 +584,7 @@ Al igual que en las clases anteriores, para poder manejar la información de los
 
 ## **Clase MusicalGenres**<a name="id7"></a>
 
-La clase *MusicalGenres*, definida en el fichero [**_MusicalGenres.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/MusicalGenres/MusicalGenres.ts), representa un grupo musical y se encarga de almacenar la siguiente información:
+La clase *MusicalGenres*, definida en el fichero [**_MusicalGenres.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/MusicalGenres/MusicalGenres.ts), representa un grupo musical y se encarga de almacenar la siguiente información:
 
   - **Nombre del género musical**: ```string```  
   - **Artistas que producen música de ese género**: ```Artist[]```
@@ -759,7 +758,7 @@ Los métodos desarrollados en la clase **_MusicalGenres_** se encargan de realiz
 
 ## **Clase Playlist**<a name="id8"></a>
 
-La clase **Playlist**, definida en el fichero [**_Playlist.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Playlist/Playlist.ts), funcionará como una lista de reproducción de música que contendrá ña siguiente información:
+La clase **Playlist**, definida en el fichero [**_Playlist.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Playlist/Playlist.ts), funcionará como una lista de reproducción de música que contendrá ña siguiente información:
 
   - **Nombre de la playlist**: ```string```
   - **Canciones de la playlist**: ```Song[]```
@@ -876,7 +875,7 @@ Para poder manejar la información de las playlists, se tendrá que crear un con
 
 ## **Clase Song** <a name="id9"></a>
 
-La clase *Song*, definida en el fichero [**_Song.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Song/Song.ts), representa a las canciones de la biblioteca y tiene la función de almacenar la siguiente información:
+La clase *Song*, definida en el fichero [**_Song.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Song/Song.ts), representa a las canciones de la biblioteca y tiene la función de almacenar la siguiente información:
 
 - **Nombre de la canción**: ```string```
 - **Autor de la canción**: ```Artist``` o ```Group```
@@ -1014,7 +1013,7 @@ Además, cada una de estas interfaces extenderán de otras interfaces según el 
 
 ### **Interfaz AlbumManage**<a name="id12"></a>
 
-[**_AlbumManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Album/AlbumManage.ts)
+[**_AlbumManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Album/AlbumManage.ts)
 
 ```typescript
 export interface AlbumManage {
@@ -1027,7 +1026,7 @@ export interface AlbumManage {
 
 ### **Interfaz ArtistManage**<a name="id13"></a>
 
-[**_ArtistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Artist/ArtistManage.ts)
+[**_ArtistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Artist/ArtistManage.ts)
 
 ```typescript
 export interface ArtistManage {
@@ -1040,7 +1039,7 @@ export interface ArtistManage {
 
 ### **Interfaz GroupManage**<a name="id14"></a>
 
-[**_GroupManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Group/GroupManage.ts)
+[**_GroupManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Group/GroupManage.ts)
 
 ```typescript
 export interface GroupManage {
@@ -1053,7 +1052,7 @@ export interface GroupManage {
 
 ### **Interfaz MusicalGenresManage**<a name="id15"></a>
 
-[**_MusicalGenresManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/MusicalGenres/MusicalGenresManage.ts)
+[**_MusicalGenresManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/MusicalGenres/MusicalGenresManage.ts)
 
 ```typescript
 export interface MusicalGenresManage {
@@ -1066,7 +1065,7 @@ export interface MusicalGenresManage {
 
 ### **Interfaz Nameable**<a name="id16"></a>
 
-[**_Nameable.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Nameable/Nameable.ts)
+[**_Nameable.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Nameable/Nameable.ts)
 
 ```typescript
 export interface Nameable {
@@ -1077,7 +1076,7 @@ export interface Nameable {
 
 ### **Interfaz Playlist**<a name="id17"></a>
 
-[**_PlaylistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Playlist/PlaylistManage.ts)
+[**_PlaylistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Playlist/PlaylistManage.ts)
 
 ```typescript
 export interface PlaylistManage {
@@ -1090,7 +1089,7 @@ export interface PlaylistManage {
 
 ### **Interfaz SongManage**<a name="id18"></a>
 
-[**_SongManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Song/SongManage.ts)
+[**_SongManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Song/SongManage.ts)
 
 ```typescript
 export interface SongManage {
@@ -1102,6 +1101,8 @@ export interface SongManage {
 ```
 
 ## **Interfaz UI**<a name="id19"></a>
+
+[**_UI.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/UI/UI.ts)
 
 
 
