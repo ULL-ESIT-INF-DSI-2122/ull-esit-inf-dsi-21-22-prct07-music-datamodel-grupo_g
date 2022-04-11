@@ -1,11 +1,11 @@
 import lowdb from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
-import {Artist} from './Artist';
-import {Group} from './Group';
-import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
-import {Album} from './Album';
-import {Song} from '../Song/Song';
-import {Playlist} from '../Playlist/Playlist';
+// import {Artist} from './Artist';
+// import {Group} from './Group';
+// import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+// import {Album} from './Album';
+// import {Song} from '../Song/Song';
+// import {Playlist} from '../Playlist/Playlist';
 
 // type schemaType = {
 //   artist: {name: string; groups: string[]; genres: string[]; albums: string[]; songs: string[]; numFollowers: number};

@@ -62,7 +62,7 @@ export class DB {
   public addArtist(artist: Artist): void {
     const JSON = {
       name: artist.getName(),
-      groups: artist.getGroup().map((group: Group) => group.getName()),
+      groups: artist.getGroups().map((group: Group) => group.getName()),
       genres: artist.getGenres().map((genre: MusicalGenres) => genre.getName()),
       albums: artist.getAlbums().map((album: Album) => album.getName()),
       songs: artist.getSongs().map((song: Song) => song.getName()),
@@ -74,7 +74,7 @@ export class DB {
   public addGroup(group: Group): void {
     const JSON = {
       name: group.getName(),
-      artists: group.getArtist().map((artist: Artist) => artist.getName()),
+      artists: group.getArtists().map((artist: Artist) => artist.getName()),
       creationYear: group.getCreationYear(),
       genres: group.getGenres().map((genre: MusicalGenres) => genre.getName()),
       albums: group.getAlbums().map((album: Album) => album.getName()),
@@ -86,10 +86,10 @@ export class DB {
   public addGenre(genre: MusicalGenres): void {
     const JSON = {
       name: genre.getName(),
-      artists: genre.getArtist().map((artist: Artist) => artist.getName()),
-      groups: genre.getGroup().map((group: Group) => group.getName()),
+      artists: genre.getArtists().map((artist: Artist) => artist.getName()),
+      groups: genre.getGroups().map((group: Group) => group.getName()),
       albums: genre.getAlbums().map((album: Album) => album.getName()),
-      songs: genre.getSong().map((song: Song) => song.getName())
+      songs: genre.getSongs().map((song: Song) => song.getName())
     };
     db.get('genres').push(JSON).write();
   }
@@ -99,7 +99,7 @@ export class DB {
       name: album.getName(),
       author: album.getAuthor().getName(),
       year: album.getYear(),
-      genres: album.getGenre().map((genre: MusicalGenres) => genre.getName()),
+      genres: album.getGenres().map((genre: MusicalGenres) => genre.getName()),
       songs: album.getSongs().map((song: Song) => song.getName())
     };
     db.get('albums').push(JSON).write();
@@ -110,7 +110,7 @@ export class DB {
       name: song.getName(),
       author: song.getAuthor().getName(),
       duration: song.getDuration(),
-      genres: song.getGenre().map((genre: MusicalGenres) => genre.getName()),
+      genres: song.getGenres().map((genre: MusicalGenres) => genre.getName()),
       isSingle: song.isSingle(),
       numRep: song.getNumRep(),
     };

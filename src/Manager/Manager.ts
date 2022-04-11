@@ -30,9 +30,9 @@ export class Manager {
       } else if (order === 'duration desc') {
         console.log(this.playlists[i].getSongs().sort((a, b) => b.getDuration().localeCompare(a.getDuration())));
       } else if (order === 'genre asc') {
-        console.log(this.playlists[i].getSongs().sort((a, b) => a.getGenre()[i].getName().localeCompare(b.getGenre()[i].getName())));
+        console.log(this.playlists[i].getSongs().sort((a, b) => a.getGenres()[i].getName().localeCompare(b.getGenres()[i].getName())));
       } else if (order === 'genre desc') {
-        console.log(this.playlists[i].getSongs().sort((a, b) => b.getGenre()[i].getName().localeCompare(a.getGenre()[i].getName())));
+        console.log(this.playlists[i].getSongs().sort((a, b) => b.getGenres()[i].getName().localeCompare(a.getGenres()[i].getName())));
       } else if (order === 'num rep asc') {
         console.log(this.playlists[i].getSongs().sort((a, b) => a.getNumRep() - b.getNumRep()));
       } else if (order === 'num rep desc') {

@@ -72,7 +72,7 @@ const justice = new Group('Justice', [gaspardAuge, xavierDeRosnay], 2003, [], []
 const blackpink = new Group('Blackpink', [jisoo, jennie, rose, lisa], 2016, [], [], 13843448);
 const allGroups = [theBeatles, queen, theRollingStones, spiceGirls, abba, sfdk, articMonkeys, justice, blackpink];
 for (const group of allGroups) {
-  for (const artist of group.getArtist()) {
+  for (const artist of group.getArtists()) {
     artist.addGroup(group);
   }
 }
@@ -89,10 +89,10 @@ const country = new MusicalGenres('Country', [dollyParton, johnnyCash, willieNel
 const kpop = new MusicalGenres('KPOP', [jisoo, jennie, rose, lisa], [blackpink], [], []);
 const allGenres = [rock, pop, rap, heavyMetal, jazz, indie, reggae, electro, country, kpop];
 for (const genre of allGenres) {
-  for (const artist of genre.getArtist()) {
+  for (const artist of genre.getArtists()) {
     artist.addGenre(genre);
   }
-  for (const group of genre.getGroup()) {
+  for (const group of genre.getGroups()) {
     group.addGenre(genre);
   }
 }
@@ -114,7 +114,7 @@ for (const album of allAlbums) {
   } else if (album.getAuthor() instanceof Artist) {
     album.getAuthor().addAlbum(album);
   }
-  for (const genre of album.getGenre()) {
+  for (const genre of album.getGenres()) {
     genre.addAlbum(album);
   }
 }
@@ -305,7 +305,7 @@ for (let i = 0; i < theAlbumSongs.length; i++) {
 
 for (let i = 0; i < allSongs.length; i++) {
   const author = allSongs[i].getAuthor();
-  const genres = allSongs[i].getGenre();
+  const genres = allSongs[i].getGenres();
   if (author instanceof Artist) {
     author.addSong(allSongs[i]);
   }
@@ -349,7 +349,7 @@ db.defaults({
 for (let i = 0; i < allArtists.length; i++) {
   const artistJSON = {
     name: allArtists[i].getName(),
-    groups: allArtists[i].getGroup().map((group) => group.getName()),
+    groups: allArtists[i].getGroups().map((group) => group.getName()),
     genres: allArtists[i].getGenres().map((genre) => genre.getName()),
     albums: allArtists[i].getAlbums().map((album) => album.getName()),
     songs: allArtists[i].getSongs().map((song) => song.getName()),
@@ -361,7 +361,7 @@ for (let i = 0; i < allArtists.length; i++) {
 for (let i = 0; i < allGroups.length; i++) {
   const groupJSON = {
     name: allGroups[i].getName(),
-    artists: allGroups[i].getArtist().map((artist) => artist.getName()),
+    artists: allGroups[i].getArtists().map((artist) => artist.getName()),
     creationYear: allGroups[i].getCreationYear(),
     genres: allGroups[i].getGenres().map((genre) => genre.getName()),
     albums: allGroups[i].getAlbums().map((album) => album.getName()),
@@ -373,10 +373,10 @@ for (let i = 0; i < allGroups.length; i++) {
 for (let i = 0; i < allGenres.length; i++) {
   const genreJSON = {
     name: allGenres[i].getName(),
-    artists: allGenres[i].getArtist().map((artist) => artist.getName()),
-    groups: allGenres[i].getGroup().map((group) => group.getName()),
+    artists: allGenres[i].getArtists().map((artist) => artist.getName()),
+    groups: allGenres[i].getGroups().map((group) => group.getName()),
     albums: allGenres[i].getAlbums().map((album) => album.getName()),
-    songs: allGenres[i].getSong().map((song) => song.getName()),
+    songs: allGenres[i].getSongs().map((song) => song.getName()),
   };
   db.get('genres').push(genreJSON).write();
 }
@@ -386,7 +386,7 @@ for (let i = 0; i < allAlbums.length; i++) {
     name: allAlbums[i].getName(),
     author: allAlbums[i].getAuthor().getName(),
     year: allAlbums[i].getYear(),
-    genres: allAlbums[i].getGenre().map((genre) => genre.getName()),
+    genres: allAlbums[i].getGenres().map((genre) => genre.getName()),
     songs: allAlbums[i].getSongs().map((song) => song.getName())
   };
   db.get('albums').push(albumJSON).write();
@@ -397,7 +397,7 @@ for (let i = 0; i < allSongs.length; i++) {
     name: allSongs[i].getName(),
     author: allSongs[i].getAuthor().getName(),
     duration: allSongs[i].getDuration(),
-    genres: allSongs[i].getGenre().map((genre) => genre.getName()),
+    genres: allSongs[i].getGenres().map((genre) => genre.getName()),
     isSingle: allSongs[i].isSingle(),
     numRep: allSongs[i].getNumRep()
   };

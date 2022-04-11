@@ -7,7 +7,7 @@
     "test": "mocha",
     "coverage": "nyc npm test",
     "coveralls": "nyc npm test && nyc report --reporter=lcov",
-    "start": "tsc-watch --onSuccess 'node dist/UI.js'",
+    "start": "tsc-watch --onSuccess 'node dist/UI/UI.js'",
     "doc": "typedoc",
     "make": "node ./dist/*.js"
   },
