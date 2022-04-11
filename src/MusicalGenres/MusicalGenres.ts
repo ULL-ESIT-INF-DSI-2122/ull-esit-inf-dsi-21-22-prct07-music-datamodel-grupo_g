@@ -1,7 +1,7 @@
-import {Group} from './Group';
-import {Artist} from './Artist';
-import {Album} from './Album';
-import {Song} from './Song';
+import {Group} from '../Group/Group';
+import {Artist} from '../Artist/Artist';
+import {Album} from '../Album/Album';
+import {Song} from '../Song/Song';
 
 /**
  * Musical genres describes the musical genres of the music library.

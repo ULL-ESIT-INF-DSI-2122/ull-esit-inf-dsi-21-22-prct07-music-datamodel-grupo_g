@@ -1,5 +1,5 @@
 
-import {Playlist} from './Playlist';
+import {Playlist} from '../Playlist/Playlist';
 
 export class Manager {
   constructor(private playlists: Playlist[]) {}

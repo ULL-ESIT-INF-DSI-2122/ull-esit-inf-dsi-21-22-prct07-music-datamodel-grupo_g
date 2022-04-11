@@ -1,9 +1,9 @@
-import {Artist} from './Artist';
-import {Group} from './Group';
-import {MusicalGenres} from './MusicalGenres';
-import {Album} from './Album';
-import {Song} from './Song';
-import {Playlist} from './Playlist';
+import {Artist} from '../Artist/Artist';
+import {Group} from '../Group/Group';
+import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+import {Album} from '../Album/Album';
+import {Song} from '../Song/Song';
+import {Playlist} from '../Playlist/Playlist';
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 

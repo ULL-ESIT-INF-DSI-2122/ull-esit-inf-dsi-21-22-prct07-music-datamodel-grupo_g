@@ -1,4 +1,4 @@
-import {DB} from './DB';
+import {DB} from '../LowDB/DB';
 import * as Inquirer from 'inquirer';
 
 export class UI {

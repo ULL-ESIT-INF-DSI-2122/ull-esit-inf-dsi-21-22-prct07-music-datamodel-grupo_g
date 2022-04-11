@@ -1,13 +1,16 @@
 {
   "entryPoints": [
-    "./src/Song.ts",
-    "./src/Album.ts",
-    "./src/Groups.ts",
-    "./src/Manager.ts",
-    "./src/Operation.ts",
-    "./src/Playlist.ts",
-    "./src/MusicalGenres.ts",
-    "./src/Artists.ts"
+    "./src/Song/Song.ts",
+    "./src/Album/Album.ts",
+    "./src/Group/Group.ts",
+    "./src/Manager/Manager.ts",
+    "./src/UI/UI.ts",
+    "./src/Playlist/Playlist.ts",
+    "./src/MusicalGenres/MusicalGenres.ts",
+    "./src/Artist/Artist.ts",
+    "./src/LowDB/DB.ts",
+    "./src/LowDB/lowdb.ts",
+    "./src/MusicCollection/jsonMusicCollection.ts"
   ],
   "out": "./docs"
 }

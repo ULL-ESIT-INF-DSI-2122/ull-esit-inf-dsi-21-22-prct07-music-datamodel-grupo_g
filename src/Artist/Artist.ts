@@ -1,7 +1,7 @@
-import {Group} from './Group';
-import {MusicalGenres} from './MusicalGenres';
-import {Album} from './Album';
-import {Song} from './Song';
+import {Group} from '../Group/Group';
+import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+import {Album} from '../Album/Album';
+import {Song} from '../Song/Song';
 
 export class Artist {
   constructor(private name: string,

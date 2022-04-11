@@ -1,5 +1,5 @@
-import {Song} from './Song';
-import {MusicalGenres} from './MusicalGenres';
+import {Song} from '../Song/Song';
+import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
 /**
  * Playlist class
  */

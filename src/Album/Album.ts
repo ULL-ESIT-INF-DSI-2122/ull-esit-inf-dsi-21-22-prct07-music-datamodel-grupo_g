@@ -1,7 +1,7 @@
-import {Group} from './Group';
-import {Artist} from './Artist';
-import {Song} from './Song';
-import {MusicalGenres} from './MusicalGenres';
+import {Group} from '../Group/Group';
+import {Artist} from '../Artist/Artist';
+import {Song} from '../Song/Song';
+import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
 /**
  * Album class
  */

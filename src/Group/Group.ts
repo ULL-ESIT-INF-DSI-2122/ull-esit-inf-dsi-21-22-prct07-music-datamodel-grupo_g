@@ -1,6 +1,6 @@
-import {Artist} from './Artist';
-import {MusicalGenres} from './MusicalGenres';
-import {Album} from './Album';
+import {Artist} from '../Artist/Artist';
+import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
+import {Album} from '../Album/Album';
 
 /**
  * Groups class describes a group of artists.

@@ -1,6 +1,6 @@
-import {Artist} from './Artist';
-import {Group} from './Group';
-import {MusicalGenres} from './MusicalGenres';
+import {Artist} from '../Artist/Artist';
+import {Group} from '../Group/Group';
+import {MusicalGenres} from '../MusicalGenres/MusicalGenres';
 /**
  * Song class describes a song.
  */
