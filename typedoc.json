@@ -1,16 +1,29 @@
 {
   "entryPoints": [
-    "./src/Song/Song.ts",
     "./src/Album/Album.ts",
-    "./src/Group/Group.ts",
-    "./src/Manager/Manager.ts",
-    "./src/UI/UI.ts",
-    "./src/Playlist/Playlist.ts",
-    "./src/MusicalGenres/MusicalGenres.ts",
+    "./src/Album/AlbumManage.ts",
+    "./src/Album/Manage.ts",
     "./src/Artist/Artist.ts",
+    "./src/Artist/ArtistManage.ts",
+    "./src/Artist/Manage.ts",
+    "./src/Group/Group.ts",
+    "./src/Group/GroupManage.ts",
+    "./src/Group/Manage.ts",
     "./src/LowDB/DB.ts",
     "./src/LowDB/lowdb.ts",
-    "./src/MusicCollection/jsonMusicCollection.ts"
+    "./src/Manager/Manager.ts",
+    "./src/MusicalGenres/MusicalGenres.ts",
+    "./src/MusicalGenres/MusicalGenresManage.ts",
+    "./src/MusicalGenres/Manage.ts",
+    "./src/MusicCollection/jsonMusicCollection.ts",
+    "./src/Nameable/Nameable.ts",
+    "./src/Playlist/Playlist.ts",
+    "./src/Playlist/PlaylistManage.ts",
+    "./src/Playlist/Manage.ts",
+    "./src/Song/Song.ts",
+    "./src/Song/SongManage.ts",
+    "./src/Song/Manage.ts",
+    "./src/UI/UI.ts"
   ],
   "out": "./docs"
 }

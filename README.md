@@ -12,18 +12,26 @@
 
 - [INTRODUCCIÓN](#id1).
 - [CLASES](#id2).
-    - [Clase Album](#id5).
-    - [Clase Artist](#id7).
-    - [Clase Group](#id6).
-    - [Clase Manager](#id9).
-    - [Clase MusicalGenres](#id3).
+    - [Clase Album](#id3).
+    - [Clase Artist](#id4).
+    - [Clase Group](#id5).
+    - [Clase Manager](#id6).
+    - [Clase MusicalGenres](#id7).
     - [Clase Playlist](#id8).
-    - [Clase Song](#id4).
-- [INTERFACES](#id13).
-    - [Interfaz UI](#id10).
-- [BASE DE DATOS](#id14).
-- [CONCLUSIÓN](#id11).
-- [INTEGRANTES](#id12).
+    - [Clase Song](#id9).
+- [INTERFACES](#id10).
+    - [Interfaces implementadas por la clases](#id11).
+        - [Interfaz AlbumManage](#id12).
+        - [Interfaz ArtistManage](#id13).
+        - [Interfaz GroupManage](#id14).
+        - [Interfaz MusicalGenresManage](#id15).
+        - [Interfaz Nameable](#id16).
+        - [Interfaz PlaylistManage](#id17).
+        - [Interfaz SongManage](#id18).
+    - [Interfaz UI](#id19).
+- [BASE DE DATOS](#id20).
+- [CONCLUSIÓN](#id21).
+- [INTEGRANTES](#id22).
 
 # INTRODUCCIÓN<a name="id1"></a>
 
@@ -51,7 +59,7 @@ Para acceder a la página web del informe podrá hacer pulsando sobre este [_enl
 
 # CLASES<a name="id2"></a>
 
-## **Clase Album**<a name="id5"></a>
+## **Clase Album**<a name="id3"></a>
 Se define la clase **Album**, definida en el fichero [**_Album.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/3fb4e0b7caeb407b7536634cc6b762173972bcea/src/Album/Album.ts), para el almacenamiento de información de un disco:
 
 - **Nombre del álbum**: ```string```
@@ -182,7 +190,7 @@ En la clase _Album_ se ha implementado los métodos necesarios:
     }
     ```
 
-## **Clase Artist**<a name="id7"></a>
+## **Clase Artist**<a name="id4"></a>
 
 La clase **Artist**, definida en el fichero [_**Artist.ts**_](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Artist/Artist.ts), se encargará de almacenar toda la información de cada uno de los artistas:
 
@@ -376,7 +384,7 @@ Para poder manejar la información de los artistas, se tendrá que crear un conj
         }
         ```
 
-## **Clase Group**<a name="id6"></a>
+## **Clase Group**<a name="id5"></a>
 
 La clase **Group**, definida en el fichero [_**Group.ts**_](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Group/Group.ts), se encargará de almacenar toda la información de cada uno de los grupos:
 
@@ -576,10 +584,10 @@ Al igual que en las clases anteriores, para poder manejar la información de los
         }
         ```
 
-## **Clase Manager**<a name="id9"></a>
+## **Clase Manager**<a name="id6"></a>
 
 
-## **Clase MusicalGenres**<a name="id3"></a>
+## **Clase MusicalGenres**<a name="id7"></a>
 
 La clase *MusicalGenres*, definida en el fichero [**_MusicalGenres.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/MusicalGenres/MusicalGenres.ts), representa un grupo musical y se encarga de almacenar la siguiente información:
 
@@ -870,7 +878,7 @@ Para poder manejar la información de las playlists, se tendrá que crear un con
       }
       ```
 
-## **Clase Song** <a name="id4"></a>
+## **Clase Song** <a name="id9"></a>
 
 La clase *Song*, definida en el fichero [**_Song.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Song/Song.ts), representa a las canciones de la biblioteca y tiene la función de almacenar la siguiente información:
 
@@ -996,18 +1004,125 @@ Los métodos de la clase **Song** necesarios para manipular la clase son los sig
       }
     ```
 
-# INTERFACES
+# INTERFACES<a name="id10"></a>
 
-## **Interfaz UI**<a name="id10"></a>
+## **Interfaces implementadas por la clases**<a name="id11"></a>
+
+A la hora de realizar la definición de las clases, tal y como se ha podido observar el los puntos explicados anteriormente,  se ha implementado la interfaz **Manage** que contiene los métodos necesarios para manipular la clase. Es importante comentar que cada una de las clases tendrá su interfaz **Manage** correspondiente ubicada en la misma carpeta que la clase. 
+
+```typescript
+export interface Manage extends ... {
+  // code goes here ...
+}
+```
+
+Además, cada una de estas interfaces extenderán de otras interfaces según el caso de cada clase y que se ubicarán en la misma carpeta que la clase correspondiente. 
+
+### **Interfaz AlbumManage**<a name="id12"></a>
+
+[**_AlbumManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Album/AlbumManage.ts)
+
+```typescript
+export interface AlbumManage {
+  getAlbums(): Album[];
+  setAlbums(albums: Album[]): void;
+  addAlbum(album: Album): void;
+  removeAlbum(album: string): void;
+}
+```
+
+### **Interfaz ArtistManage**<a name="id13"></a>
+
+[**_ArtistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Artist/ArtistManage.ts)
+
+```typescript
+export interface ArtistManage {
+  getArtists(): Artist[];
+  setArtists(Artists: Artist[]): void;
+  addArtist(Artist: Artist): void;
+  removeArtist(Artist: string): void;
+}
+```
+
+### **Interfaz GroupManage**<a name="id14"></a>
+
+[**_GroupManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Group/GroupManage.ts)
+
+```typescript
+export interface GroupManage {
+  getGroups(): Group[];
+  setGroups(Groups: Group[]): void;
+  addGroup(Group: Group): void;
+  removeGroup(Group: string): void;
+}
+```
+
+### **Interfaz MusicalGenresManage**<a name="id15"></a>
+
+[**_MusicalGenresManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/MusicalGenres/MusicalGenresManage.ts)
+
+```typescript
+export interface MusicalGenresManage {
+  getGenres(): MusicalGenres[];
+  setGenres(MusicalGenress: MusicalGenres[]): void;
+  addGenre(MusicalGenres: MusicalGenres): void;
+  removeGenre(MusicalGenres: string): void;
+}
+```
+
+### **Interfaz Nameable**<a name="id16"></a>
+
+[**_Nameable.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Nameable/Nameable.ts)
+
+```typescript
+export interface Nameable {
+  getName(): string;
+  setName(name: string): void;
+}
+```
+
+### **Interfaz Playlist**<a name="id17"></a>
+
+[**_PlaylistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Playlist/PlaylistManage.ts)
+
+```typescript
+export interface PlaylistManage {
+  getPlaylists(): Playlist[];
+  setPlaylists(Playlists: Playlist[]): void;
+  addPlaylist(Playlist: Playlist): void;
+  removePlaylist(Playlist: string): void;
+}
+```
+
+### **Interfaz SongManage**<a name="id18"></a>
+
+[**_SongManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/cf855c43040a4e4901aebfd62b8b55da2c0bf87b/src/Song/SongManage.ts)
+
+```typescript
+export interface SongManage {
+  getSongs(): Song[];
+  setSongs(Songs: Song[]): void;
+  addSong(Song: Song): void;
+  removeSong(Song: string): void;
+}
+```
+
+## **Interfaz UI**<a name="id19"></a>
 
 
 
-# CONCLUSIÓN<a name="id11"></a>
+
+
+# BASE DE DATOS<a name="id20"></a>
+
+
+
+# CONCLUSIÓN<a name="id21"></a>
 
 
 
 
-### INTEGRANTES<a name="id12"></a>
+### INTEGRANTES<a name="id22"></a>
 
 - **Gabriel Alberto Luis Freitas:** alu0101348421
 - **Dana Belen Choque Zárate:** alu0101328348
