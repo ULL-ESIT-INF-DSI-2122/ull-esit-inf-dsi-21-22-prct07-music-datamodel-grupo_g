@@ -153,10 +153,15 @@ describe('Album class - Test', () => {
 
   it('printInfo() prints album information', () => {
     const danwFM2: Album = new Album('Danw FM', group1, 2022, [], []);
+    const danwFM3: Album = new Album('Danw FM', theWeeknd, 2022, [], [sacrifice, outOfTime]);
     expect(danwFM.printInfo).to.exist;
     expect(danwFM2.printInfo).to.exist;
+    expect(danwFM3.printInfo).to.exist;
     expect(danwFM.printInfo).to.be.a('function');
     expect(danwFM2.printInfo).to.be.a('function');
+    expect(danwFM3.printInfo).to.be.a('function');
     expect(() => danwFM.printInfo()).to.not.throw();
+    expect(() => danwFM2.printInfo()).to.not.throw();
+    expect(() => danwFM3.printInfo()).to.not.throw();
   });
 });

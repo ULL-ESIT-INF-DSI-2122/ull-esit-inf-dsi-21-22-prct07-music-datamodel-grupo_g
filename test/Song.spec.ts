@@ -19,6 +19,7 @@ describe('Song class - Tests', () => {
   let song1: Song;
   let song2: Song;
   let song3: Song;
+  let song4: Song;
 
   let artist1: Artist;
   let artist2: Artist;
@@ -48,6 +49,7 @@ describe('Song class - Tests', () => {
     song1 = new Song('song1', artist1, '3:00', [genre1, genre2], false, 1000);
     song2 = new Song('song2', artist1, '2:50', [genre1], true, 5000);
     song3 = new Song('song3', artist1, '3:12', [genre1], false, 3000);
+    song4 = new Song('song4', group1, '3:00', [genre1], false, 1000);
   });
 
   it('getName() returns the name of the song', () => {
@@ -174,7 +176,10 @@ describe('Song class - Tests', () => {
 
   it('printInfo() prints the information of the song', () => {
     expect(song1.printInfo).to.exist;
+    expect(song4.printInfo).to.exist;
     expect(song1.printInfo).to.be.a('function');
+    expect(song4.printInfo).to.be.a('function');
     expect(() => song1.printInfo()).to.not.throw();
+    expect(() => song4.printInfo()).to.not.throw();
   });
 });

@@ -135,7 +135,8 @@ export class Song {
     console.log(`Song: ${this.name}`);
     if (this.author instanceof Artist) {
       console.log(`Artist: ${this.author.getName()}`);
-    } else if (this.author instanceof Group) {
+    }
+    if (this.author instanceof Group) {
       console.log(`Group: ${this.author.getName()}`);
     }
     console.log(`Duration: ${this.duration}`);

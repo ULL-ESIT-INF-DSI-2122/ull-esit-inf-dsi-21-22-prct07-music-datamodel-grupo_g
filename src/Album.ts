@@ -139,10 +139,10 @@ export class Album {
   printInfo(): void {
     console.log('Name: ' + this.name);
     if (this.author instanceof Artist) {
-      console.log('By artists: ' + this.author.getName());
+      console.log('By artist: ' + this.author.getName());
     }
     if (this.author instanceof Group) {
-      console.log('By groups: ' + this.author.getName());
+      console.log('By group: ' + this.author.getName());
     }
     console.log('Year: ' + this.year);
     console.log('Genres: ');

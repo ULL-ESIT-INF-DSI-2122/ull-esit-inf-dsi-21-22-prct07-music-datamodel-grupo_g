@@ -4,8 +4,8 @@ import {MusicalGenres} from './MusicalGenres';
 import {Album} from './Album';
 import {Song} from './Song';
 import {Playlist} from './Playlist';
-import Lowdb from 'lowdb';
-import FileSync from 'lowdb/adapters/FileSync';
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
 
 // Artist
 const johnLenon = new Artist('John Lennon', [], [], [], [], 8692252);
@@ -79,14 +79,14 @@ for (const group of allGroups) {
 // Genres
 const rock = new MusicalGenres('Rock', [johnLenon, paulMcCartney, georgeHarrison, ringoStarr, elvisPresley, freddieMercury, brianMay, johnDeacon, rogerTaylor, mickJagger, keithRichards, brianJohnson, billWyman, charlieWatts], [theBeatles, queen, theRollingStones], [], []);
 const pop = new MusicalGenres('Pop', [michaelJackson, elvisPresley, victoriaBeckham, melanieChisholm, geriHalliwell, melB, emmaBunton, agnethaFaltskog, anniFridLyngstad, bjornUlvaeus, bennyAndersson], [spiceGirls, abba], [], []);
-const rap = new MusicalGenres('Genre', [eminem, zatu, accionSanchez, kaseO, residente], [sfdk], [], []);
-const heavyMetal = new MusicalGenres('Genre', [mickJagger, keithRichards, brianJohnson, billWyman, charlieWatts], [theRollingStones], [], []);
-const jazz = new MusicalGenres('Genre', [georgeBenson, milesDavis, johnColtrane], [], [], []);
-const indie = new MusicalGenres('Genre', [alexTurner, mattHelders, JamieCook, nickOMalley, andyNicholson], [articMonkeys], [], []);
-const reggae = new MusicalGenres('Genre', [bobMarley, peterTosh, dennisBrown], [], [], []);
-const electro = new MusicalGenres('Genre', [skrillex, calvinHarris, gaspardAuge, xavierDeRosnay], [justice], [], []);
-const country = new MusicalGenres('Genre', [dollyParton, johnnyCash, willieNelson], [], [], []);
-const kpop = new MusicalGenres('Genre', [jisoo, jennie, rose, lisa], [blackpink], [], []);
+const rap = new MusicalGenres('Rap', [eminem, zatu, accionSanchez, kaseO, residente], [sfdk], [], []);
+const heavyMetal = new MusicalGenres('Heavy Metal', [mickJagger, keithRichards, brianJohnson, billWyman, charlieWatts], [theRollingStones], [], []);
+const jazz = new MusicalGenres('Jazz', [georgeBenson, milesDavis, johnColtrane], [], [], []);
+const indie = new MusicalGenres('Indie', [alexTurner, mattHelders, JamieCook, nickOMalley, andyNicholson], [articMonkeys], [], []);
+const reggae = new MusicalGenres('Reggae', [bobMarley, peterTosh, dennisBrown], [], [], []);
+const electro = new MusicalGenres('Electro', [skrillex, calvinHarris, gaspardAuge, xavierDeRosnay], [justice], [], []);
+const country = new MusicalGenres('Country', [dollyParton, johnnyCash, willieNelson], [], [], []);
+const kpop = new MusicalGenres('KPOP', [jisoo, jennie, rose, lisa], [blackpink], [], []);
 const allGenres = [rock, pop, rap, heavyMetal, jazz, indie, reggae, electro, country, kpop];
 for (const genre of allGenres) {
   for (const artist of genre.getArtist()) {
@@ -334,16 +334,82 @@ const allPlaylists = [rolitasChidas, perfect, chillin];
 
 
 // Database
-const adapter = new FileSync('db.json');
-// eslint-disable-next-line new-cap
-const db = Lowdb(adapter);
+const adapter = new FileSync('src/db.json');
+const db = low(adapter);
 
-// add data to db
 db.defaults({
   artists: [],
   groups: [],
   genres: [],
   albums: [],
   songs: [],
-  playlists: [],
+  playlists: []
 }).write();
+
+for (let i = 0; i < allArtists.length; i++) {
+  const artistJSON = {
+    name: allArtists[i].getName(),
+    groups: allArtists[i].getGroup().map((group) => group.getName()),
+    genres: allArtists[i].getGenres().map((genre) => genre.getName()),
+    albums: allArtists[i].getAlbums().map((album) => album.getName()),
+    songs: allArtists[i].getSongs().map((song) => song.getName()),
+    numFollowers: allArtists[i].getNumFollowers()
+  };
+  db.get('artists').push(artistJSON).write();
+}
+
+for (let i = 0; i < allGroups.length; i++) {
+  const groupJSON = {
+    name: allGroups[i].getName(),
+    artists: allGroups[i].getArtist().map((artist) => artist.getName()),
+    creationYear: allGroups[i].getCreationYear(),
+    genres: allGroups[i].getGenres().map((genre) => genre.getName()),
+    albums: allGroups[i].getAlbums().map((album) => album.getName()),
+    numFollowers: allGroups[i].getNumFollowers()
+  };
+  db.get('groups').push(groupJSON).write();
+}
+
+for (let i = 0; i < allGenres.length; i++) {
+  const genreJSON = {
+    name: allGenres[i].getName(),
+    artists: allGenres[i].getArtist().map((artist) => artist.getName()),
+    groups: allGenres[i].getGroup().map((group) => group.getName()),
+    albums: allGenres[i].getAlbums().map((album) => album.getName()),
+    songs: allGenres[i].getSong().map((song) => song.getName()),
+  };
+  db.get('genres').push(genreJSON).write();
+}
+
+for (let i = 0; i < allAlbums.length; i++) {
+  const albumJSON = {
+    name: allAlbums[i].getName(),
+    author: allAlbums[i].getAuthor().getName(),
+    year: allAlbums[i].getYear(),
+    genres: allAlbums[i].getGenre().map((genre) => genre.getName()),
+    songs: allAlbums[i].getSongs().map((song) => song.getName())
+  };
+  db.get('albums').push(albumJSON).write();
+}
+
+for (let i = 0; i < allSongs.length; i++) {
+  const songJSON = {
+    name: allSongs[i].getName(),
+    author: allSongs[i].getAuthor().getName(),
+    duration: allSongs[i].getDuration(),
+    genres: allSongs[i].getGenre().map((genre) => genre.getName()),
+    isSingle: allSongs[i].isSingle(),
+    numRep: allSongs[i].getNumRep()
+  };
+  db.get('songs').push(songJSON).write();
+}
+
+for (let i = 0; i < allPlaylists.length; i++) {
+  const playlistJSON = {
+    name: allPlaylists[i].getName(),
+    songs: allPlaylists[i].getSongs().map((song) => song.getName()),
+    duration: allPlaylists[i].getDuration(),
+    genres: allPlaylists[i].getGenres().map((genre) => genre.getName())
+  };
+  db.get('playlists').push(playlistJSON).write();
+}
