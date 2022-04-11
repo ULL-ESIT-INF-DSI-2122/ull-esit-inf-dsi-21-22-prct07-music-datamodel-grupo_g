@@ -1011,9 +1011,7 @@ Los métodos de la clase **Song** necesarios para manipular la clase son los sig
 A la hora de realizar la definición de las clases, tal y como se ha podido observar el los puntos explicados anteriormente,  se ha implementado la interfaz **Manage** que contiene los métodos necesarios para manipular la clase. Es importante comentar que cada una de las clases tendrá su interfaz **Manage** correspondiente ubicada en la misma carpeta que la clase. 
 
 ```typescript
-export interface Manage extends ... {
-  // code goes here ...
-}
+export interface Manage extends ... {}
 ```
 
 Además, cada una de estas interfaces extenderán de otras interfaces según el caso de cada clase y que se ubicarán en la misma carpeta que la clase correspondiente. 
