@@ -1331,14 +1331,16 @@ La clase UI (Interfaz de Usuario), definida en el fichero [**_UI.ts_**](https://
 - **Base de datos**: `DB`
 - **Lectura por consola**: `Inquirer.Inquirer`
 
-A continuación se muestra el código desarrollado del constructor la clase en cuestión.
+A continuación se muestra el código desarrollado del constructor la clase mencionada.
 
 ```typescript
+export class UI {
   constructor() {
     this.db = DB.getInstance();
     this.inquirer = Inquirer;
   }
   // code goes here ...
+}
 ```
 
 Los métodos de la clase **UI** necesarios para el manejo del usuario:
@@ -1389,19 +1391,172 @@ Los métodos de la clase **UI** necesarios para el manejo del usuario:
   }
   ```
   * Orden alfabético
-    * showSongsAlphabetically: Muestra las canciones en orden ascendente y descendente.
-    * showAlbumsAlphabetically: Muestra los albums en orden ascendente y descendente.
+    * showSongsAlphabetically: Muestra las canciones en orden ascendente o descendente, dependiendo de la elección del usuario.
+    ```typescript
+    private async showSongsAlphabetically(): Promise<void> {
+      const ascendent = await this.inquirer.prompt([
+        {
+          type: 'list',
+          name: 'ascendent',
+          message: 'Do you want to show songs in ascendent order?',
+          choices: ['Yes', 'No']
+        }
+      ]);
+
+      const songs = this.db.getSongs();
+      if (ascendent.ascendent === 'Yes') {
+        songs.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        songs.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      console.log();
+      songs.map((song: any) => console.log('\x1b[032m' + song.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
+    }
+    ```
+    * showAlbumsAlphabetically: Muestra los albums en orden ascendente o descendente según sea la elección del usuario.
+    ```typescript
+    private async showAlbumsAlphabetically(): Promise<void> {
+      const ascendent = await this.inquirer.prompt([
+        {
+          type: 'list',
+          name: 'ascendent',
+          message: 'Do you want to show albums in ascendent order?',
+          choices: ['Yes', 'No']
+        }
+      ]);
+
+      const albums = this.db.getAlbums();
+      if (ascendent.ascendent === 'Yes') {
+        albums.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        albums.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      console.log();
+      albums.map((album: any) => console.log('\x1b[032m' + album.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
+    }
+    ```
     * showPlaylistsAlphabetically: Muestra las playlists en orden ascendente y descendente.
+    ```typescript
+    private async showPlaylistsAlphabetically(): Promise<void> {
+      const ascendent = await this.inquirer.prompt([
+        {
+          type: 'list',
+          name: 'ascendent',
+          message: 'Do you want to show playlists in ascendent order?',
+          choices: ['Yes', 'No']
+        }
+      ]);
 
+      const playlists = this.db.getPlaylists();
+      if (ascendent.ascendent === 'Yes') {
+        playlists.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        playlists.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      console.log();
+      playlists.map((playlist: any) => console.log('\x1b[032m' + playlist.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
+    }
+    ```
   * Orden por año de lanzamiento
-    * showAlbumsByYear: Muestra los albums por año de lanzamiento.
+    * showAlbumsByYear: Muestra los álbumes por año de lanzamiento.
+    ```typescript
+    private async showAlbumsByYear(): Promise<void> {
+      const albums = this.db.getAlbums();
+      albums.sort((a, b) => a.year - b.year);
+      console.log();
+      albums.map((album: any) => console.log('\x1b[32m' + album.name + '\x1b[36m' + ('.'.repeat(80 - album.name.length - album.year.toString().length)) + '\x1b[32m' + album.year + '\x1b[0m'));
+      console.log();
 
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
+    }
+    ```
   * Orden por el número de reproducciones
     * showSongsByNumberOfPlays: Muestra las canciones por número de reproducciones.
+    ```typescript
+    private async showSongsByNumberOfPlays(): Promise<void> {
+      const songs = this.db.getSongs();
+      songs.sort((a, b) => b.numRep - a.numRep);
 
+      console.log();
+      songs.map((song: any) => console.log('\x1b[32m' + song.name + '\x1b[36m' + ('.'.repeat(80 - song.name.length - song.numRep.toString().length)) + '\x1b[32m' + song.numRep + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
+    }
+    ```
   * Orden por singles lanzados
     * showSingles: Muestra los singles lanzados.
+    ```typescript
+    private async showSingles(): Promise<void> {
+      const singles = this.db.getSongs().filter((song: any) => song.isSingle);
 
+      console.log();
+      singles.forEach((song: any) => console.log('\x1b[32m' + song.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
+    }
+    ```
 
 # INTERFACES<a name="id11"></a>
 
