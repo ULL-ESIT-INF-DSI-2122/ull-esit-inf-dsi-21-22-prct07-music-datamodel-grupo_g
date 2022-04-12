@@ -1,6 +1,9 @@
 import {DB} from '../LowDB/DB';
 import * as Inquirer from 'inquirer';
 
+/**
+ * User Interface singleton class
+ */
 export class UI {
   private db: DB;
   private inquirer: Inquirer.Inquirer;
@@ -10,6 +13,10 @@ export class UI {
     this.inquirer = Inquirer;
   }
 
+  /**
+   * Main menu
+   * @returns {Promise<void>}
+   */
   public async showMenu(): Promise<void> {
     process.stdout.write('\x1Bc');
     const menu = await this.inquirer.prompt([
@@ -53,6 +60,10 @@ export class UI {
     }
   }
 
+  /**
+   * Show songs alphabetically
+   * @returns {Promise<void>}
+   */
   private async showSongsAlphabetically(): Promise<void> {
     const ascendent = await this.inquirer.prompt([
       {
@@ -85,6 +96,10 @@ export class UI {
     this.showMenu();
   }
 
+  /**
+   * Show albums alphabetically
+   * @returns {Promise<void>}
+   */
   private async showAlbumsAlphabetically(): Promise<void> {
     const ascendent = await this.inquirer.prompt([
       {
@@ -117,6 +132,10 @@ export class UI {
     this.showMenu();
   }
 
+  /**
+   * Show playlists alphabetically
+   * @returns {Promise<void>}
+   */
   private async showPlaylistsAlphabetically(): Promise<void> {
     const ascendent = await this.inquirer.prompt([
       {
@@ -149,6 +168,10 @@ export class UI {
     this.showMenu();
   }
 
+  /**
+   * Show albums by year
+   * @returns {Promise<void>}
+   */
   private async showAlbumsByYear(): Promise<void> {
     const albums = this.db.getAlbums();
     albums.sort((a, b) => a.year - b.year);
@@ -167,6 +190,10 @@ export class UI {
     this.showMenu();
   }
 
+  /**
+   * Show songs by number of plays
+   * @returns {Promise<void>}
+   */
   private async showSongsByNumberOfPlays(): Promise<void> {
     const songs = this.db.getSongs();
     songs.sort((a, b) => b.numRep - a.numRep);
@@ -186,6 +213,10 @@ export class UI {
     this.showMenu();
   }
 
+  /**
+   * Show singles
+   * @return {Promise<void>}
+   */
   private async showSingles(): Promise<void> {
     const singles = this.db.getSongs().filter((song: any) => song.isSingle);
 
@@ -205,5 +236,8 @@ export class UI {
   }
 }
 
+/**
+ * Execute the application
+ */
 const ui = new UI();
 ui.showMenu();

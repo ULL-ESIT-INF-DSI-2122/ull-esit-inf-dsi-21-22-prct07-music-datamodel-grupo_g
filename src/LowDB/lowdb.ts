@@ -409,7 +409,8 @@ for (let i = 0; i < allPlaylists.length; i++) {
     name: allPlaylists[i].getName(),
     songs: allPlaylists[i].getSongs().map((song) => song.getName()),
     duration: allPlaylists[i].getDuration(),
-    genres: allPlaylists[i].getGenres().map((genre) => genre.getName())
+    genres: allPlaylists[i].getGenres().map((genre) => genre.getName()),
+    creator: 'System'
   };
   db.get('playlists').push(playlistJSON).write();
 }
