@@ -87,8 +87,7 @@ export class Manager {
       console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
       playlist.songs.forEach((song: string) => {
         console.log(`\t${song}`);
-      }
-      );
+      });
       console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${playlist.duration}`);
       console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${playlist.genres}\n`);
     });
@@ -97,8 +96,7 @@ export class Manager {
       console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
       playlist.songs.forEach((song: string) => {
         console.log(`\t${song}`);
-      }
-      );
+      });
       console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${playlist.duration}`);
       console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${playlist.genres}\n`);
     });
