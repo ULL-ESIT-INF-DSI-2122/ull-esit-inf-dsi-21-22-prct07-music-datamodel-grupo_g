@@ -12,6 +12,16 @@
     "doc": "typedoc",
     "make": "node ./dist/*.js"
   },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/UI/UI.ts",
+      "src/Manager/Manager.ts",
+      "src/DB/DB.ts"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g.git"
