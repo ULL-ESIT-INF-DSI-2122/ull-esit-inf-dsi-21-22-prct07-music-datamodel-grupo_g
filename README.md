@@ -1334,8 +1334,18 @@ A continuación se muestra el código desarrollado del constructor la clase en c
 ```
 
 Los métodos de la clase **UI** necesarios para el manejo del usuario:
+* Menú
+* Albúm:
+* Canciones:
 
 
+* showMenu
+* showSongsAlphabetically
+* showAlbumsAlphabetically
+* showPlaylistsAlphabetically
+* showAlbumsByYear
+* showSongsByNumberOfPlays
+* showSingles
 
 
 # INTERFACES<a name="id11"></a>

@@ -81,9 +81,9 @@ export class Manager {
    */
   private async showPlaylists(): Promise<void> {
     process.stdout.write('\x1Bc');
-    const playlists = await this.db.getPlaylists();
+    const dbPlaylists = this.db.getPlaylists();
     console.log(`Playlists in the database:`);
-    playlists.forEach((playlist: {name: string, songs: string[], duration: string, genres: string[]}) => {
+    dbPlaylists.forEach((playlist: {name: string, songs: string[], duration: string, genres: string[]}) => {
       console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
       playlist.songs.forEach((song: string) => {
         console.log(`\t${song}`);
@@ -226,7 +226,7 @@ export class Manager {
     });
 
     for (const playlist of JSON) {
-      await this.db.addPlaylist(playlist);
+      this.db.addPlaylist(playlist);
     }
 
     for (const playlist of this.playlists) {
@@ -253,7 +253,7 @@ export class Manager {
     const availablePlaylists = this.playlists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
       return playlist.creator === this.username;
     });
-    const dbPlaylists = await this.db.getPlaylists();
+    const dbPlaylists = this.db.getPlaylists();
     for (const playlist of dbPlaylists) {
       if (playlist.creator === this.username) {
         availablePlaylists.push(playlist);
@@ -277,7 +277,7 @@ export class Manager {
 
     for (const playlist of playlists) {
       if (this.playlists.indexOf(playlist) === -1) {
-        await this.db.removePlaylist(playlist.name);
+        this.db.removePlaylist(playlist.name);
       } else {
         this.playlists.splice(this.playlists.indexOf(playlist), 1);
       }
