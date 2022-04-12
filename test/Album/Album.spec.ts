@@ -1,6 +1,5 @@
 import 'mocha';
 import {expect} from 'chai';
-import sinon from 'sinon';
 import {Album} from '../../src/Album/Album';
 import {Group} from '../../src/Group/Group';
 import {Artist} from '../../src/Artist/Artist';
@@ -8,14 +7,6 @@ import {Song} from '../../src/Song/Song';
 import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
 
 describe('Album class - Test', () => {
-  const log = console.log;
-  before(() => {
-    sinon.stub(console, 'log').callsFake(() => {});
-  });
-  after(() => {
-    console.log = log;
-  });
-
   let theWeeknd: Artist;
 
   let danwFM: Album;
@@ -149,19 +140,5 @@ describe('Album class - Test', () => {
     expect(danwFM2.getSongs()).to.deep.equal([sacrifice, outOfTime]);
     expect(danwFM.getSongs().length).to.be.equal(1);
     expect(danwFM2.getSongs().length).to.be.equal(2);
-  });
-
-  it('printInfo() prints album information', () => {
-    const danwFM2: Album = new Album('Danw FM', group1, 2022, [], []);
-    const danwFM3: Album = new Album('Danw FM', theWeeknd, 2022, [], [sacrifice, outOfTime]);
-    expect(danwFM.printInfo).to.exist;
-    expect(danwFM2.printInfo).to.exist;
-    expect(danwFM3.printInfo).to.exist;
-    expect(danwFM.printInfo).to.be.a('function');
-    expect(danwFM2.printInfo).to.be.a('function');
-    expect(danwFM3.printInfo).to.be.a('function');
-    expect(() => danwFM.printInfo()).to.not.throw();
-    expect(() => danwFM2.printInfo()).to.not.throw();
-    expect(() => danwFM3.printInfo()).to.not.throw();
   });
 });

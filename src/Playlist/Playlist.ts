@@ -115,20 +115,4 @@ export class Playlist implements Manage {
       }
     }
   }
-
-  /**
-   * Prints playlist information
-   */
-  printInfo(): void {
-    console.log('Name:' + this.name);
-    console.log('Songs: ');
-    for (const song of this.songs) {
-      console.log(song.getName());
-    }
-    console.log('Duration: ' + this.duration);
-    console.log('Genres: ');
-    for (const genre of this.genres) {
-      console.log(genre.getName());
-    }
-  }
 }

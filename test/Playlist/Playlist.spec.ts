@@ -1,6 +1,5 @@
 import 'mocha';
 import {expect} from 'chai';
-import sinon from 'sinon';
 import {Artist} from '../../src/Artist/Artist';
 import {Song} from '../../src/Song/Song';
 import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
@@ -8,14 +7,6 @@ import {Album} from '../../src/Album/Album';
 import {Playlist} from '../../src/Playlist/Playlist';
 
 describe('Playlist class - Tests', () => {
-  const log = console.log;
-  before(() => {
-    sinon.stub(console, 'log').callsFake(() => {});
-  });
-  after(() => {
-    console.log = log;
-  });
-
   let danwFM: Album;
   let hollywoodsBleeding: Album;
 
@@ -146,11 +137,5 @@ describe('Playlist class - Tests', () => {
     expect(playlist2.getGenres()).to.deep.equal([musicalGenre01]);
     expect(playlist.getGenres().length).to.be.equal(1);
     expect(playlist2.getGenres().length).to.be.equal(1);
-  });
-
-  it('printInfo() prints album information', () => {
-    expect(playlist.printInfo).to.exist;
-    expect(playlist.printInfo).to.be.a('function');
-    expect(() => playlist.printInfo()).to.not.throw();
   });
 });

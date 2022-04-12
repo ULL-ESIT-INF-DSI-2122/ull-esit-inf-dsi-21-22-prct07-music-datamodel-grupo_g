@@ -1,6 +1,5 @@
 import 'mocha';
 import {expect} from 'chai';
-import sinon from 'sinon';
 import {Group} from '../../src/Group/Group';
 import {Artist} from '../../src/Artist/Artist';
 import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
@@ -9,14 +8,6 @@ import {Song} from '../../src/Song/Song';
 
 
 describe('Group class - Tests', () => {
-  const log = console.log;
-  before(() => {
-    sinon.stub(console, 'log').callsFake(() => {});
-  });
-  after(() => {
-    console.log = log;
-  });
-
   let groups: Group;
 
   let artists_: Artist;
@@ -184,11 +175,5 @@ describe('Group class - Tests', () => {
     expect(groups.setNumFollowers).to.be.a('function');
     groups.setNumFollowers(2000);
     expect(groups.getNumFollowers()).to.be.equal(2000);
-  });
-
-  it('printInfo() prints the information of the group', () => {
-    expect(groups.printInfo).to.exist;
-    expect(groups.printInfo).to.be.a('function');
-    expect(() => groups.printInfo()).to.not.throw();
   });
 });

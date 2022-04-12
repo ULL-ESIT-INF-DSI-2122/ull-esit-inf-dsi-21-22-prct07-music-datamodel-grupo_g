@@ -174,27 +174,4 @@ export class MusicalGenres implements Manage {
       }
     }
   }
-
-  /**
-   * printInfo() prints the information of the genre.
-   */
-  printInfo(): void {
-    console.log(`Genre: ${this.name}`);
-    console.log(`Artist: `);
-    for (let i = 0; i < this.artists.length; i++) {
-      console.log(`${i + 1}. ${this.artists[i].getName()}`);
-    }
-    console.log(`Group: `);
-    for (let i = 0; i < this.groups.length; i++) {
-      console.log(`${i + 1}. ${this.groups[i].getName()}`);
-    }
-    console.log(`Albums: `);
-    for (let i = 0; i < this.albums.length; i++) {
-      console.log(`${i + 1}. ${this.albums[i].getName()}`);
-    }
-    console.log(`Songs:`);
-    for (let i = 0; i < this.song.length; i++) {
-      console.log(`${i + 1}. ${this.song[i].getName()}`);
-    }
-  }
 }

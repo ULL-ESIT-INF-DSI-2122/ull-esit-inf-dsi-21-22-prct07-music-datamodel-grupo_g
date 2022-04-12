@@ -7,8 +7,8 @@
     "test": "mocha",
     "coverage": "nyc npm test",
     "coveralls": "nyc npm test && nyc report --reporter=lcov",
-    "functions": "tsc-watch --onSuccess 'node dist/UI/UI.js'",
-    "manager": "tsc-watch --onSuccess 'node dist/Manager/Manager.js'",
+    "functions": "tsc && node -e \"require('./dist/UI/UI.js').main()\"",
+    "manager": "tsc && node -e \"require('./dist/Manager/Manager.js').main()\"",
     "doc": "typedoc",
     "make": "node ./dist/*.js"
   },

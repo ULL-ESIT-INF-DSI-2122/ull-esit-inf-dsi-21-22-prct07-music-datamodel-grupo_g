@@ -14,19 +14,18 @@
     - [Clase MusicalGenres](#id7).
     - [Clase Playlist](#id8).
     - [Clase Song](#id9).
-- [INTERFACES](#id10).
-    - [Interfaces implementadas por la clases](#id11).
-        - [Interfaz AlbumManage](#id12).
-        - [Interfaz ArtistManage](#id13).
-        - [Interfaz GroupManage](#id14).
-        - [Interfaz MusicalGenresManage](#id15).
-        - [Interfaz Nameable](#id16).
-        - [Interfaz PlaylistManage](#id17).
-        - [Interfaz SongManage](#id18).
-    - [Interfaz UI](#id19).
-- [BASE DE DATOS](#id20).
-- [CONCLUSIÓN](#id21).
-- [INTEGRANTES](#id22).
+    - [Clase UI](#id10).
+- [INTERFACES](#id11).
+    - [Interfaz AlbumManage](#id12).
+    - [Interfaz ArtistManage](#id13).
+    - [Interfaz GroupManage](#id14).
+    - [Interfaz MusicalGenresManage](#id15).
+    - [Interfaz Nameable](#id16).
+    - [Interfaz PlaylistManage](#id17).
+    - [Interfaz SongManage](#id18).
+- [BASE DE DATOS](#id19).
+- [CONCLUSIÓN](#id20).
+- [INTEGRANTES](#id21).
 
 # INTRODUCCIÓN<a name="id1"></a>
 
@@ -580,7 +579,327 @@ Al igual que en las clases anteriores, para poder manejar la información de los
         ```
 
 ## **Clase Manager**<a name="id6"></a>
+La clase *Manager*, definida en el fichero [**_Manager.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Manager/Manager.ts), representa el administrador de la aplicación y se encarga de almacenar la siguiente información:
 
+  - **DataBase**: ```DB```
+  - **inquirer**: ```inquirer```
+  - **Username**: ```string```
+  - **Playlist**: ```{name: string, songs: Song[], duration: string, genre: string[], creator: string}[]```
+
+A continuación se muestra el código desarrollado del constructor la clase en cuestión.
+
+  ```typescript
+    export class Manager {
+      private DB: DB;
+      private inquirer: inquirer;
+      private username: string;
+      private playlist: {name: string, songs: Song[], duration: string, genre: string[], creator: string}[];
+
+      constructor() {
+        this.db = DB.getInstance();
+        this.inquirer = Inquirer;
+        this.username = '';
+        this.playlists = [];
+      }
+
+      // code goes here ...*
+    }
+  ```
+
+Para poder crear la clase *_Manager_* se ha creado una clase *_DB_* que se encarga de almacenar la información de la aplicación.
+
+Los métodos desarrollados en la clase *_Manager_* se encargan de realizar las operaciones necesarias para manipular la clase tal y como se propone en el enunciado:
+
+- **start**: inicia la aplicación y muestra el menú principal y devuelve un ```Promise<void>```
+
+```typescript
+  public async start(): Promise<void> {
+      process.stdout.write('\x1Bc');
+      const menu = await this.inquirer.prompt([
+        {
+          type: 'Input',
+          name: 'username',
+          message: 'What is your username?'
+        }
+      ]);
+      console.log(`Welcome ${menu.username}`);
+      this.username = menu.username;
+      this.showMenu();
+    }
+```
+
+* **Mostrar**
+  
+  * **Mostrar Menú**
+    - **showMenu**: muestra el menú principal y devuelve un ```Promise<void>```
+
+    ```typescript
+      public async showMenu(): Promise<void> {
+        process.stdout.write('\x1Bc');
+        const menu = await this.inquirer.prompt([
+          {
+            type: 'list',
+            name: 'menu',
+            message: 'What do you want to do?',
+            choices: [
+              'Preview all the playlists in the database',
+              'Add a new playlist',
+              'Remove a playlist',
+              'Save a playlist',
+              'Sign out',
+              'Exit'
+            ]
+          }
+        ]);
+
+        switch (menu.menu) {
+          case 'Preview all the playlists in the database':
+            this.showPlaylists();
+            break;
+          case 'Add a new playlist':
+            this.addPlaylist();
+            break;
+          case 'Remove a playlist':
+            this.removePlaylist();
+            break;
+          case 'Save a playlist':
+            this.savePlaylist();
+            break;
+          case 'Sign out':
+            this.start();
+            break;
+          case 'Exit':
+            break;
+        }
+      }
+    ```
+  * **Mostrar Playlists**
+
+    - **showPlaylists**: muestra todas las playlists almacenadas en la aplicación y devuelve un ```Promise<void>```
+
+    ```typescript
+      public async showPlaylists(): Promise<void> {
+        process.stdout.write('\x1Bc');
+        const playlists = await this.db.getPlaylists();
+        console.log(`Playlists in the database:`);
+        playlists.forEach((playlist: {name: string, songs: string[], duration: string, genres: string[]}) => {
+          console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
+          playlist.songs.forEach((song: string) => {
+            console.log(`\t${song}`);
+          }
+          );
+          console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${playlist.duration}`);
+          console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${playlist.genres}\n`);
+        });
+        console.log('\x1b[032m' + '\nPlaylists not saved yet:' + '\x1b[0m');
+        this.playlists.forEach((playlist: {name: string, songs: string[], duration: string, genres: string[]}) => {
+          console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
+          playlist.songs.forEach((song: string) => {
+            console.log(`\t${song}`);
+          }
+          );
+          console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${playlist.duration}`);
+          console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${playlist.genres}\n`);
+        });
+        await this.inquirer.prompt([
+          {
+            type: 'input',
+            name: 'continue',
+            message: 'Press enter to continue'
+          }
+        ]);
+        this.showMenu();
+      }
+    ```
+
+* **Añadir, eliminar y guardar playlist**
+
+  * **Añadir Playlist**
+
+    - **addPlaylist**: añade una nueva playlist a la aplicación y devuelve un ```Promise<void>```
+
+    ```typescript
+      public async addPlaylist(): Promise<void> {
+        process.stdout.write('\x1Bc');
+        const name = await this.inquirer.prompt([
+          {
+            type: 'input',
+            name: 'name',
+            message: 'What is the name of the playlist?'
+          }
+        ]);
+        const allSongs = this.db.getSongs();
+        const songsNames = allSongs.map((song: {name: string, duration: string, genres: string[]}) => {
+          return song.name;
+        });
+        const songs = await this.inquirer.prompt([
+          {
+            type: 'checkbox',
+            name: 'songs',
+            message: 'What songs do you want to add?',
+            choices: songsNames
+          }
+        ]);
+
+        const songsDuration = allSongs.filter((song: {name: string, duration: string, genres: string[]}) => {
+          return songs.songs.includes(song.name);
+        });
+        const durationStrings = songsDuration.map((song: {name: string, duration: string, genres: string[]}) => {
+          return song.duration;
+        });
+        let seconds = durationStrings.reduce((acc: number, curr: string) => {
+          const [min, sec] = curr.split(':');
+          return acc + parseInt(min, 10) * 60 + parseInt(sec, 10);
+        }, 0);
+        let minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        const hours = Math.floor(minutes / 60);
+        minutes = minutes % 60;
+        const duration = `${hours}:${minutes}:${seconds}`;
+
+        let genres = allSongs.filter((song: {name: string, duration: string, genres: string[]}) => {
+          return songs.songs.includes(song.name);
+        }).reduce((acc: string[], song: {name: string, duration: string, genres: string[]}) => {
+          return acc.concat(song.genres);
+        }, []);
+        genres = genres.filter((genre: string, index: number, self: string[]) => {
+          return self.indexOf(genre) === index;
+        });
+
+        console.log(`\x1b[032m\n'${name.name}'\x1b[0m`);
+        songs.songs.forEach((song: string) => {
+          console.log(`\t${song}`);
+        });
+        console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${duration}`);
+        console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${genres}\n`);
+        console.log('\x1b[032m' + '\tCreator:' + '\x1b[0m' + `${this.username}\n`);
+
+        const JSON = {
+          name: name.name,
+          songs: songs.songs,
+          duration: duration,
+          genres: genres,
+          creator: this.username
+        };
+        this.playlists.push(JSON);
+
+        await this.inquirer.prompt([
+          {
+            type: 'input',
+            name: 'continue',
+            message: 'Press enter to continue'
+          }
+        ]);
+        this.showMenu();
+      }
+    ```
+
+  * **Guardar Playlist en la base de datos**
+
+    - **savePlaylist**: guarda una playlist en la base de datos y devuelve un ```Promise<void>```
+
+    ```typescript
+      private async savePlaylist(): Promise<void> {
+        process.stdout.write('\x1Bc');
+        const availablePlaylists = this.playlists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+          return playlist.creator === this.username;
+        });
+
+        const choices = await this.inquirer.prompt([
+          {
+            type: 'checkbox',
+            name: 'playlists',
+            message: 'Which playlists do you want to save?',
+            choices: availablePlaylists.map((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+              return playlist.name;
+            })
+          }
+        ]);
+
+        const playlists = availablePlaylists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+          return choices.playlists.includes(playlist.name);
+        });
+
+        const JSON = playlists.map((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+          return {
+            name: playlist.name,
+            songs: playlist.songs,
+            duration: playlist.duration,
+            genres: playlist.genres,
+            creator: playlist.creator
+          };
+        });
+
+        for (const playlist of JSON) {
+          await this.db.addPlaylist(playlist);
+        }
+
+        for (const playlist of this.playlists) {
+          if (playlist.creator === this.username) {
+            this.playlists.splice(this.playlists.indexOf(playlist), 1);
+          }
+        }
+
+        await this.inquirer.prompt([
+          {
+            type: 'input',
+            name: 'continue',
+            message: 'Press enter to continue'
+          }
+        ]);
+        this.showMenu();
+      }
+    ```
+  
+  * **Remover una playlist**
+
+    - **removePlaylist**: elimina una playlist de la aplicación y devuelve un ```Promise<void>```
+
+    ```typescript
+      private async removePlaylist(): Promise<void> {
+        const availablePlaylists = this.playlists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+          return playlist.creator === this.username;
+        });
+        const dbPlaylists = await this.db.getPlaylists();
+        for (const playlist of dbPlaylists) {
+          if (playlist.creator === this.username) {
+            availablePlaylists.push(playlist);
+          }
+        }
+
+        const choices = await this.inquirer.prompt([
+          {
+            type: 'checkbox',
+            name: 'playlists',
+            message: 'Which playlists do you want to remove?',
+            choices: availablePlaylists.map((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+              return playlist.name;
+            })
+          }
+        ]);
+
+        const playlists = availablePlaylists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+          return choices.playlists.includes(playlist.name);
+        });
+
+        for (const playlist of playlists) {
+          if (this.playlists.indexOf(playlist) === -1) {
+            await this.db.removePlaylist(playlist.name);
+          } else {
+            this.playlists.splice(this.playlists.indexOf(playlist), 1);
+          }
+        }
+
+        await this.inquirer.prompt([
+          {
+            type: 'input',
+            name: 'continue',
+            message: 'Press enter to continue'
+          }
+        ]);
+        this.showMenu();
+      }
+    ```
 
 ## **Clase MusicalGenres**<a name="id7"></a>
 
@@ -999,9 +1318,27 @@ Los métodos de la clase **Song** necesarios para manipular la clase son los sig
       }
     ```
 
-# INTERFACES<a name="id10"></a>
+## **Clase UI**<a name="id10"></a>
+La clase UI (Interfaz de Usuario), definida en el fichero [**_UI.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/UI/UI.ts), se encargará del control del usuario con las opciones de manejo con la playlist. La información almacenada en la clase serán:
+- **Base de datos**: `DB`
+- **Lectura por consola**: `Inquirer.Inquirer`
 
-## **Interfaces implementadas por la clases**<a name="id11"></a>
+A continuación se muestra el código desarrollado del constructor la clase en cuestión.
+
+```typescript
+  constructor() {
+    this.db = DB.getInstance();
+    this.inquirer = Inquirer;
+  }
+  // code goes here ...
+```
+
+Los métodos de la clase **UI** necesarios para el manejo del usuario:
+
+
+
+
+# INTERFACES<a name="id11"></a>
 
 A la hora de realizar la definición de las clases, tal y como se ha podido observar el los puntos explicados anteriormente,  se ha implementado la interfaz **Manage** que contiene los métodos necesarios para manipular la clase. Es importante comentar que cada una de las clases tendrá su interfaz **Manage** correspondiente ubicada en la misma carpeta que la clase. 
 
@@ -1011,7 +1348,7 @@ export interface Manage extends ... {}
 
 Además, cada una de estas interfaces extenderán de otras interfaces según el caso de cada clase y que se ubicarán en la misma carpeta que la clase correspondiente. 
 
-### **Interfaz AlbumManage**<a name="id12"></a>
+## **Interfaz AlbumManage**<a name="id12"></a>
 
 [**_AlbumManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Album/AlbumManage.ts)
 
@@ -1024,7 +1361,7 @@ export interface AlbumManage {
 }
 ```
 
-### **Interfaz ArtistManage**<a name="id13"></a>
+## **Interfaz ArtistManage**<a name="id13"></a>
 
 [**_ArtistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Artist/ArtistManage.ts)
 
@@ -1037,7 +1374,7 @@ export interface ArtistManage {
 }
 ```
 
-### **Interfaz GroupManage**<a name="id14"></a>
+## **Interfaz GroupManage**<a name="id14"></a>
 
 [**_GroupManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Group/GroupManage.ts)
 
@@ -1050,7 +1387,7 @@ export interface GroupManage {
 }
 ```
 
-### **Interfaz MusicalGenresManage**<a name="id15"></a>
+## **Interfaz MusicalGenresManage**<a name="id15"></a>
 
 [**_MusicalGenresManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/MusicalGenres/MusicalGenresManage.ts)
 
@@ -1063,7 +1400,7 @@ export interface MusicalGenresManage {
 }
 ```
 
-### **Interfaz Nameable**<a name="id16"></a>
+## **Interfaz Nameable**<a name="id16"></a>
 
 [**_Nameable.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Nameable/Nameable.ts)
 
@@ -1074,7 +1411,7 @@ export interface Nameable {
 }
 ```
 
-### **Interfaz Playlist**<a name="id17"></a>
+## **Interfaz Playlist**<a name="id17"></a>
 
 [**_PlaylistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Playlist/PlaylistManage.ts)
 
@@ -1087,7 +1424,7 @@ export interface PlaylistManage {
 }
 ```
 
-### **Interfaz SongManage**<a name="id18"></a>
+## **Interfaz SongManage**<a name="id18"></a>
 
 [**_SongManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Song/SongManage.ts)
 
@@ -1100,24 +1437,16 @@ export interface SongManage {
 }
 ```
 
-## **Interfaz UI**<a name="id19"></a>
-
-[**_UI.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/UI/UI.ts)
+# BASE DE DATOS<a name="id19"></a>
 
 
 
-
-
-# BASE DE DATOS<a name="id20"></a>
-
-
-
-# CONCLUSIÓN<a name="id21"></a>
+# CONCLUSIÓN<a name="id20"></a>
 
 
 
 
-### INTEGRANTES<a name="id22"></a>
+### INTEGRANTES<a name="id21"></a>
 
 - **Gabriel Alberto Luis Freitas:** alu0101348421
 - **Dana Belen Choque Zárate:** alu0101328348

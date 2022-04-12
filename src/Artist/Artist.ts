@@ -208,29 +208,4 @@ export class Artist implements Manage {
   setNumFollowers(numFollowers: number): void {
     this.numFollowers = numFollowers;
   }
-
-  /**
-   * printInfo() prints the information of the artist
-   * @returns {void}
-   */
-  printInfo(): void {
-    console.log('Name: ' + this.name);
-    console.log('Group: ');
-    for (const group of this.groups) {
-      console.log(group.getName());
-    }
-    console.log('Genres: ');
-    for (const genre of this.genres) {
-      console.log(genre.getName());
-    }
-    console.log('Albums: ');
-    for (const album of this.albums) {
-      console.log(album.getName());
-    }
-    console.log('Songs: ');
-    for (const song of this.songs) {
-      console.log(song.getName());
-    }
-    console.log('Followers: ' + this.getNumFollowers());
-  }
 }

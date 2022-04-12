@@ -133,26 +133,4 @@ export class Album implements Manage {
       }
     }
   }
-
-  /**
-   * Prints album information
-   */
-  printInfo(): void {
-    console.log('Name: ' + this.name);
-    if (this.author instanceof Artist) {
-      console.log('By artist: ' + this.author.getName());
-    }
-    if (this.author instanceof Group) {
-      console.log('By group: ' + this.author.getName());
-    }
-    console.log('Year: ' + this.year);
-    console.log('Genres: ');
-    for (const genres of this.genre) {
-      console.log(genres.getName());
-    }
-    console.log('Songs: ');
-    for (const song of this.songs) {
-      console.log(song.getName());
-    }
-  }
 }

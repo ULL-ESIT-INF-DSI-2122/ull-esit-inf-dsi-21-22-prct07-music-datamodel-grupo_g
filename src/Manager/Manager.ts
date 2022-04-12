@@ -1,4 +1,4 @@
-import {DB} from '../LowDB/DB';
+import {DB} from '../DB/DB';
 import * as Inquirer from 'inquirer';
 
 // Singleton class for database management
@@ -6,7 +6,7 @@ export class Manager {
   private db: DB;
   private inquirer: Inquirer.Inquirer;
   private username: string;
-  private playlists: {name: string, songs: string[], duration: number, genres: string[], creator: string}[];
+  private playlists: {name: string, songs: string[], duration: string, genres: string[], creator: string}[];
 
   constructor() {
     this.db = DB.getInstance();
@@ -14,7 +14,10 @@ export class Manager {
     this.username = '';
     this.playlists = [];
   }
-
+  /**
+   * Start the manager and show the menu
+   * @returns {Promise<void>}
+   */
   public async start(): Promise<void> {
     process.stdout.write('\x1Bc');
     const menu = await this.inquirer.prompt([
@@ -29,7 +32,11 @@ export class Manager {
     this.showMenu();
   }
 
-  public async showMenu(): Promise<void> {
+  /**
+   * show the menu and handle the user input
+   * @returns {Promise<void>}
+   */
+  private async showMenu(): Promise<void> {
     process.stdout.write('\x1Bc');
     const menu = await this.inquirer.prompt([
       {
@@ -68,11 +75,25 @@ export class Manager {
     }
   }
 
-  public async showPlaylists(): Promise<void> {
+  /**
+   * Show all the playlists in the database
+   * @returns {Promise<void>}
+   */
+  private async showPlaylists(): Promise<void> {
     process.stdout.write('\x1Bc');
     const playlists = await this.db.getPlaylists();
     console.log(`Playlists in the database:`);
-    playlists.forEach((playlist: {name: string, songs: string[], duration: number, genres: string[]}) => {
+    playlists.forEach((playlist: {name: string, songs: string[], duration: string, genres: string[]}) => {
+      console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
+      playlist.songs.forEach((song: string) => {
+        console.log(`\t${song}`);
+      }
+      );
+      console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${playlist.duration}`);
+      console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${playlist.genres}\n`);
+    });
+    console.log('\x1b[032m' + '\nPlaylists not saved yet:' + '\x1b[0m');
+    this.playlists.forEach((playlist: {name: string, songs: string[], duration: string, genres: string[]}) => {
       console.log('\x1b[032m' + `${playlist.name}` + '\x1b[0m');
       playlist.songs.forEach((song: string) => {
         console.log(`\t${song}`);
@@ -91,7 +112,11 @@ export class Manager {
     this.showMenu();
   }
 
-  public async addPlaylist(): Promise<void> {
+  /**
+   * Add a new playlist to the cache
+   * @returns {Promise<void>}
+   */
+  private async addPlaylist(): Promise<void> {
     process.stdout.write('\x1Bc');
     const name = await this.inquirer.prompt([
       {
@@ -101,7 +126,7 @@ export class Manager {
       }
     ]);
     const allSongs = this.db.getSongs();
-    const songsNames = allSongs.map((song: {name: string, duration: number, genres: string[]}) => {
+    const songsNames = allSongs.map((song: {name: string, duration: string, genres: string[]}) => {
       return song.name;
     });
     const songs = await this.inquirer.prompt([
@@ -112,20 +137,39 @@ export class Manager {
         choices: songsNames
       }
     ]);
-    const duration = allSongs.filter((song: {name: string, duration: number, genres: string[]}) => {
+
+    const songsDuration = allSongs.filter((song: {name: string, duration: string, genres: string[]}) => {
       return songs.songs.includes(song.name);
-    }
-    ).reduce((acc: number, song: {name: string, duration: number, genres: string[]}) => {
-      return acc + song.duration;
-    }
-    , 0);
-    const genres = allSongs.filter((song: {name: string, duration: number, genres: string[]}) => {
+    });
+    const durationStrings = songsDuration.map((song: {name: string, duration: string, genres: string[]}) => {
+      return song.duration;
+    });
+    let seconds = durationStrings.reduce((acc: number, curr: string) => {
+      const [min, sec] = curr.split(':');
+      return acc + parseInt(min, 10) * 60 + parseInt(sec, 10);
+    }, 0);
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    const hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    const duration = `${hours}:${minutes}:${seconds}`;
+
+    let genres = allSongs.filter((song: {name: string, duration: string, genres: string[]}) => {
       return songs.songs.includes(song.name);
-    }
-    ).reduce((acc: string[], song: {name: string, duration: number, genres: string[]}) => {
+    }).reduce((acc: string[], song: {name: string, duration: string, genres: string[]}) => {
       return acc.concat(song.genres);
-    }
-    , []);
+    }, []);
+    genres = genres.filter((genre: string, index: number, self: string[]) => {
+      return self.indexOf(genre) === index;
+    });
+
+    console.log(`\x1b[032m\n'${name.name}'\x1b[0m`);
+    songs.songs.forEach((song: string) => {
+      console.log(`\t${song}`);
+    });
+    console.log('\x1b[032m' + '\tDuration:' + '\x1b[0m' + `${duration}`);
+    console.log('\x1b[032m' + '\tGenres:' + '\x1b[0m' + `${genres}\n`);
+    console.log('\x1b[032m' + '\tCreator:' + '\x1b[0m' + `${this.username}\n`);
 
     const JSON = {
       name: name.name,
@@ -146,31 +190,51 @@ export class Manager {
     this.showMenu();
   }
 
-  public async removePlaylist(): Promise<void> {
+  /**
+   * Save a playlist in the cache
+   * @returns {Promise<void>}
+   */
+  private async savePlaylist(): Promise<void> {
     process.stdout.write('\x1Bc');
-    const playlists = await this.db.getPlaylists();
-    const creators = playlists.map((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
-      return playlist.creator;
+    const availablePlaylists = this.playlists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+      return playlist.creator === this.username;
     });
-    const availablePlaylists = playlists.filter((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
-      return creators.includes(this.username);
-    });
+
     const choices = await this.inquirer.prompt([
       {
         type: 'checkbox',
         name: 'playlists',
-        message: 'What playlists do you want to remove?',
-        choices: availablePlaylists.map((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
+        message: 'Which playlists do you want to save?',
+        choices: availablePlaylists.map((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
           return playlist.name;
         })
       }
     ]);
-    const playlistsToRemove = availablePlaylists.filter((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
+
+    const playlists = availablePlaylists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
       return choices.playlists.includes(playlist.name);
     });
-    playlistsToRemove.forEach((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
-      this.db.removePlaylist(playlist.name);
+
+    const JSON = playlists.map((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+      return {
+        name: playlist.name,
+        songs: playlist.songs,
+        duration: playlist.duration,
+        genres: playlist.genres,
+        creator: playlist.creator
+      };
     });
+
+    for (const playlist of JSON) {
+      await this.db.addPlaylist(playlist);
+    }
+
+    for (const playlist of this.playlists) {
+      if (playlist.creator === this.username) {
+        this.playlists.splice(this.playlists.indexOf(playlist), 1);
+      }
+    }
+
     await this.inquirer.prompt([
       {
         type: 'input',
@@ -181,31 +245,44 @@ export class Manager {
     this.showMenu();
   }
 
-  public async savePlaylist(): Promise<void> {
-    process.stdout.write('\x1Bc');
-    const playlists = await this.db.getPlaylists();
-    const creators = playlists.map((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
-      return playlist.creator;
+  /**
+   * Remove a playlist from the cache
+   * @returns {Promise<void>}
+   */
+  private async removePlaylist(): Promise<void> {
+    const availablePlaylists = this.playlists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
+      return playlist.creator === this.username;
     });
-    const availablePlaylists = playlists.filter((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
-      return creators.includes(this.username);
-    });
+    const dbPlaylists = await this.db.getPlaylists();
+    for (const playlist of dbPlaylists) {
+      if (playlist.creator === this.username) {
+        availablePlaylists.push(playlist);
+      }
+    }
+
     const choices = await this.inquirer.prompt([
       {
         type: 'checkbox',
         name: 'playlists',
-        message: 'What playlists do you want to save?',
-        choices: availablePlaylists.map((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
+        message: 'Which playlists do you want to remove?',
+        choices: availablePlaylists.map((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
           return playlist.name;
         })
       }
     ]);
-    const playlistsToSave = availablePlaylists.filter((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
+
+    const playlists = availablePlaylists.filter((playlist: {name: string, songs: string[], duration: string, genres: string[], creator: string}) => {
       return choices.playlists.includes(playlist.name);
     });
-    playlistsToSave.forEach((playlist: {name: string, songs: string[], duration: number, genres: string[], creator: string}) => {
-      this.db.addPlaylist(playlist);
-    });
+
+    for (const playlist of playlists) {
+      if (this.playlists.indexOf(playlist) === -1) {
+        await this.db.removePlaylist(playlist.name);
+      } else {
+        this.playlists.splice(this.playlists.indexOf(playlist), 1);
+      }
+    }
+
     await this.inquirer.prompt([
       {
         type: 'input',
@@ -217,8 +294,7 @@ export class Manager {
   }
 }
 
-const manager = new Manager();
-manager.start();
-
-// Errores en eliminar y guardar - Corregir
-// Comentar
+export function main(): void {
+  const manager = new Manager();
+  manager.start();
+}

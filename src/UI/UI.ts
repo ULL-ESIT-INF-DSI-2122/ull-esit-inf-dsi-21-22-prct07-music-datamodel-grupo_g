@@ -1,4 +1,4 @@
-import {DB} from '../LowDB/DB';
+import {DB} from '../DB/DB';
 import * as Inquirer from 'inquirer';
 
 /**
@@ -236,8 +236,7 @@ export class UI {
   }
 }
 
-/**
- * Execute the application
- */
-const ui = new UI();
-ui.showMenu();
+export function main(): void {
+  const menu = new UI();
+  menu.showMenu();
+}

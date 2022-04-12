@@ -179,26 +179,4 @@ export class Group implements Manage {
   setNumFollowers(numFollowers: number): void {
     this.numFollowers = numFollowers;
   }
-
-  /**
-   * printInfo() prints the information of the group
-   * @returns {void}
-   */
-  printInfo(): void {
-    console.log(`Name: ${this.name}`);
-    console.log(`Creation year: ${this.creationYear}`);
-    console.log(`Number of followers: ${this.numFollowers}`);
-    console.log(`Genres: `);
-    for (const genre of this.genres) {
-      console.log(genre.getName());
-    }
-    console.log(`Artist: `);
-    for (const artist of this.artists) {
-      console.log(artist.getName());
-    }
-    console.log(`Albums: `);
-    for (const album of this.albums) {
-      console.log(album.getName());
-    }
-  }
 }

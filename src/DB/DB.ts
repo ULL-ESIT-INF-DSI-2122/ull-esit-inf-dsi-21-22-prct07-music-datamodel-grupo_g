@@ -85,17 +85,17 @@ export class DB {
 
   /**
    * Getter of songs
-   * @returns {[{name: string, author: string, duration: number, genres: string[], isSingle: boolean, numRep: number}]}
+   * @returns {[{name: string, author: string, duration: string, genres: string[], isSingle: boolean, numRep: number}]}
    */
-  public getSongs(): [{name: string, author: string, duration: number, genres: string[], isSingle: boolean, numRep: number}] {
+  public getSongs(): [{name: string, author: string, duration: string, genres: string[], isSingle: boolean, numRep: number}] {
     return db.get('songs').value();
   }
 
   /**
    * Getter of playlists
-   * @returns {[{name: string, songs: string[], duration: number, genres: string[]}]}
+   * @returns {[{name: string, songs: string[], duration: string, genres: string[]}]}
    */
-  public getPlaylists(): [{name: string, songs: string[], duration: number, genres: string[], creator: string}] {
+  public getPlaylists(): [{name: string, songs: string[], duration: string, genres: string[], creator: string}] {
     return db.get('playlists').value();
   }
 
@@ -207,7 +207,10 @@ export class DB {
       db.get('playlists').push(JSON).write();
     }
   }
-
+  /**
+   * Remove a playlist from the database
+   * @param playlist {string}
+   */
   public removePlaylist(playlist: string): void {
     db.get('playlists').remove({name: playlist}).write();
   }

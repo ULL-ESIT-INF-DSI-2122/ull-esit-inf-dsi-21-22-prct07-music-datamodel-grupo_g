@@ -1,6 +1,5 @@
 import 'mocha';
 import {expect} from 'chai';
-import sinon from 'sinon';
 import {Song} from '../../src/Song/Song';
 import {Artist} from '../../src/Artist/Artist';
 import {Album} from '../../src/Album/Album';
@@ -8,14 +7,6 @@ import {Group} from '../../src/Group/Group';
 import {MusicalGenres} from '../../src/MusicalGenres/MusicalGenres';
 
 describe('MusicalGenres class - Tests', () => {
-  const log = console.log;
-  before(() => {
-    sinon.stub(console, 'log').callsFake(() => {});
-  });
-  after(() => {
-    console.log = log;
-  });
-
   let song1: Song;
   let song2: Song;
   let song3: Song;
@@ -159,11 +150,5 @@ describe('MusicalGenres class - Tests', () => {
     genre.removeSong(song1.getName());
     expect(genre.getSongs()).to.deep.equal([song2]);
     expect(genre.getSongs()).to.not.deep.equal([song1]);
-  });
-
-  it('printInfo() prints the information of the genre', () => {
-    expect(genre.printInfo).to.exist;
-    expect(genre.printInfo).to.be.a('function');
-    expect(() => genre.printInfo()).to.not.throw();
   });
 });

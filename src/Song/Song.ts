@@ -129,24 +129,4 @@ export class Song implements Manage {
   setNumRep(numRep: number): void {
     this.numRep = numRep;
   }
-
-  /**
-   * printInfo() prints song's info.
-   */
-  printInfo(): void {
-    console.log(`Song: ${this.name}`);
-    if (this.author instanceof Artist) {
-      console.log(`Artist: ${this.author.getName()}`);
-    }
-    if (this.author instanceof Group) {
-      console.log(`Group: ${this.author.getName()}`);
-    }
-    console.log(`Duration: ${this.duration}`);
-    console.log(`Genres: `);
-    for (const genre of this.genre) {
-      console.log(`${genre.getName()}`);
-    }
-    console.log(`Single: ${this.single}`);
-    console.log(`Number of repetitions: ${this.numRep}`);
-  }
 }
