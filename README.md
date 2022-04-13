@@ -1866,10 +1866,20 @@ Los métodos de la clase **DB** son los siguientes:
 
 # CONCLUSIÓN<a name="id22"></a>
 
+En conclusión, se puede comentar que en este primer proyecto grupal hemos podido emplear todas las técnicas y herramientas que se han ido aprendiendo a lo largo del curso en esta asignatura, algunas que se podrían destacar son:
 
+- Uso de interfaces.
+- Uso de clases.
+- Uso de guardianes de tipo.
+- Testing.
+- Cubrimiento del código.
+- GitHub Actions.
 
+Además de haber trabajado con lo que ya habíamos aprendido, también hemos podido trabajar usando una base de datos que se emplea en nuestro programa y emplear recursos para que un usuario pueda iteractuar con el programa. 
 
-### INTEGRANTES<a name="id23"></a>
+Por otro lado, también se ha hecho uso de la herramienta SonarCloud para poder analizar constantemente la calidad de nuestro código a medida que vamos trabajando en él.
+
+## INTEGRANTES<a name="id23"></a>
 
 - **Gabriel Alberto Luis Freitas:** alu0101348421
 - **Dana Belen Choque Zárate:** alu0101328348
