@@ -1657,8 +1657,211 @@ export interface SongManage {
 ```
 
 # BASE DE DATOS<a name="id19"></a>
+Para la persistencia de los datos se ha implementado una base de datos mediante la herramienta **LowDB**.
 
+**LowDB** nos permite crear bases de datos sencillas capaces de almacenarse en un fichero typo JSON, fácil de manipular.
 
+Lo primero que se ha realizado es establecer ciertas canciones, artistas, grupos etc. sobre los que poder trabajar (src/models/db.json).
+
+Una vez hecho esto, se define la clase **DB**, definida en el fichero [**_DB.ts**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/DB/DB.ts). Esta clase sigue la estrategia singleton, por lo que constructor y getInstance se definen de la siguiente manera:
+
+```typescript
+export class DB {
+  private static instance: DB;
+  private constructor() {
+    db.defaults({
+      artists: [],
+      groups: [],
+      genres: [],
+      albums: [],
+      songs: [],
+      playlists: []
+    }).write();
+  }
+
+  public static getInstance(): DB {
+    if (!DB.instance) {
+      DB.instance = new DB();
+    }
+    return DB.instance;
+  }
+
+  // code goes here ...
+}
+```
+
+Los métodos de la clase **DB** son los siguientes:
+
+* **Obtener elementos de la database**
+  * *Base de datos*
+    - _getDB_: Retorna la base de datos.
+
+    ```typescript
+    public getDB(): any {
+      return db;
+    }
+    ```
+  * *Artistas*
+    - _getArtists_: Retorna un array con todos los artistas.
+
+    ```typescript
+    public getArtists(): [{name: string, groups: string[], genres: string[], albums: string[], songs: string[], numFollowers: number}] {
+      return db.get('artists').value();
+    }
+    ```
+  * *Grupos*
+    - _getGroups_: Retorna un array con todos los grupos.
+
+    ```typescript
+    public getGroups(): [{name: string, artists: string[], creationYear: number, genres: string[], albums: string[], numFollowers: number}] {
+      return db.get('groups').value();
+    }
+    ```
+  * *Géneros musicales*
+    - _getGenres_: Retorna un array con todos los géneros musicales.
+
+    ```typescript
+    public getGenres(): [{name: string, artists: string[], groups: string[], albums: string[], songs: string[]}] {
+      return db.get('genres').value();
+    }
+    ```
+  * *Álbumes*
+    - _getAlbums_: Retorna un array con todos los álbumes.
+
+    ```typescript
+    public getAlbums(): [{name: string, author: string, year: number, genres: string[], songs: string[]}] {
+        return db.get('albums').value();
+    }
+    ```
+  * *Canciones*
+    - _getSongs_: Retorna un array con todas las canciones.
+
+    ```typescript
+    public getSongs(): [{name: string, author: string, duration: string, genres: string[], isSingle: boolean, numRep: number}] {
+      return db.get('songs').value();
+    }
+    ```
+  * *Playlists*
+    - _getPlaylists_: Retorna un array con todas las playlists.
+
+    ```typescript
+    public getPlaylists(): [{name: string, songs: string[], duration: string, genres: string[], creator: string}] {
+      return db.get('playlists').value();
+    }
+    ```
+* **Añadir elementos a la database**
+  * *addArtist*
+    - _addArtist_: Añade un artista a la base de datos.
+
+    ```typescript
+    public addArtist(artist: Artist): void {
+      const JSON = {
+        name: artist.getName(),
+        groups: artist.getGroups().map((group: Group) => group.getName()),
+        genres: artist.getGenres().map((genre: MusicalGenres) => genre.getName()),
+        albums: artist.getAlbums().map((album: Album) => album.getName()),
+        songs: artist.getSongs().map((song: Song) => song.getName()),
+        numFollowers: artist.getNumFollowers()
+      };
+      db.get('artists').push(JSON).write();
+    }
+    ```
+  * *addGroup*
+    - _addGroup_: Añade un grupo a la base de datos.
+
+    ```typescript
+    public addGroup(group: Group): void {
+      const JSON = {
+        name: group.getName(),
+        artists: group.getArtists().map((artist: Artist) => artist.getName()),
+        creationYear: group.getCreationYear(),
+        genres: group.getGenres().map((genre: MusicalGenres) => genre.getName()),
+        albums: group.getAlbums().map((album: Album) => album.getName()),
+        numFollowers: group.getNumFollowers()
+      };
+      db.get('groups').push(JSON).write();
+    }
+    ```
+  * *addGenre*
+    - _addGenre_: Añade un género musical a la base de datos.
+
+    ```typescript
+    public addGenre(genre: MusicalGenres): void {
+      const JSON = {
+        name: genre.getName(),
+        artists: genre.getArtists().map((artist: Artist) => artist.getName()),
+        groups: genre.getGroups().map((group: Group) => group.getName()),
+        albums: genre.getAlbums().map((album: Album) => album.getName()),
+        songs: genre.getSongs().map((song: Song) => song.getName())
+      };
+      db.get('genres').push(JSON).write();
+    }
+    ```
+  * *addAlbum*
+    - _addAlbum_: Añade un álbum a la base de datos.
+
+    ```typescript
+    public addAlbum(album: Album): void {
+      const JSON = {
+        name: album.getName(),
+        author: album.getAuthor().getName(),
+        year: album.getYear(),
+        genres: album.getGenres().map((genre: MusicalGenres) => genre.getName()),
+        songs: album.getSongs().map((song: Song) => song.getName())
+      };
+      db.get('albums').push(JSON).write();
+    }
+    ```
+  * *addSong*
+    - _addSong_: Añade una canción a la base de datos.
+
+    ```typescript
+    public addSong(song: Song): void {
+      const JSON = {
+        name: song.getName(),
+        author: song.getAuthor().getName(),
+        duration: song.getDuration(),
+        genres: song.getGenres().map((genre: MusicalGenres) => genre.getName()),
+        isSingle: song.isSingle(),
+        numRep: song.getNumRep(),
+      };
+      db.get('songs').push(JSON).write();
+    }
+    ```
+  * *addPlaylist*
+    - _addPlaylist_: Añade una playlist a la base de datos.
+
+    ```typescript
+    public addPlaylist(playlist: Playlist | any): void {
+      if (playlist instanceof Playlist) {
+        const JSON = {
+          name: playlist.getName(),
+          songs: playlist.getSongs().map((song: Song) => song.getName()),
+          duration: playlist.getDuration(),
+          genres: playlist.getGenres().map((genre: MusicalGenres) => genre.getName())
+        };
+        db.get('playlists').push(JSON).write();
+      } else {
+        const JSON = {
+          name: playlist.name,
+          songs: playlist.songs,
+          duration: playlist.duration,
+          genres: playlist.genres,
+          creator: playlist.creator
+        };
+        db.get('playlists').push(JSON).write();
+      }
+    }
+    ```
+* **Eliminar elementos de la database**
+  * *removePlaylist*
+    - _removePlaylist_: Elimina una playlist de la base de datos.
+
+    ```typescript
+    public removePlaylist(playlist: Playlist): void {
+      db.get('playlists').remove({name: playlist.getName()}).write();
+    }
+    ```
 
 # CONCLUSIÓN<a name="id20"></a>
 
