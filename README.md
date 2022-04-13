@@ -1135,6 +1135,7 @@ Los métodos desarrollados en la clase *_Manager_* se encargan de realizar las o
         ]);
         this.showMenu();
       }
+    
     ```
 
 * **Añadir, eliminar y guardar playlist**
@@ -1345,8 +1346,10 @@ export class UI {
 ```
 
 Los métodos de la clase **UI** necesarios para el manejo del usuario:
+
 * showMenu: Muestra las opciones explicadas más adelante, y se recoge la opción del usuario por entrada. Dependiendo de la elección, se ejecutará el método correspondiente.
-  ```typescript
+ 
+```typescript
   public async showMenu(): Promise<void> {
     process.stdout.write('\x1Bc');
     const menu = await this.inquirer.prompt([
@@ -1390,172 +1393,188 @@ Los métodos de la clase **UI** necesarios para el manejo del usuario:
     }
   }
   ```
+
 * Orden alfabético
   * showSongsAlphabetically: Muestra las canciones en orden ascendente o descendente, dependiendo de la elección del usuario.
+  
   ```typescript
   private async showSongsAlphabetically(): Promise<void> {
-    const ascendent = await this.inquirer.prompt([
-      {
-        type: 'list',
-        name: 'ascendent',
-        message: 'Do you want to show songs in ascendent order?',
-        choices: ['Yes', 'No']
-      }
-    ]);
+      const ascendent = await this.inquirer.prompt([
+        {
+          type: 'list',
+          name: 'ascendent',
+          message: 'Do you want to show songs in ascendent order?',
+          choices: ['Yes', 'No']
+        }
+      ]);
 
-    const songs = this.db.getSongs();
-    if (ascendent.ascendent === 'Yes') {
-      songs.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
-      songs.sort((a, b) => b.name.localeCompare(a.name));
+      const songs = this.db.getSongs();
+      if (ascendent.ascendent === 'Yes') {
+        songs.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        songs.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      console.log();
+      songs.map((song: any) => console.log('\x1b[032m' + song.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
     }
 
-    console.log();
-    songs.map((song: any) => console.log('\x1b[032m' + song.name + '\x1b[0m'));
-    console.log();
-
-    await this.inquirer.prompt([
-      {
-        type: 'input',
-        name: 'enter',
-        message: 'Press enter to continue'
-      }
-    ]);
-
-    this.showMenu();
-  }
   ```
+
   * showAlbumsAlphabetically: Muestra los albums en orden ascendente o descendente según sea la elección del usuario.
+  
   ```typescript
-  private async showAlbumsAlphabetically(): Promise<void> {
-    const ascendent = await this.inquirer.prompt([
-      {
-        type: 'list',
-        name: 'ascendent',
-        message: 'Do you want to show albums in ascendent order?',
-        choices: ['Yes', 'No']
-      }
-    ]);
+    private async showAlbumsAlphabetically(): Promise<void> {
+      const ascendent = await this.inquirer.prompt([
+        {
+          type: 'list',
+          name: 'ascendent',
+          message: 'Do you want to show albums in ascendent order?',
+          choices: ['Yes', 'No']
+        }
+      ]);
 
-    const albums = this.db.getAlbums();
-    if (ascendent.ascendent === 'Yes') {
-      albums.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
-      albums.sort((a, b) => b.name.localeCompare(a.name));
+      const albums = this.db.getAlbums();
+      if (ascendent.ascendent === 'Yes') {
+        albums.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        albums.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      console.log();
+      albums.map((album: any) => console.log('\x1b[032m' + album.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
     }
-
-    console.log();
-    albums.map((album: any) => console.log('\x1b[032m' + album.name + '\x1b[0m'));
-    console.log();
-
-    await this.inquirer.prompt([
-      {
-        type: 'input',
-        name: 'enter',
-        message: 'Press enter to continue'
-      }
-    ]);
-
-    this.showMenu();
-  }
   ```
   * showPlaylistsAlphabetically: Muestra las playlists en orden ascendente y descendente.
+  
   ```typescript
-  private async showPlaylistsAlphabetically(): Promise<void> {
-    const ascendent = await this.inquirer.prompt([
-      {
-        type: 'list',
-        name: 'ascendent',
-        message: 'Do you want to show playlists in ascendent order?',
-        choices: ['Yes', 'No']
-      }
-    ]);
+    private async showPlaylistsAlphabetically(): Promise<void> {
+      const ascendent = await this.inquirer.prompt([
+        {
+          type: 'list',
+          name: 'ascendent',
+          message: 'Do you want to show playlists in ascendent order?',
+          choices: ['Yes', 'No']
+        }
+      ]);
 
-    const playlists = this.db.getPlaylists();
-    if (ascendent.ascendent === 'Yes') {
-      playlists.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
-      playlists.sort((a, b) => b.name.localeCompare(a.name));
+      const playlists = this.db.getPlaylists();
+      if (ascendent.ascendent === 'Yes') {
+        playlists.sort((a, b) => a.name.localeCompare(b.name));
+      } else {
+        playlists.sort((a, b) => b.name.localeCompare(a.name));
+      }
+
+      console.log();
+      playlists.map((playlist: any) => console.log('\x1b[032m' + playlist.name + '\x1b[0m'));
+      console.log();
+
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
+
+      this.showMenu();
     }
-
-    console.log();
-    playlists.map((playlist: any) => console.log('\x1b[032m' + playlist.name + '\x1b[0m'));
-    console.log();
-
-    await this.inquirer.prompt([
-      {
-        type: 'input',
-        name: 'enter',
-        message: 'Press enter to continue'
-      }
-    ]);
-
-    this.showMenu();
-  }
+  
   ```
+
 * Orden por año de lanzamiento
   * showAlbumsByYear: Muestra los álbumes por año de lanzamiento.
+  
   ```typescript
   private async showAlbumsByYear(): Promise<void> {
-    const albums = this.db.getAlbums();
-    albums.sort((a, b) => a.year - b.year);
-    console.log();
-    albums.map((album: any) => console.log('\x1b[32m' + album.name + '\x1b[36m' + ('.'.repeat(80 - album.name.length - album.year.toString().length)) + '\x1b[32m' + album.year + '\x1b[0m'));
-    console.log();
+      const albums = this.db.getAlbums();
+      albums.sort((a, b) => a.year - b.year);
+      console.log();
+      albums.map((album: any) => console.log('\x1b[32m' + album.name + '\x1b[36m' + ('.'.repeat(80 - album.name.length - album.year.toString().length)) + '\x1b[32m' + album.year + '\x1b[0m'));
+      console.log();
 
-    await this.inquirer.prompt([
-      {
-        type: 'input',
-        name: 'enter',
-        message: 'Press enter to continue'
-      }
-    ]);
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
 
-    this.showMenu();
-  }
+      this.showMenu();
+    }
+  
   ```
+
 * Orden por el número de reproducciones
   * showSongsByNumberOfPlays: Muestra las canciones por número de reproducciones.
+  
   ```typescript
   private async showSongsByNumberOfPlays(): Promise<void> {
-    const songs = this.db.getSongs();
-    songs.sort((a, b) => b.numRep - a.numRep);
+      const songs = this.db.getSongs();
+      songs.sort((a, b) => b.numRep - a.numRep);
 
-    console.log();
-    songs.map((song: any) => console.log('\x1b[32m' + song.name + '\x1b[36m' + ('.'.repeat(80 - song.name.length - song.numRep.toString().length)) + '\x1b[32m' + song.numRep + '\x1b[0m'));
-    console.log();
+      console.log();
+      songs.map((song: any) => console.log('\x1b[32m' + song.name + '\x1b[36m' + ('.'.repeat(80 - song.name.length - song.numRep.toString().length)) + '\x1b[32m' + song.numRep + '\x1b[0m'));
+      console.log();
 
-    await this.inquirer.prompt([
-      {
-        type: 'input',
-        name: 'enter',
-        message: 'Press enter to continue'
-      }
-    ]);
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
 
-    this.showMenu();
-  }
+      this.showMenu();
+    }
+
   ```
+
 * Orden por singles lanzados
+  
   * showSingles: Muestra los singles lanzados.
+  
   ```typescript
   private async showSingles(): Promise<void> {
-    const singles = this.db.getSongs().filter((song: any) => song.isSingle);
+      const singles = this.db.getSongs().filter((song: any) => song.isSingle);
 
-    console.log();
-    singles.forEach((song: any) => console.log('\x1b[32m' + song.name + '\x1b[0m'));
-    console.log();
+      console.log();
+      singles.forEach((song: any) => console.log('\x1b[32m' + song.name + '\x1b[0m'));
+      console.log();
 
-    await this.inquirer.prompt([
-      {
-        type: 'input',
-        name: 'enter',
-        message: 'Press enter to continue'
-      }
-    ]);
+      await this.inquirer.prompt([
+        {
+          type: 'input',
+          name: 'enter',
+          message: 'Press enter to continue'
+        }
+      ]);
 
-    this.showMenu();
-  }
+      this.showMenu();
+    }
   ```
 
 # INTERFACES<a name="id13"></a>
@@ -1563,7 +1582,7 @@ Los métodos de la clase **UI** necesarios para el manejo del usuario:
 A la hora de realizar la definición de las clases, tal y como se ha podido observar el los puntos explicados anteriormente,  se ha implementado la interfaz **Manage** que contiene los métodos necesarios para manipular la clase. Es importante comentar que cada una de las clases tendrá su interfaz **Manage** correspondiente ubicada en la misma carpeta que la clase. 
 
 ```typescript
-export interface Manage extends ... {}
+  export interface Manage extends ... {}
 ```
 
 Además, cada una de estas interfaces extenderán de otras interfaces según el caso de cada clase y que se ubicarán en la misma carpeta que la clase correspondiente. 
@@ -1573,12 +1592,12 @@ Además, cada una de estas interfaces extenderán de otras interfaces según el 
 [**_AlbumManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Album/AlbumManage.ts)
 
 ```typescript
-export interface AlbumManage {
-  getAlbums(): Album[];
-  setAlbums(albums: Album[]): void;
-  addAlbum(album: Album): void;
-  removeAlbum(album: string): void;
-}
+  export interface AlbumManage {
+    getAlbums(): Album[];
+    setAlbums(albums: Album[]): void;
+    addAlbum(album: Album): void;
+    removeAlbum(album: string): void;
+  }
 ```
 
 ## **Interfaz ArtistManage**<a name="id15"></a>
@@ -1586,12 +1605,12 @@ export interface AlbumManage {
 [**_ArtistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Artist/ArtistManage.ts)
 
 ```typescript
-export interface ArtistManage {
-  getArtists(): Artist[];
-  setArtists(Artists: Artist[]): void;
-  addArtist(Artist: Artist): void;
-  removeArtist(Artist: string): void;
-}
+  export interface ArtistManage {
+    getArtists(): Artist[];
+    setArtists(Artists: Artist[]): void;
+    addArtist(Artist: Artist): void;
+    removeArtist(Artist: string): void;
+  }
 ```
 
 ## **Interfaz GroupManage**<a name="id16"></a>
@@ -1599,12 +1618,12 @@ export interface ArtistManage {
 [**_GroupManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Group/GroupManage.ts)
 
 ```typescript
-export interface GroupManage {
-  getGroups(): Group[];
-  setGroups(Groups: Group[]): void;
-  addGroup(Group: Group): void;
-  removeGroup(Group: string): void;
-}
+  export interface GroupManage {
+    getGroups(): Group[];
+    setGroups(Groups: Group[]): void;
+    addGroup(Group: Group): void;
+    removeGroup(Group: string): void;
+  }
 ```
 
 ## **Interfaz MusicalGenresManage**<a name="id17"></a>
@@ -1612,12 +1631,12 @@ export interface GroupManage {
 [**_MusicalGenresManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/MusicalGenres/MusicalGenresManage.ts)
 
 ```typescript
-export interface MusicalGenresManage {
-  getGenres(): MusicalGenres[];
-  setGenres(MusicalGenress: MusicalGenres[]): void;
-  addGenre(MusicalGenres: MusicalGenres): void;
-  removeGenre(MusicalGenres: string): void;
-}
+  export interface MusicalGenresManage {
+    getGenres(): MusicalGenres[];
+    setGenres(MusicalGenress: MusicalGenres[]): void;
+    addGenre(MusicalGenres: MusicalGenres): void;
+    removeGenre(MusicalGenres: string): void;
+  }
 ```
 
 ## **Interfaz Nameable**<a name="id18"></a>
@@ -1625,10 +1644,10 @@ export interface MusicalGenresManage {
 [**_Nameable.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Nameable/Nameable.ts)
 
 ```typescript
-export interface Nameable {
-  getName(): string;
-  setName(name: string): void;
-}
+  export interface Nameable {
+    getName(): string;
+    setName(name: string): void;
+  }
 ```
 
 ## **Interfaz Playlist**<a name="id19"></a>

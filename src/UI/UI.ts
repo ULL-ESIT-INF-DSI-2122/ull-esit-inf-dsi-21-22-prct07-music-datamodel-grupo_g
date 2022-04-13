@@ -1,5 +1,5 @@
 import {DB} from '../DB/DB';
-import * as Inquirer from 'inquirer';
+import * as Inquirer from "inquirer";
 
 /**
  * User Interface singleton class
