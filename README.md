@@ -1000,6 +1000,7 @@ Los métodos de la clase **Song** necesarios para manipular la clase son los sig
         }
       }
     ```
+    
 ## **Interfaz de usuario** <a name="id10"></a>
 
 ### **Clase Manager**<a name="id11"></a>
@@ -1557,7 +1558,7 @@ Los métodos de la clase **UI** necesarios para el manejo del usuario:
   }
   ```
 
-# INTERFACES<a name="id11"></a>
+# INTERFACES<a name="id13"></a>
 
 A la hora de realizar la definición de las clases, tal y como se ha podido observar el los puntos explicados anteriormente,  se ha implementado la interfaz **Manage** que contiene los métodos necesarios para manipular la clase. Es importante comentar que cada una de las clases tendrá su interfaz **Manage** correspondiente ubicada en la misma carpeta que la clase. 
 
@@ -1567,7 +1568,7 @@ export interface Manage extends ... {}
 
 Además, cada una de estas interfaces extenderán de otras interfaces según el caso de cada clase y que se ubicarán en la misma carpeta que la clase correspondiente. 
 
-## **Interfaz AlbumManage**<a name="id12"></a>
+## **Interfaz AlbumManage**<a name="id14"></a>
 
 [**_AlbumManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Album/AlbumManage.ts)
 
@@ -1580,7 +1581,7 @@ export interface AlbumManage {
 }
 ```
 
-## **Interfaz ArtistManage**<a name="id13"></a>
+## **Interfaz ArtistManage**<a name="id15"></a>
 
 [**_ArtistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Artist/ArtistManage.ts)
 
@@ -1593,7 +1594,7 @@ export interface ArtistManage {
 }
 ```
 
-## **Interfaz GroupManage**<a name="id14"></a>
+## **Interfaz GroupManage**<a name="id16"></a>
 
 [**_GroupManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Group/GroupManage.ts)
 
@@ -1606,7 +1607,7 @@ export interface GroupManage {
 }
 ```
 
-## **Interfaz MusicalGenresManage**<a name="id15"></a>
+## **Interfaz MusicalGenresManage**<a name="id17"></a>
 
 [**_MusicalGenresManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/MusicalGenres/MusicalGenresManage.ts)
 
@@ -1619,7 +1620,7 @@ export interface MusicalGenresManage {
 }
 ```
 
-## **Interfaz Nameable**<a name="id16"></a>
+## **Interfaz Nameable**<a name="id18"></a>
 
 [**_Nameable.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Nameable/Nameable.ts)
 
@@ -1630,7 +1631,7 @@ export interface Nameable {
 }
 ```
 
-## **Interfaz Playlist**<a name="id17"></a>
+## **Interfaz Playlist**<a name="id19"></a>
 
 [**_PlaylistManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Playlist/PlaylistManage.ts)
 
@@ -1643,7 +1644,7 @@ export interface PlaylistManage {
 }
 ```
 
-## **Interfaz SongManage**<a name="id18"></a>
+## **Interfaz SongManage**<a name="id20"></a>
 
 [**_SongManage.ts_**](https://github.com/ULL-ESIT-INF-DSI-2122/ull-esit-inf-dsi-21-22-prct07-music-datamodel-grupo_g/blob/main/src/Song/SongManage.ts)
 
@@ -1656,7 +1657,7 @@ export interface SongManage {
 }
 ```
 
-# BASE DE DATOS<a name="id19"></a>
+# BASE DE DATOS<a name="id21"></a>
 Para la persistencia de los datos se ha implementado una base de datos mediante la herramienta **LowDB**.
 
 **LowDB** nos permite crear bases de datos sencillas capaces de almacenarse en un fichero typo JSON, fácil de manipular.
@@ -1863,12 +1864,12 @@ Los métodos de la clase **DB** son los siguientes:
     }
     ```
 
-# CONCLUSIÓN<a name="id20"></a>
+# CONCLUSIÓN<a name="id22"></a>
 
 
 
 
-### INTEGRANTES<a name="id21"></a>
+### INTEGRANTES<a name="id23"></a>
 
 - **Gabriel Alberto Luis Freitas:** alu0101348421
 - **Dana Belen Choque Zárate:** alu0101328348
